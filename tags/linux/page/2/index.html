@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>linux | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: linux</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/postmarketos-guide/">
+                  <h2 class="post-title">postmarketOS食用指南</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言postmarketOS是一个运行在手机上的Linux系统，基于Alpine Linux。
+在整理杂物时，翻出了一台旧手机（骁龙650+3G+32G）；这样的硬件资源，比云学生机好太多了。
+卖了又不划算，闲置着怪可惜的，便有了接下来尝试充分利用资源的计划。
+
+往手机安装Linux，打造一台下载服务器。
+
+构建环境安装postmarketOS需要Linux环境，以及python&#x2F;pip...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/samba-large-file-transfer-fix/">
+                  <h2 class="post-title">Samba传输大文件出错的解决方案</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，使用samba看电影，每次跳到46分钟左右的时侯，视频就中断了。
+尝试下载视频文件，却得到了这样的结果。
+“访达”不能完成该操作，因为不能读取或写入“[NC-Raws] Fate／stay night [Heaven&#39;s Feel]Ⅲ.春樱之歌 - 01 [B-Global][WEB-DL][1080p][AVC AAC][CHS_CHT_ENG_TH_SRT][MKV].m...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/12/04/centos7-network-rename/">
+                  <h2 class="post-title">CentOS7 网卡更名</h2>
+                </a>
+                <div class="post-date">
+                  2019-12-04
+                </div>
+                <div class="post-abstract">
+                  前言近日，在尝试将 CentOS 系统从虚拟机迁移安装到物理机时，发现网卡名称发生了变化。（eno1 -&gt; enp0s1）
+但系统中所运行的服务应用与网卡名称有所关联（OVSPort），迁移之后出现了故障。
+此时，则需要为网卡进行更名操作。
+操作过程
+修改引导参数
+
+vi /etc/default/grub
+# 在 GRUB_CMDLINE_LINUX 行加上 net.ifnames=0 b...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/05/29/linux-adjust-screen-brightness/">
+                  <h2 class="post-title">Linux调整屏幕亮度</h2>
+                </a>
+                <div class="post-date">
+                  2018-05-29
+                </div>
+                <div class="post-abstract">
+                  前言由于给平板安装了Ubuntu Server系统，在字符界面模式下，亮度一直保持在最高值。
+怕是开久了，会把屏幕给烧了，于是乎了解了一下调整亮度的方法。
+操作方法需要开机调节的话，可以写入&#x2F;etc&#x2F;rc.local。
+# 查看亮度最大值。
+cat /sys/class/backlight/intel_backlight/max_brightness
+# 设置屏幕亮度为最低，0...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/20/autofs-on-demand-mounting/">
+                  <h2 class="post-title">AutoFS的妙用--实现按需挂载</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-20
+                </div>
+                <div class="post-abstract">
+                  前言当我们在linux环境下想要访问一些需要挂载才能使用的文件或目录时，也许你会毫不犹豫的直接mount就好了。
+当你经常访问这个文件时，也许你会想，写入开机挂载（&#x2F;etc&#x2F;fstab）就好了。
+但当你经常访问很多的文件，目录，镜像等等，而且挂载点有些是网络资源时，全部写入开机挂载项就有点不合适了。
+而且全部挂载会拖慢开机速度，这时，按需自动挂载就很重要了，而autofs正可以...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/02/07/shell-background-execution/">
+                  <h2 class="post-title">关于Shell后台运行</h2>
+                </a>
+                <div class="post-date">
+                  2018-02-07
+                </div>
+                <div class="post-abstract">
+                  前言在shell里执行程序时，在最后加上&amp;可以使程序在后台运行，不占用当前屏幕。
+单独执行一条命令时，在最后加上&amp;即可。
+但当我们想同时开启多个后台的时候，也许你的想法如此：
+for file in * ; do
+    echo $file &amp;;
+done
+
+如果是这样，恭喜你，想法跟我一样，是错的。
+正解正确做法是，把每条命令都用花括号括起来，再在后面加上&amp;。（...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/tags/linux/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

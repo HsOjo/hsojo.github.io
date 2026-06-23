@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>flask | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: flask</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/05/18/gunicorn-gevent-fork-process-crash/">
+                  <h2 class="post-title">Gunicorn+GeventWorker环境下fork进程意外结束的问题</h2>
+                </a>
+                <div class="post-date">
+                  2021-05-18
+                </div>
+                <div class="post-abstract">
+                  前言在使用Gunicorn+GeventWorker托管Flask应用，使用os.fork时出现了以下问题。
+Parent changed, shutting down : &lt;Worker xxxx&gt;
+
+
+本文摘录自本人毕业设计论文。
+
+问题分析通过os.fork创建进程，实际上是将当前进程的内存数据复制了一份给子进程，当子进程发现其不是由Gunicorn主进程所创建时，Gunicor...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-blueprint-nesting/">
+                  <h2 class="post-title">Flask 蓝图嵌套</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言Flask是一个轻量级的python web框架，与django相比，flask抛开了繁琐的配置项等等。
+Flask与Django一样，支持模块化开发，使用BluePrint（蓝图）实现。
+但是，这个蓝图并不支持嵌套。。
+正文当然，我能想到的问题早就有人想到，并解决了。
+详情见issue.
+解决方案class NestableBlueprint(Blueprint):
+    &quot;&q...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-selectfield-not-valid-choice-fix/">
+                  <h2 class="post-title">Flask SelectField (Not a vaild choice) 错误解决</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言最近折腾起来Flask，在使用WTForm的时候遇到了一点小问题。
+当提交表单时，SelectField项提示错误Not a vaild choice.
+正文此时表单代码为：
+class QuestionAddForm(FlaskForm):
+    type = SelectField(&#39;类型&#39;, choices=list(
+        {
+            1: ...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

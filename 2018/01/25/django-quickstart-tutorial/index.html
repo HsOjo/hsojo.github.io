@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Django 快速入门教程 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言学习web开发是一条艰辛的道路，那些令人讨厌的前端页面总是需要我们复制粘贴、复制粘贴，一旦修改，经常要同时修改多个文件。
+页面做的最多的地方无疑是后台管理部分，一个模块，基本就要做出一套页面，比如：
+
+增加内容页面
+编辑内容页面（和增加内容的页面大部分内容相同）
+内容列表页面（里面还要考虑筛选、" />
+    <meta name="keywords" content="python,django,web" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Django 快速入门教程</h2>
+            <div class="post-date">
+              2018-01-25&emsp;&emsp;1804 字 &emsp;阅读时间 7 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>学习web开发是一条艰辛的道路，那些令人讨厌的前端页面总是需要我们复制粘贴、复制粘贴，一旦修改，经常要同时修改多个文件。</p>
+<p>页面做的最多的地方无疑是后台管理部分，一个模块，基本就要做出一套页面，比如：</p>
+<ol>
+<li>增加内容页面</li>
+<li>编辑内容页面（和增加内容的页面大部分内容相同）</li>
+<li>内容列表页面（里面还要考虑筛选、搜索功能的实现）</li>
+</ol>
+<p>做这些页面做多了，难免心生厌烦，比如我用什么thinkphp，一直要复制n套模版，编辑html，替换一些名称什么的，完全就是苦力活。</p>
+<p>所以，为了减少这些重复的劳动，Django替我们实现了一个管理后台，能够对我们设计的模型自动生成管理页，且不需要编写html，这听起来很美好，然而这就是事实。</p>
+<p>人生苦短，我用Python(Django)！</p>
+<h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><ul>
+<li>系统：*nix（Ubuntu、OS X，Windows No! No! No!）</li>
+<li>软件：python3、django、pycharm</li>
+</ul>
+<h2 id="安装环境"><a href="#安装环境" class="headerlink" title="安装环境"></a>安装环境</h2><p>安装Django前需要安装python3，我们使用包管理软件安装：</p>
+<p>（Windows用户请到python官网下载execute installer，这就是不推荐Windows的原因）</p>
+<pre><code># Ubuntu，好像自带python3，没有的话就执行这个吧
+sudo apt install python3
+
+# OS X，使用brew安装，没有brew请执行以下命令
+/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+# 安装python3
+brew install python3
+</code></pre>
+<p>当python3安装完成后，在bash中就可以使用pip3进行python3的包管理了。</p>
+<p>（Windows需要配置环境变量，execute installer可以在安装时选add to path。）</p>
+<pre><code># 安装django
+pip3 install django
+</code></pre>
+<p>至此Django就安装完成了。</p>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>打开终端，在work space（工作空间）下，执行以下命令：</p>
+<pre><code># mysite为新建的站点的名称，可自定义。
+django-admin startproject mysite
+</code></pre>
+<p>创建完成后，项目结构如下所示。</p>
+<pre><code>mysite/
+    manage.py
+    mysite/
+        __init__.py
+        settings.py
+        urls.py
+        wsgi.py
+</code></pre>
+<ul>
+<li>最外层的mysite是无关紧要的，随时可以重命名，不影响运行。</li>
+<li>manage.py，项目的管理器，作用跟django-admin一致。</li>
+<li>mysite&#x2F;settings.py，项目的配置文件，调试、语言、时区等设置在此配置。</li>
+<li>mysite&#x2F;urls.py，定义了url与各模块之间的关联。</li>
+<li>mysite&#x2F;wsgi.py，用于部署到apache等web服务器上，由于纯Python环境亦可运行，小项目并不需要理会这个。</li>
+</ul>
+<h2 id="新建模块"><a href="#新建模块" class="headerlink" title="新建模块"></a>新建模块</h2><p>打开终端，cd到项目目录下，执行以下命令：</p>
+<pre><code># user是我们将要新建的模块（应用）名称
+python3 manage.py startapp user
+</code></pre>
+<p>执行命令后生成的文件如下所示：</p>
+<pre><code>user/
+    migrations/
+        __init__.py
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    views.py
+</code></pre>
+<ul>
+<li>migrations，这个目录用于存储自动生成的模型脚本。</li>
+<li><strong>init</strong>.py，这两个文件为空，在Python里，目录下包含__init__.py就是把目录定义为包。</li>
+<li>admin.py，用于将你定义的模型注册到管理平台。</li>
+<li>apps.py，疑似用于作为配置文件。</li>
+<li>models.py，用于定义你的模型。</li>
+<li>test.py，用于编写测试代码。</li>
+<li>views.py，用于定义视图。</li>
+</ul>
+<h2 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h2><p>我们现在完成了用户模块（应用）的创建，但这个模块还是空的，我们现在来设计个账号模型。</p>
+<p>账号的基本要素，登录名，密码。</p>
+<p>以下为user&#x2F;models.py：</p>
+<pre><code class="language-python">from django.db import models
+# Create your models here.class Account(models.Model):
+    login = models.CharField(max_length=32)
+    password = models.CharField(max_length=32)
+</code></pre>
+<p>模型设计完成了，还需要在后台对其进行管理，所以我们把这个模型注册到管理系统：</p>
+<p>以下为user&#x2F;admin.py：</p>
+<pre><code class="language-python">from django.contrib import admin
+from .models import *# Register your models here.class AccountAdmin(admin.ModelAdmin):
+    list_display = (&#39;login&#39;, &#39;nick&#39;)
+admin.site.register(Account, AccountAdmin)
+</code></pre>
+<h2 id="自动化配置"><a href="#自动化配置" class="headerlink" title="自动化配置"></a>自动化配置</h2><p>emmmmm，也许你现在在疑惑，怎么不用配置数据库？难道写几行python就能做到数据的存储？数据要去哪里查看？</p>
+<p>其实Django也是需要配置数据库的，但Django实现了数据库的自动化建表（当时令我眼前一亮），其他地方也与传统的网站开发相差无几。</p>
+<p>Django默认使用sqlite3，这是一个轻型的数据库，以文件的形式存储，不需要登陆到数据库主机什么的，小型项目最佳选择，甚至连配置都不用。</p>
+<h3 id="注册模块（应用）"><a href="#注册模块（应用）" class="headerlink" title="注册模块（应用）"></a>注册模块（应用）</h3><p>当我们要自动配置数据库时，首先要把应用注册到当前站点的配置文件，这样django的管理器才会帮你生成这个应用下的数据表。</p>
+<p>我们把user模块添加到<strong>INSTALLED_APPS</strong> list里就OK了，修改如下文件：</p>
+<p>以下为mysite&#x2F;settings.py的片段：</p>
+<pre><code class="language-python"># ...其它代码...# Application definitionINSTALLED_APPS = [
+    &#39;django.contrib.admin&#39;,
+    &#39;django.contrib.auth&#39;,
+    &#39;django.contrib.contenttypes&#39;,
+    &#39;django.contrib.sessions&#39;,
+    &#39;django.contrib.messages&#39;,
+    &#39;django.contrib.staticfiles&#39;,
+    &#39;user&#39;,
+]
+# ...其它代码...
+</code></pre>
+<h3 id="生成数据库"><a href="#生成数据库" class="headerlink" title="生成数据库"></a>生成数据库</h3><p>我们已经把模块注册好了，接下来就要生成其数据表了，执行以下命令：</p>
+<pre><code># 生成自动生成数据表脚本
+python3 manage.py makemigrations
+# 执行自动生成
+python3 manage.py migrate
+</code></pre>
+<p>至此，数据库已经自动生成好了，默认位置是在项目目录下的db.sqlite3，你可以使用sqlite3的数据库管理软件进行打开，对其进行查看。</p>
+<img src="/2018/01/25/django-quickstart-tutorial/post-imagesDjangoIntroWX20180125-154703.png" class="">
+
+<p>自动生成的数据库</p>
+<p>你可以选择sqlite3以外的数据库，如mysql等等，不过需要另外进行配置，这个日后再谈，个人感觉小项目并不需要更换数据库。</p>
+<h2 id="登陆后台"><a href="#登陆后台" class="headerlink" title="登陆后台"></a>登陆后台</h2><p>数据库也生成好了，现在已经迫不及待的想要进入后台了吧。</p>
+<p>首先我们要启动服务器，执行以下命令：</p>
+<pre><code># 如果你使用的是pycharm，直接点右上角的运行就可以了。
+python3 manage.py runserver 8000
+</code></pre>
+<p>然后你可以通过<a target="_blank" rel="noopener" href="http://localhost:8000/admin">http://localhost:8000/admin</a>进行访问后台。</p>
+<h2 id="创建管理员"><a href="#创建管理员" class="headerlink" title="创建管理员"></a>创建管理员</h2><p>如果你现在打开了后台，你会发现，你没有账号，没法登陆233333333333。</p>
+<p>来来来，创建一个，执行以下命令：</p>
+<pre><code># 创建超级用户
+python3 manage.py createsuperuser
+</code></pre>
+<p>现在你就可以登陆了，登陆成功的话，如下图：</p>
+<img src="/2018/01/25/django-quickstart-tutorial/post-imagesDjangoIntroWX20180125-160851.png" class="">
+
+<p>管理后台页面-1</p>
+<img src="/2018/01/25/django-quickstart-tutorial/post-imagesDjangoIntroWX20180125-161403.png" class="">
+
+<p>管理后台页面-2</p>
+<img src="/2018/01/25/django-quickstart-tutorial/post-imagesDjangoIntroWX20180125-161417.png" class="">
+
+<p>管理后台页面-3</p>
+<img src="/2018/01/25/django-quickstart-tutorial/post-imagesDjangoIntroWX20180125-161431.png" class="">
+
+<p>管理后台页面-4</p>
+<p>是不是很棒？自动帮你做好了管理页，虽然有点丑，不过无所谓，后台不是给用户看的。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>写完之后发现忘了一个地方，那就是settings.py的基本设置。</p>
+<pre><code class="language-python"># Internationalization# https://docs.djangoproject.com/en/1.11/topics/i18n/# LANGUAGE_CODE的设置可以参考django.conf.locale下面的目录名。LANGUAGE_CODE = &#39;zh-Hans&#39;# 时区请参考以下页面的TZ列。# https://en.wikipedia.org/wiki/List_of_tz_database_time_zonesTIME_ZONE = &#39;Asia/Shanghai&#39;
+</code></pre>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单的说，我现在看到的Django就是这样，能帮你解决很多繁琐的问题，后台做得很完善，虽然风格跟中国这边的设计差得远了，起码不用我去整数据库，这一部分就正中我红心了，而且让我接触到了sqlite这轻型数据库，我才知道原来数据库还能这么简单。</p>
+<p>以后有空我会继续写Django的文章。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/python/" class="tag">
+                    python
+                  </a>
+                
+                  <a href="/tags/django/" class="tag">
+                    django
+                  </a>
+                
+                  <a href="/tags/web/" class="tag">
+                    web
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/01/24/wechat-official-account-tutorial/">
+                  <h3 class="post-title">
+                    微信公众号简易入门教程
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-text">操作环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E7%8E%AF%E5%A2%83"><span class="toc-text">安装环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="toc-text">新建项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E6%A8%A1%E5%9D%97"><span class="toc-text">新建模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%9E%8B"><span class="toc-text">设计模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%85%8D%E7%BD%AE"><span class="toc-text">自动化配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E6%A8%A1%E5%9D%97%EF%BC%88%E5%BA%94%E7%94%A8%EF%BC%89"><span class="toc-text">注册模块（应用）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">生成数据库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%99%BB%E9%99%86%E5%90%8E%E5%8F%B0"><span class="toc-text">登陆后台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E7%AE%A1%E7%90%86%E5%91%98"><span class="toc-text">创建管理员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

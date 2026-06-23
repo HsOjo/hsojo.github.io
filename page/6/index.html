@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/11/30/pycrypto-vs-compile-error/">
+                  <h2 class="post-title">【转】安装PyCrypto时VS编译出错</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-11-30
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近做了个project，需要用到PyCrypto。
+PyCrypto在Windows下需要使用VC进行编译，不过Python模块在Windows平台编译坑点比较多。
+如：
+winrand.c
+D:\Windows Kits\10\include\10.0.17134.0\ucrt\inttypes.h(27): error C2061: 语法错误: 标识符“intmax_t”
+D:\Wind...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/10/31/cpp-get-array-length/">
+                  <h2 class="post-title">C++之获取数组长度</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-10-31
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/c/" class="tag">
+                          c++
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在研究数组排序的过程中，发现了个很基础的问题–如何获取数组长度（成员数）。
+似乎C++并没有提供获取数组长度的方法，网上搜索得知sizeof可以计算变量大小，可以通过获取数组大小&#x2F;成员大小的办法得到数组长度。
+当我将这个计算数组长度的方法封装起来时，发现事情并不简单。
+int array_length(int ai[]) {   return sizeof ai / sizeof a...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/10/12/python-regex-test-data-generation/">
+                  <h2 class="post-title">Python生成正则测试数据</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-10-12
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言匹配文本，最简单的方法就是使用正则表达式了。
+但根据表达式生成测试数据，反过来一看，缺没什么头绪。
+万幸的是，使用的是轮子遍地的python，所以只要找到相关模块就可以了。
+正文可使用xeger或rstr（含xeger）模块。
+这里使用xeger模块。
+pip3 install xeger
+
+from xeger import Xeger
+reg_str = &#39;0\((.+?)\);&...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/09/19/qt-plugin-load-failure/">
+                  <h2 class="post-title">关于Qt插件无法加载的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-09-19
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/qt/" class="tag">
+                          qt
+                        </a>
+                      
+                        <a href="/tags/c/" class="tag">
+                          c++
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言某友人做了个Qt&#x2F;C++ Project，开发环境Qt4.8+VS2017。
+开发环境运行程序正常，但发布版在实际环境中无法运行。
+首先是Qt对VC2010的依赖，缺失msvc*xxx.dll。
+运行库安装后，出现错误：
+CATCH:    Driver not loaded Driver not loaded
+SQL_ERR:    Database Open Fail
+
+解决方法...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/09/03/win10-screen-brightness-issue/">
+                  <h2 class="post-title">关于Win10无法调整屏幕亮度的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-09-03
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/windows/" class="tag">
+                          windows
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在win10从1511更新到1803之后，出现了显卡驱动正常，但无法修改屏幕亮度的情况。
+搜索了一些修复教程，但却无一成功。
+总结了一下教程的关键点–驱动、监视器。
+随便操作了下，成功修复，记录下。
+过程
+打开“设备管理器”，展开“监视器”项。
+更新驱动-选择“通用即插即用监视器”。
+更新驱动-选择原来的驱动。
+
+后话也许跟teamviewer有关，不过无所谓了，能用就行。
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/08/21/emoji-ansi-encoding-issue/">
+                  <h2 class="post-title">关于Emoji在Ansi编码上的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-08-21
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近期开发微信项目，其中消息转发部分遇到了个问题。
+当被转发的消息包含emoji表情时，在utf8转unicode的过程中因为编码不支持emoji字符，导致emoji表情变成了乱码（?）。
+折腾半天，emoji是没办法转ansi了，但是可以通过字典的方式转成其他可解析字符来实现无损转换。
+解决方案遍历emoji码表进行替换成可解析字符，如“🌞”替换成“:sun:”。
+字典可以从以下projec...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/23/pyinstaller-pyqt5-5-11-2-issue/">
+                  <h2 class="post-title">关于PyInstaller与PyQt5-5.11.2的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-07-23
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/pyinstaller/" class="tag">
+                          pyinstaller
+                        </a>
+                      
+                        <a href="/tags/qt/" class="tag">
+                          qt
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间由于没有使用virtualenv进行模块测试，导致pip安装的模块乱七八糟。
+于是乎使用pip卸载掉所有模块，重新把常用的装上。
+今天出现了个问题，pyinstaller打包出来的pyqt5应用无法启动。
+ModuleNotFoundError: No module named &#39;PyQt5.sip&#39;
+
+解决方法经过一番搜索，发现是pyinstaller内置的sip版本...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/12/nis-auth-environment-centos/">
+                  <h2 class="post-title">Nis用户验证环境搭建（CentOS）</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-07-12
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在linux环境下，若要实现一个用户在多台主机上登录，需要怎么操作呢。
+使用ldap？不，这过于复杂了，要实现轻量的用户验证环境，只需要配置nis+nfs即可。
+nis服务可以集中式管理账户（用户、组、hosts、等等。。），配置过程相对简单。
+环境
+Server
+ip: 172.16.70.129
+安装软件: ypserv（nis服务）, nfs-utils（nfs服务）
+
+
+Client
+...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/26/mpk-file-format-steins-gate/">
+                  <h2 class="post-title">Mpk文件格式（STEINS;GATE）</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-06-26
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近日看石头门0的动画入迷了，想要入手个游戏来玩玩。
+近期steam刚好又有打折活动，不过可惜石头门0只有10%折扣，所以还是以后再买了。
+但是石头门打折40%，于是乎又想回顾一下剧情，所以就。。。买！买！买！（买情怀）
+当我通关全线后，忽然发现壁纸很久没换了，想换套壁纸，上网搜寻一番mpk解包工具，无果，于是乎就萌生了现在这个Mpk文件解析的念头。
+文件结构虽然mpk的文件结构简单，但是由于没...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/22/postfix-configuration-centos6-5/">
+                  <h2 class="post-title">Postfix配置（CentOS6.5）</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-06-22
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言现有需求要使用postfix服务配置一台邮箱服务器。（测试环境）
+要求：
+
+用户邮箱限额。
+用户发件大小限额。
+支持sasl验证。
+支持收件。（使用dovecot）
+
+配置过程首先配置软件安装源，这是必不可少的。
+配置发件服务器在CentOS6.5的环境下，默认已经安装上了postfix服务，所以就不进行安装了。
+配置postfix
+由于postfix仅需要配置 &#x2F;etc&#x2F;...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/page/5/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/page/7/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

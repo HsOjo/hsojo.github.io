@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/20/autofs-on-demand-mounting/">
+                  <h2 class="post-title">AutoFS的妙用--实现按需挂载</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-04-20
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言当我们在linux环境下想要访问一些需要挂载才能使用的文件或目录时，也许你会毫不犹豫的直接mount就好了。
+当你经常访问这个文件时，也许你会想，写入开机挂载（&#x2F;etc&#x2F;fstab）就好了。
+但当你经常访问很多的文件，目录，镜像等等，而且挂载点有些是网络资源时，全部写入开机挂载项就有点不合适了。
+而且全部挂载会拖慢开机速度，这时，按需自动挂载就很重要了，而autofs正可以...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/04/openstack-security-group-notes/">
+                  <h2 class="post-title">Openstack安全组的那些事</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-04-04
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/openstack/" class="tag">
+                          openstack
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言当安装完openstack，配置好vlan模式后，你要从外部访问实例的时候，你会发现，无法连通，无论是tcp,udp还是icmp(ping)，都无法访问实例。
+但是实例可以访问外部的服务器，即网络是可通信的，只是被限制了。
+也许你第一时间想到的是openstack主机的防火墙，但是你关掉之后，依然还是不行。
+经过一番研究，我发现是由于openstack安全组规则导致的，特此记录。
+安全组概述据...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/03/openstack-mitaka-rdo-installation/">
+                  <h2 class="post-title">Openstack安装（mitaka），RDO方式</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-04-03
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/openstack/" class="tag">
+                          openstack
+                        </a>
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言每次安装openstack，都是一个重复踩坑的过程，虽然越踩就越深刻，不过还是记录下文档吧。
+环境
+系统：CentOS 7
+网卡：enp7s0，enp8s0
+SELinux: permissive&#x2F;disabled**（重要）**
+
+安装packstack首先根据我之前文章的方法进行配置，使用CentOS7.2（1511）版本的软件源，然后安装openstack源。
+yum -y i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/02/openstack-nova-instance-encoding-error/">
+                  <h2 class="post-title">OpenstackNova创建实例编码报错</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-04-02
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/openstack/" class="tag">
+                          openstack
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言重新搭建了一遍openstack，创建虚拟机失败，提示错误：
+云主机 &quot;abc&quot; 执行所请求操作失败，云主机处于错误状态。: 请稍后再试 [错误: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 96: ordinal not in range(128)].
+
+以前也遇到过这情况，由于解决方法过于简单...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/27/file-sharing-ad-subdomain-access/">
+                  <h2 class="post-title">关于文件共享在ad域与子域名访问的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-03-27
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/samba/" class="tag">
+                          samba
+                        </a>
+                      
+                        <a href="/tags/dns/" class="tag">
+                          dns
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言长话短说，现需要以简短的域名（类似于主机名）访问文件共享。
+比如文件共享服务器于ad域test.com，而需要使用**\share**的方式直接访问共享服务器。
+一般来说，直接在test.com区域中添加主机记录share即可（即share.test.com），但问题来了，当使用文件共享服务器自身访问的时候，遇到了怎么都登录不上的情况（提示密码错误）。
+按理说，这样解析是没问题的，其它机器访问...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/27/vsftpd-notes/">
+                  <h2 class="post-title">关于vsftpd的那些琐碎事</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-03-27
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/ftp/" class="tag">
+                          ftp
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言由于一直没有把ftp错误排查方法记录下来，一段时间之后忘记后就又要重复踩坑，今天又踩了一遍，为避免日后再踩，特以此篇文章以作记录。
+各种坑点先把想到的写下来，一时想不起来所有问题。
+通用
+确保selinux已关闭（不考虑selinux）
+
+登录失败
+确保用户拥有目录的读权限（文件权限）
+新版vsftpd确保参数allow_writeable_chroot（allow_writable_chro...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/26/openstack-neutron-router-unavailable/">
+                  <h2 class="post-title">关于Openstack Neutron Router无法使用的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-03-26
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/openstack/" class="tag">
+                          openstack
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言因学习需要，配置openstack上的路由时发现，创建路由及其子接口后，子接口无法激活，经过一番研究，终于发现问题所在。
+解决方法这估计是neutron的一个bug，创建router之后，没有指定availability_zones这个属性，即没有指定其可用区域，也就是哪个区域都不能用。
+然而availability_zones这个属性是只读的，刚开始我还以为直接更新这个区域就可用了，后来发现...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/18/pyinstaller-data-file-packaging/">
+                  <h2 class="post-title">关于pyinstaller数据文件的打包</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-03-18
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/pyinstaller/" class="tag">
+                          pyinstaller
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言使用pyinstaller进行打包程序，执行程序时发现，放置于程序目录的文件无法加载（相对路径方式访问）。
+经过一番测试，发现执行程序时，程序执行的当前目录不一定是程序文件所在的目录。
+而使用**–add-data与–add-binary**打包的文件，发现存放于系统的临时目录。
+获取路径经过一番搜索，终于找到了获取数据临时目录的方法。官方wiki
+import sys
+# 临时目录的路径pr...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/01/centos-install-eol-software/">
+                  <h2 class="post-title">CentOS安装不再维护(EOL)的软件</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-03-01
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言随着时代的发展，现在的软件日新月异，软件寿命不断缩短，服务器软件也总是在更新迭代。一些软件很快就被淘汰了。
+当这些软件到了EOL（end-of-life）时，官方不再对其软件源维护，这些软件就无法通过包管理进行安装了。（[Error 256] No more mirrors to try.&#x2F;[404] Http Not Found）
+然而实际环境总是为了追求稳定性（更新成本巨大？），...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/02/08/phantom-tank-driving-technique/">
+                  <h2 class="post-title">揭秘开车技巧-幻影坦克</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2018-02-08
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间在QQ上发现了一种特殊的图片，表面上看是一张正常的图片，而当你点开来看，emmmmm，撞车了。
+在我看来，这很有趣，于是乎我搜索了一下，得知这种图片的称呼是“幻影坦克”（出自红警，虽然我没玩过），真霸气。
+工具下载当我按教程做了一遍后，感觉每次要弄一张幻影坦克都好麻烦，于是乎我写了个幻影坦克生成工具。
+如果有兴趣看制作方法的，可以往下看，如果只是想弄张图片，那就点击下面的链接下载即可。...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/page/7/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/page/9/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>软件技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 软件技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/09/19/qt-plugin-load-failure/">
+                  <h2 class="post-title">关于Qt插件无法加载的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-09-19
+                </div>
+                <div class="post-abstract">
+                  前言某友人做了个Qt&#x2F;C++ Project，开发环境Qt4.8+VS2017。
+开发环境运行程序正常，但发布版在实际环境中无法运行。
+首先是Qt对VC2010的依赖，缺失msvc*xxx.dll。
+运行库安装后，出现错误：
+CATCH:    Driver not loaded Driver not loaded
+SQL_ERR:    Database Open Fail
+
+解决方法...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/08/21/emoji-ansi-encoding-issue/">
+                  <h2 class="post-title">关于Emoji在Ansi编码上的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-08-21
+                </div>
+                <div class="post-abstract">
+                  前言近期开发微信项目，其中消息转发部分遇到了个问题。
+当被转发的消息包含emoji表情时，在utf8转unicode的过程中因为编码不支持emoji字符，导致emoji表情变成了乱码（?）。
+折腾半天，emoji是没办法转ansi了，但是可以通过字典的方式转成其他可解析字符来实现无损转换。
+解决方案遍历emoji码表进行替换成可解析字符，如“🌞”替换成“:sun:”。
+字典可以从以下projec...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/23/pyinstaller-pyqt5-5-11-2-issue/">
+                  <h2 class="post-title">关于PyInstaller与PyQt5-5.11.2的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-07-23
+                </div>
+                <div class="post-abstract">
+                  前言前段时间由于没有使用virtualenv进行模块测试，导致pip安装的模块乱七八糟。
+于是乎使用pip卸载掉所有模块，重新把常用的装上。
+今天出现了个问题，pyinstaller打包出来的pyqt5应用无法启动。
+ModuleNotFoundError: No module named &#39;PyQt5.sip&#39;
+
+解决方法经过一番搜索，发现是pyinstaller内置的sip版本...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/26/mpk-file-format-steins-gate/">
+                  <h2 class="post-title">Mpk文件格式（STEINS;GATE）</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-26
+                </div>
+                <div class="post-abstract">
+                  前言近日看石头门0的动画入迷了，想要入手个游戏来玩玩。
+近期steam刚好又有打折活动，不过可惜石头门0只有10%折扣，所以还是以后再买了。
+但是石头门打折40%，于是乎又想回顾一下剧情，所以就。。。买！买！买！（买情怀）
+当我通关全线后，忽然发现壁纸很久没换了，想换套壁纸，上网搜寻一番mpk解包工具，无果，于是乎就萌生了现在这个Mpk文件解析的念头。
+文件结构虽然mpk的文件结构简单，但是由于没...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/20/vim-adventures/">
+                  <h2 class="post-title">Vim Adventures</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-20
+                </div>
+                <div class="post-abstract">
+                  前言在知乎看到了关于vim学习的文章。
+想着vim在字符界面下使用很方便，使ssh环境下修改文件不再困难。
+由于没有系统的学习过，突然又萌生了重头开始学习的念头。
+当我打开以下链接后就停不下来了。（是个游戏，操作方式&#x3D;vim使用方式）
+点击查看
+Level 1才知道vim在普通模式下是用这些按键移动的。（平时只用上下左右光标）
+中途有个宝箱，不过现在开不了（还没取得按键）。
+
+
+
+按键
+...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/19/python-on-windows-mess/">
+                  <h2 class="post-title">Python on Windows爆炸</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-19
+                </div>
+                <div class="post-abstract">
+                  前言这几天做了一个基于python的project，使用pyinstaller进行打包。
+在项目即将完成之际，经过三台PC的测试，并没有什么问题。
+但是，当放到老板的两台PC上，均出现了无法运行的问题！
+于是乎，离deadline也就剩下两三天了，翻车翻车。
+安全性这种虚拟机语言的安全性当然是妙不可言了，能直接反编译成源代码。
+网上那些所谓的加密成pyc什么的，都是胡扯，完全没有意义。
+什么？用p...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/19/dnf-resource-format-npk/">
+                  <h2 class="post-title">Dnf资源文件格式-NPK篇</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-19
+                </div>
+                <div class="post-abstract">
+                  前言在数个月之前，完成了OjoDnfExtractor的开发，该软件用于提取Dnf的资源包文件。
+在做Dnf这些资源包文件的解析过程中，我明白了文件结构该如何设计。（也尝试了去设计文件结构）
+经过多番观察、推测，成功解析了NPK以及IMG-Ver1、2、4、5、6的文件结构（支持读写）。
+正文npk文件是dnf用于模拟文件目录结构所使用的，结构相对简单。
+为了直观的展示其结构，直接插图。
+
+
+NP...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/15/python-file-time-manipulation/">
+                  <h2 class="post-title">Python操作文件时间</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-15
+                </div>
+                <div class="post-abstract">
+                  前言这次的项目涉及到了文件时间的伪装，即修改文件后恢复修改时间到原来得到的时间。
+尝试使用某度搜索了相关文档，但却找不到相关的内容，google后立刻找到结果。
+正文直接code说话。
+import shutil
+import os
+path = &#39;文件位置&#39;path_new = &#39;文件位置2&#39;# 取文件状态，包含各种时间。os.getstat(path)
+# 复制...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/18/pyinstaller-data-file-packaging/">
+                  <h2 class="post-title">关于pyinstaller数据文件的打包</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-18
+                </div>
+                <div class="post-abstract">
+                  前言使用pyinstaller进行打包程序，执行程序时发现，放置于程序目录的文件无法加载（相对路径方式访问）。
+经过一番测试，发现执行程序时，程序执行的当前目录不一定是程序文件所在的目录。
+而使用**–add-data与–add-binary**打包的文件，发现存放于系统的临时目录。
+获取路径经过一番搜索，终于找到了获取数据临时目录的方法。官方wiki
+import sys
+# 临时目录的路径pr...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/02/08/phantom-tank-driving-technique/">
+                  <h2 class="post-title">揭秘开车技巧-幻影坦克</h2>
+                </a>
+                <div class="post-date">
+                  2018-02-08
+                </div>
+                <div class="post-abstract">
+                  前言前段时间在QQ上发现了一种特殊的图片，表面上看是一张正常的图片，而当你点开来看，emmmmm，撞车了。
+在我看来，这很有趣，于是乎我搜索了一下，得知这种图片的称呼是“幻影坦克”（出自红警，虽然我没玩过），真霸气。
+工具下载当我按教程做了一遍后，感觉每次要弄一张幻影坦克都好麻烦，于是乎我写了个幻影坦克生成工具。
+如果有兴趣看制作方法的，可以往下看，如果只是想弄张图片，那就点击下面的链接下载即可。...
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/page/3/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/page/5/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

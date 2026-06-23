@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>【汉化】11月的阿卡迪亚 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在数个月前我听到了这游戏的OP，感觉挺好听的。然后找了一下这个游戏，发现并没有汉化版，甚至连开坑的消息都没有，个人开坑的不算，谁知道整到什么时候。
+于是乎，我花了2天时间来进行程序的分析及修改。（初版完成）
+后来又花了4天时间，对乱码文本进行修复。（解析完善）
+最后，加上写这篇文章的时间，便是一" />
+    <meta name="keywords" content="python,hook" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">【汉化】11月的阿卡迪亚</h2>
+            <div class="post-date">
+              2017-10-18&emsp;&emsp;1885 字 &emsp;阅读时间 7 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在数个月前我听到了这游戏的OP，感觉挺好听的。<br>然后找了一下这个游戏，发现并没有汉化版，甚至连开坑的消息都没有<del>，个人开坑的不算，谁知道整到什么时候</del>。</p>
+<p>于是乎，我花了2天时间来进行程序的分析及修改。（初版完成）</p>
+<p>后来又花了4天时间，对乱码文本进行修复。（解析完善）</p>
+<p>最后，加上写这篇文章的时间，便是一周了。</p>
+<h2 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h2><p>系统：macOS+Windows</p>
+<p>软件：<br><a target="_blank" rel="noopener" href="http://wks.arai-kibou.ru/ae.php?p=dl">AnimED</a>,<br>010editor,<br>LordPE,<br>Python3.6,<br>ollydbg,<br>易语言&#x2F;C&#x2F;C++&#x2F;…（能编译windows动态链接库就行）</p>
+<p>软件请自行下载／安装，纯windows亦可操作。</p>
+<h2 id="资源汉化"><a href="#资源汉化" class="headerlink" title="资源汉化"></a>资源汉化</h2><p>资源汉化过程：</p>
+<ul>
+<li>使用AnimED对游戏目录下arc文件解包。</li>
+<li><del>使用AnimED对解包后内容进行解析。（崩溃了）</del></li>
+<li>使用Python3对解包后内容进行解析。</li>
+<li>对资源进行汉化处理。</li>
+<li><del>使用AnimED对解包后内容重新打包。（也崩溃了）</del></li>
+<li>使用Python3对解包后内容重新打包。</li>
+</ul>
+<h3 id="BGI2-Archive解包"><a href="#BGI2-Archive解包" class="headerlink" title="BGI2_Archive解包"></a>BGI2_Archive解包</h3><p>这是汉化文本的第一步,过程如图。</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-145315.png" class="">
+
+<p>BGI2_Arc解包</p>
+<p>解压出来的都是解密后的文件。</p>
+<p>对此我曾尝试用Python来编写解包工具，arc文件解析出来了，能正常解包。</p>
+<p>但是里面的文件都被DSC算法（可能是buriko的独家算法）加密了，由于我能力不足，对此没辙了。</p>
+<p>虽然AnimED是开源的（delphi写的，pascal语言），我去看了下dsc算法的方法，试着用python抄了下来，可是解析失败，细节太多了，于是就放弃了。</p>
+<h3 id="BGI2-Script解析"><a href="#BGI2-Script解析" class="headerlink" title="BGI2_Script解析"></a>BGI2_Script解析</h3><p>这就是汉化文本的关键了。游戏的所有文本都存放在这个脚本里面。</p>
+<p>看到AnimED里有个<strong>Script Tool</strong>，我天真的以为这玩意能解析脚本，结果一点，然后就没有然后了，TM的单纯是个按钮。</p>
+<h3 id="BGI2-Script结构"><a href="#BGI2-Script结构" class="headerlink" title="BGI2_Script结构"></a>BGI2_Script结构</h3><p>使用010editor进行分析。</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-161949.png" class="">
+
+<p>BGI2_Script格式</p>
+<a href="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaBuriko_Script.mm" title="Buriko_Script.mm">Buriko_Script.mm</a>
+
+<h3 id="BGI2-Script指令"><a href="#BGI2-Script指令" class="headerlink" title="BGI2_Script指令"></a>BGI2_Script指令</h3><p>还是使用010editor进行分析。</p>
+<p>经过一番痛苦的猜测，测试，已知指令如下:</p>
+<ul>
+<li><strong>key</strong>为<strong>command id</strong></li>
+<li><strong>value[‘param’]<strong>为</strong>参数数量</strong></li>
+</ul>
+<pre><code class="language-python">&#123;
+    # body    0: &#123;&#39;param&#39;: 1&#125;,  # 00 00 00 00    1: &#123;&#39;param&#39;: 1&#125;,  # 01 00 00 00    2: &#123;&#39;param&#39;: 0&#125;,  # 02 00 00 00    3: &#123;&#39;param&#39;: 1&#125;,  # 03 00 00 00, text    4: &#123;&#39;param&#39;: 0&#125;,  # 04 00 00 00    9: &#123;&#39;param&#39;: 0&#125;,  # 09 00 00 00    16: &#123;&#39;param&#39;: 0&#125;,  # 10 00 00 00    17: &#123;&#39;param&#39;: 0&#125;,  # 11 00 00 00    24: &#123;&#39;param&#39;: 0&#125;,  # 18 00 00 00    25: &#123;&#39;param&#39;: 1&#125;,  # 19 00 00 00    27: &#123;&#39;param&#39;: 1&#125;,  # 1b 00 00 00, end    28: &#123;&#39;param&#39;: 0&#125;,  # 1c 00 00 00    32: &#123;&#39;param&#39;: 0&#125;,  # 20 00 00 00    33: &#123;&#39;param&#39;: 0&#125;,  # 21 00 00 00    48: &#123;&#39;param&#39;: 0&#125;,  # 30 00 00 00    56: &#123;&#39;param&#39;: 0&#125;,  # 38 00 00 00    63: &#123;&#39;param&#39;: 2&#125;,  # 3f 00 00 00    127: &#123;&#39;param&#39;: 2&#125;,  # 7f 00 00 00    320: &#123;&#39;param&#39;: 0&#125;,  # 40 01 00 00    # foot    249: &#123;&#39;param&#39;: 0&#125;,  # f9 00 00 00    244: &#123;&#39;param&#39;: 0&#125;,  # f4 00 00 00&#125;
+</code></pre>
+<h3 id="BGI2-Script数据"><a href="#BGI2-Script数据" class="headerlink" title="BGI2_Script数据"></a>BGI2_Script数据</h3><p>BGI2_Script主要包含指令数据以及文本数据（包含BSB）。</p>
+<h3 id="指令数据"><a href="#指令数据" class="headerlink" title="指令数据"></a>指令数据</h3><p>首先按结构图的结构从开始读到<strong>Package List</strong>，读完List，取得当前位置为<strong>code_pos</strong>。</p>
+<p>读取<strong>Command Code - head</strong>,参数一为<strong>未知</strong>，参数二为<strong>code_foot_position</strong>。</p>
+<p>然后按照前面的指令字典，从当前位置一直读到<strong>code_foot_position</strong>，<strong>code_body</strong>部分就解析完成了。</p>
+<p><strong>code_body</strong>部分解析完成时，当前stream的位置必须与<strong>code_foot_position</strong>相等，否则这个文件也许不是剧本的脚本。</p>
+<p>然后开始读<strong>code_foot</strong>部分，方法和读<strong>code_body</strong>一样。</p>
+<p>顺便读取<strong>BSB</strong>（<del>其实这个没用，</del>重新封包加上）。</p>
+<h3 id="文本数据"><a href="#文本数据" class="headerlink" title="文本数据"></a>文本数据</h3><p>然后根据之前读取到的command，筛选出command id为3的command（使用文本的命令）。</p>
+<p>再在筛选出的内容里筛选出翻译的内容。</p>
+<p><del>这buriko是真的操蛋，文件路径都在里面，否则就不用筛选了。</del></p>
+<ul>
+<li>角色谈话文本的下一位Command id一般为<strong>320(40 01 00 00)</strong>。</li>
+<li>角色名称文本的Command在角色谈话文本之前。</li>
+<li>角色线路选项文本的下一位Command id一般为<strong>9(09 00 00 00)</strong>，下两位为<strong>2(02 00 00 00)</strong>。</li>
+<li>错误文本在<strong>code_foot</strong>里，下一位Command id一般为<strong>249(f9 00 00 00)</strong>，下两位为<strong>244(f4 00 00 00)</strong>。</li>
+</ul>
+<p>符合以上条件的文本都需要翻译(translate)。</p>
+<p>我筛选的方法如下：</p>
+<pre><code class="language-python">for i in range(len(code_list)):
+    code = code_list[i]
+    if code[&#39;cmd_id&#39;] == 3:
+        p0 = code[&#39;param&#39;][0]
+        next_cmd_id = code_list[i + 1][&#39;cmd_id&#39;]
+        next_2_cmd_id = code_list[i + 2][&#39;cmd_id&#39;]
+        character_text = next_cmd_id == 320        character_name = next_cmd_id == 3 and next_2_cmd_id == 320        character_select = next_cmd_id == 9 and next_2_cmd_id == 2        error_message = next_cmd_id == 249 and next_2_cmd_id == 244        trans = character_text or character_name or character_select or error_message
+</code></pre>
+<h3 id="BGI2-Archive封包"><a href="#BGI2-Archive封包" class="headerlink" title="BGI2_Archive封包"></a>BGI2_Archive封包</h3><p>还是还是使用010editor进行分析。</p>
+<p>Archive的结构是十分的简单，如下图所示。</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-163829.png" class="">
+
+<p>BGI2_Script格式</p>
+<a href="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaBuriko_Archive.mm" title="Buriko_Archive.mm">Buriko_Archive.mm</a>
+
+<p>由于过于简单，不做解释。</p>
+<h2 id="程序修改"><a href="#程序修改" class="headerlink" title="程序修改"></a>程序修改</h2><h3 id="绕过检测"><a href="#绕过检测" class="headerlink" title="绕过检测"></a>绕过检测</h3><p>由于原程序是<strong>japan only</strong>的，所以实际上我们并不能运行。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>使用ollydbg对原程序进行修改。</p>
+<p>按下<strong>ctrl+n</strong>，在弹出的api列表中寻找<strong>GetSystemDefaultLangID</strong>，然后按<strong>Enter</strong>查找调用位置。</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-165712.png" class="">
+
+<p>OD修改语言区域_1</p>
+<p>在简体中文环境下，<strong>GetSystemDefaultLangID</strong> 返回值是 <strong>0x804</strong>，而在日语环境下，返回值是 <strong>0x411</strong>。<br>按空格对代码进行修改，直接返回<strong>0x411</strong>。</p>
+<p>修改前：</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-170136.png" class="">
+
+<p>OD修改语言区域_2</p>
+<p>修改后：</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-170153.png" class="">
+
+<p>OD修改语言区域_3</p>
+<p>右键模块窗口，对修改进行保存：</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-170400.png" class="">
+
+<p>OD修改语言区域_4</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>使用apihook对程序进行注入。</p>
+<p>用易语言编写一个动态链接库，在启动时把<strong>KERNEL32</strong>的<strong>GetSystemDefaultLangID</strong>给hook掉，修改返回值为<strong>1041(0x411)</strong>。</p>
+<p>当然，也可以用C／C++来写这个动态链接库<del>，只是我不会而已</del>。</p>
+<p>然后使用<strong>LordPE</strong>进行静态注入，即把该dll添加到程序的入口（随便做个方法就好，比如我这是test），这样程序运行时便会自动被dll把api hook掉。</p>
+<img src="/2017/10/18/november-arcadia-translation/post-images11GatsuNoArcadiaWX20171018-171340.png" class="">
+
+<p>LordPE注入</p>
+<h3 id="修改文本显示"><a href="#修改文本显示" class="headerlink" title="修改文本显示"></a>修改文本显示</h3><p>虽然前面的资源汉化了，但是程序本身是日文环境的，读取汉化资源就会导致乱码，所以就要做以下的修改。</p>
+<h3 id="修改编码"><a href="#修改编码" class="headerlink" title="修改编码"></a>修改编码</h3><p>由于我并不熟悉OD，所以只能以hook的方式来修改。</p>
+<p>和之前的hook同理，这次hook的方法是以下两个：</p>
+<ul>
+<li><strong>GDI32</strong>的<strong>CreateFontA</strong>，把<strong>fdwCharSet</strong>参数修改为<strong>134(0x86)</strong>，同时可以在此处hook字体的参数，做个配置项，就可以随时更换字体了。</li>
+<li><strong>KERNEL32</strong>的<strong>MultiByteToWideChar</strong>，把<strong>CharSet</strong>参数修改为<strong>936(0x3A8)</strong>。</li>
+</ul>
+<p>以上方法任一没有hook，都会导致乱码。</p>
+<h3 id="修改字符边界"><a href="#修改字符边界" class="headerlink" title="修改字符边界"></a>修改字符边界</h3><p>编码修改了，但是程序还是乱码，这是由于字符边界的关系，把某些字符过滤掉了。</p>
+<ul>
+<li>gbk字符边界: 0x80-0xFE</li>
+<li>shift_jis字符边界：0x80-0xA0</li>
+</ul>
+<p>这里需要使用OD对程序进行修改。</p>
+<p>按下<strong>ctrl+f</strong>进行搜索，内容为<strong>cmp al,0xA0</strong>。</p>
+<p>然后把所有见到的<strong>cmp al,0xA0</strong>都修改成<strong>cmp al,0xFE</strong>。</p>
+<p>这样子程序就能正常加载gbk编码的资源了。</p>
+<h3 id="退出崩溃"><a href="#退出崩溃" class="headerlink" title="退出崩溃"></a>退出崩溃</h3><p>由于进行了hook，程序退出的时候，hook找不到原来的地址发生了崩溃。</p>
+<p>由于能力不足，没法从源头解决。所以我选择把这个问题堵掉。</p>
+<p>还是hook，这次把<strong>USER32</strong>的<strong>DestroyWindow</strong> hook掉，当destroy的句柄为游戏的窗口时，强制把自身的进程杀掉，于是关闭就不会崩溃了<del>，嗯，完美</del>。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/python/" class="tag">
+                    python
+                  </a>
+                
+                  <a href="/tags/hook/" class="tag">
+                    hook
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2017/10/18/free-blog-with-hexo-github-pages/">
+                  <h3 class="post-title">
+                    使用&#34;hexo+github pages&#34;免费整个博客
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-text">操作环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%B1%89%E5%8C%96"><span class="toc-text">资源汉化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Archive%E8%A7%A3%E5%8C%85"><span class="toc-text">BGI2_Archive解包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Script%E8%A7%A3%E6%9E%90"><span class="toc-text">BGI2_Script解析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Script%E7%BB%93%E6%9E%84"><span class="toc-text">BGI2_Script结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Script%E6%8C%87%E4%BB%A4"><span class="toc-text">BGI2_Script指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Script%E6%95%B0%E6%8D%AE"><span class="toc-text">BGI2_Script数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%95%B0%E6%8D%AE"><span class="toc-text">指令数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E6%9C%AC%E6%95%B0%E6%8D%AE"><span class="toc-text">文本数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#BGI2-Archive%E5%B0%81%E5%8C%85"><span class="toc-text">BGI2_Archive封包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E4%BF%AE%E6%94%B9"><span class="toc-text">程序修改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E6%A3%80%E6%B5%8B"><span class="toc-text">绕过检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%B8%80"><span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95%E4%BA%8C"><span class="toc-text">方法二</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E6%96%87%E6%9C%AC%E6%98%BE%E7%A4%BA"><span class="toc-text">修改文本显示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E7%BC%96%E7%A0%81"><span class="toc-text">修改编码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%AD%97%E7%AC%A6%E8%BE%B9%E7%95%8C"><span class="toc-text">修改字符边界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%80%E5%87%BA%E5%B4%A9%E6%BA%83"><span class="toc-text">退出崩溃</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>软件技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 软件技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2024/04/09/huawei-qingyun-w510-tinkering/">
+                  <h2 class="post-title">华为擎云 W510 折腾记</h2>
+                </a>
+                <div class="post-date">
+                  2024-04-09
+                </div>
+                <div class="post-abstract">
+                  前言去年在朋友推荐下买了这台灵车，虽然物超所值，但一直由于种种原因，没能把资源充分利用上。
+首当其冲的就是没有办法使用 Ubuntu 以及 原装的 UOS 以外的操作系统；倒也不是不能安装，只是会出现无限重启的 Bug（又或者是 Feature）。
+为了充分利用资源，计划安装 PVE，但当时一直没有发现可用的 PVE&#x2F;ARM64 镜像。
+但在今天…事情有了转机。
+PVE&#x2F;ARM...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/11/17/kvm-virtualization-in-container-permissions/">
+                  <h2 class="post-title">记容器内运行 KVM 虚拟化的权限问题</h2>
+                </a>
+                <div class="post-date">
+                  2023-11-17
+                </div>
+                <div class="post-abstract">
+                  前言一直以来有个想法，想要将大象（OpenStack）塞进冰箱（Docker），像 OpenStack 这样的庞然大物，每次部署都会浪费至少大半个小时。
+当然，这个想法在一年前就被本人验证可行了，但是仍存在一些不完善的地方……
+特权模式的KVM虚拟化特权模式，即使用--privileged选项创建容器，在这种场景下，会将宿主机中的设备目录（&#x2F;dev），毫无保留的暴露到容器中，并且允许使用...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/09/26/macos-electron-gpu-partial-support-fix/">
+                  <h2 class="post-title">记 macOS 下 Electron GPU 不完整支持的解决方案</h2>
+                </a>
+                <div class="post-date">
+                  2023-09-26
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，有友人赠予了一枚NVIDIA GeForce GTX 1050 Ti 2 GB，思来想去，这枚只有 2GB 显存的图形卡并不能带动游戏需求；但是作为黑苹果的亮机卡的话，还是绰绰有余的。
+于是乎，在 macOS Ventura 13.5.2 (22G91) 上驱动起来后，遇到了不少问题。
+多屏窗口不显示问题
+解决方案：关闭 “系统设置 - 桌面与程序坞 - 显示器具有单独的空间” 即可...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/07/13/dind-io-performance-analysis/">
+                  <h2 class="post-title">DinD 场景下IO性能问题分析</h2>
+                </a>
+                <div class="post-date">
+                  2023-07-13
+                </div>
+                <div class="post-abstract">
+                  前言Docker in Docker（DinD）是一种在容器内运行 Docker 的解决方案，但在未为 DinD 容器使用 Volume 时，内部容器的 Copy-on-Write（写时复制）存储驱动会严重影响性能。
+分析当试图在容器内使用 Docker，且不使用 Volume 为内部 Docker 提供存储时，内部 Docker 将无法使用 OverlayFS 作为 Storage Driver...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/05/05/using-datav-in-vite-project/">
+                  <h2 class="post-title">在 Vite 项目中使用 DataV</h2>
+                </a>
+                <div class="post-date">
+                  2023-05-05
+                </div>
+                <div class="post-abstract">
+                  前言距离 Vite 发布已经有几个年头，但由于长期维护历史遗留项目，鲜有机会去尝试使用其提升开发效率。
+传闻 Vite 较于 Webpack 有将近十倍的性能提升，考虑到开发机的性能难以支撑数千个模块编译的即时响应，以及项目后续对于 Electron 的适配，便决定使用 Vite 来替代原有组件。
+但项目迁移途中并不顺利，因为DataV模块迁移后遇到了以下错误：
+Uncaught SyntaxEr...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/11/18/rosetta-ubuntu-x86-dev-environment/">
+                  <h2 class="post-title">使用 Rosetta 建立 Ubuntu x86 开发环境</h2>
+                </a>
+                <div class="post-date">
+                  2022-11-18
+                </div>
+                <div class="post-abstract">
+                  前言尽管换了 M1 设备也有一年多了，但平时仍然依赖于 x86 平台进行开发，为此不得不单独部署一套 x86 的开发环境在 intel PC 上。
+随着 macOS 更新到了 Ventura (13.0.1)，以及 UTM 4.0 的更新，现已可以在 Linux 环境下启用 Rosetta 对 x86（含amd64） 应用进行加速。
+使用 Rosetta 加速后，在构建项目的速度上甚至几年前的 i...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/03/26/chroot-apt-systemd-detection-fix/">
+                  <h2 class="post-title">修复Chroot环境下APT包管理对systemd环境识别问题</h2>
+                </a>
+                <div class="post-date">
+                  2022-03-26
+                </div>
+                <div class="post-abstract">
+                  前言近期在折腾Chroot环境下的设备时，发现软件包无法更新，得到以下错误：
+(Reading database ... 77272 files and directories currently installed.)
+Preparing to unpack .../mariadb-server-10.3_1%3a10.3.34-0ubuntu0.20.04.1_arm64.deb ...
+Ru...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/05/18/gunicorn-gevent-fork-process-crash/">
+                  <h2 class="post-title">Gunicorn+GeventWorker环境下fork进程意外结束的问题</h2>
+                </a>
+                <div class="post-date">
+                  2021-05-18
+                </div>
+                <div class="post-abstract">
+                  前言在使用Gunicorn+GeventWorker托管Flask应用，使用os.fork时出现了以下问题。
+Parent changed, shutting down : &lt;Worker xxxx&gt;
+
+
+本文摘录自本人毕业设计论文。
+
+问题分析通过os.fork创建进程，实际上是将当前进程的内存数据复制了一份给子进程，当子进程发现其不是由Gunicorn主进程所创建时，Gunicor...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/chroot-linux-subsystem/">
+                  <h2 class="post-title">通过chroot实现Linux子系统</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言在一些精简的Linux发行版里，很多时候会有无法运行需要某些依赖的程序的情况。
+然而，会搭载这种精简系统的设备，一般无法重新安装系统；例如：路由器、手机等其他嵌入式设备。
+而且受限于系统内核（缺少cgroup的一些高级特性等），也无法安装docker。
+同时，在不同的Linux发行版下，使用的C语言标准库也不尽相同；如：glibc、musl等。
+即使CPU支持程序所使用的指令集，使用glibc...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/12/23/php-environment-variable-fix/">
+                  <h2 class="post-title">PHP无法获取环境变量解决办法</h2>
+                </a>
+                <div class="post-date">
+                  2020-12-23
+                </div>
+                <div class="post-abstract">
+                  前言在开发PHP项目时，遇到了无法通过getenv获取PATH的情况，检查phpinfo发现PHP无法获取环境变量。
+解决方法
+修改php-fpm.conf，添加以下内容即可。
+
+clear_env = no
+
+
+默认情况下，php-fpm会清除环境变量，以提高安全性。
+
+
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

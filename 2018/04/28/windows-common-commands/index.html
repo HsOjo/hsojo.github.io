@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Windows常用命令 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言本文专门用于介绍一些windows常用的命令，不定期更新。
+简单命令这些命令较为简单，一般不需要参数。
+域（Active Directory）相关命令
+dcpromo
+配置域控制器（win2012以前的server系统）
+
+
+gpmc.msc
+组策略管理器
+
+
+adsiedit.msc
+账户属性" />
+    <meta name="keywords" content="windows" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Windows常用命令</h2>
+            <div class="post-date">
+              2018-04-28&emsp;&emsp;412 字 &emsp;阅读时间 2 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>本文专门用于介绍一些windows常用的命令，不定期更新。</p>
+<h2 id="简单命令"><a href="#简单命令" class="headerlink" title="简单命令"></a>简单命令</h2><p>这些命令较为简单，一般不需要参数。</p>
+<h3 id="域（Active-Directory）相关命令"><a href="#域（Active-Directory）相关命令" class="headerlink" title="域（Active Directory）相关命令"></a>域（Active Directory）相关命令</h3><ul>
+<li>dcpromo<ul>
+<li>配置域控制器（win2012以前的server系统）</li>
+</ul>
+</li>
+<li>gpmc.msc<ul>
+<li>组策略管理器</li>
+</ul>
+</li>
+<li>adsiedit.msc<ul>
+<li>账户属性管理器</li>
+</ul>
+</li>
+<li>gpupdate<ul>
+<li>更新计算机策略</li>
+</ul>
+</li>
+<li>sysdm.msc<ul>
+<li>计算机名&#x2F;域管理页</li>
+</ul>
+</li>
+</ul>
+<h3 id="系统管理相关命令"><a href="#系统管理相关命令" class="headerlink" title="系统管理相关命令"></a>系统管理相关命令</h3><ul>
+<li>compmgmt.msc<ul>
+<li>计算机管理器</li>
+</ul>
+</li>
+<li>services.msc<ul>
+<li>服务管理器</li>
+</ul>
+</li>
+</ul>
+<h3 id="目录命令"><a href="#目录命令" class="headerlink" title="目录命令"></a>目录命令</h3><p>这些命令可以打开位于系统位置的一些特定目录。（通过“运行”执行）</p>
+<ul>
+<li>inetsrv<ul>
+<li>iis管理器配置目录</li>
+</ul>
+</li>
+<li>sysprep<ul>
+<li>系统重置工具目录</li>
+</ul>
+</li>
+<li>drivers<ul>
+<li>位于system32下，可以打开目录里的etc以编辑hosts文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="dos命令"><a href="#dos命令" class="headerlink" title="dos命令"></a>dos命令</h3><ul>
+<li>dir<ul>
+<li>列出当前目录的文件</li>
+</ul>
+</li>
+<li>cd<ul>
+<li>切换工作目录</li>
+</ul>
+</li>
+<li>cls<ul>
+<li>清除屏幕</li>
+</ul>
+</li>
+<li>start<ul>
+<li>运行程序</li>
+</ul>
+</li>
+<li>pause<ul>
+<li>暂停，按下按键继续</li>
+</ul>
+</li>
+</ul>
+<h2 id="复杂命令"><a href="#复杂命令" class="headerlink" title="复杂命令"></a>复杂命令</h2><p>以下命令都有很多参数，作用较广。</p>
+<ul>
+<li>net</li>
+</ul>
+<pre><code>rem 修改用户密码net user username password
+rem 创建用户，用户不能修改密码，限制周一到周五登陆net user username password /add /passwordchg:no /time:M-F,9-18rem 创建组（域），及添加用户net group groupname /addnet group groupname username /addrem 创建组（本地），及添加用户net group groupname /addnet group groupname username /addrem 关闭网络映射连接/关闭共享连接net use * /delrem 查看共享net share
+rem 关闭服务net stop servicename
+rem 开启服务net start servicename
+</code></pre>
+<ul>
+<li>shutdown</li>
+</ul>
+<pre><code>rem “-t 0”为0秒后进行操作，可自定义。rem 关机shutdown -s -t 0
+rem 重启shutdown -r -t 0
+rem 休眠shutdown -h
+</code></pre>
+<ul>
+<li>sc</li>
+</ul>
+<pre><code>rem 禁用服务sc config servicename start= disable
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/windows/" class="tag">
+                    windows
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/04/21/openstack-password-reset/">
+                  <h3 class="post-title">
+                    Openstack忘记密码
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%91%BD%E4%BB%A4"><span class="toc-text">简单命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%EF%BC%88Active-Directory%EF%BC%89%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">域（Active Directory）相关命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86%E7%9B%B8%E5%85%B3%E5%91%BD%E4%BB%A4"><span class="toc-text">系统管理相关命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E5%91%BD%E4%BB%A4"><span class="toc-text">目录命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dos%E5%91%BD%E4%BB%A4"><span class="toc-text">dos命令</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%8D%E6%9D%82%E5%91%BD%E4%BB%A4"><span class="toc-text">复杂命令</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

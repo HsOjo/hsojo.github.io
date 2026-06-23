@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>微信公众号简易入门教程 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在我学习公众号开发，也有一段时间了，其中也做过两个公众号项目，最近有友人向我请教公众号该如何学习，特以此篇文章总结一下，同时也巩固一下我的知识（套路）。
+准备环境系统：*nix（Ubuntu、macOS，不推荐windows）
+软件：apache(httpd)、mysql、php7+、compo" />
+    <meta name="keywords" content="php,wechat" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">微信公众号简易入门教程</h2>
+            <div class="post-date">
+              2018-01-24&emsp;&emsp;1742 字 &emsp;阅读时间 6 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在我学习公众号开发，也有一段时间了，其中也做过两个公众号项目，最近有友人向我请教公众号该如何学习，特以此篇文章总结一下，同时也巩固一下我的知识<del>（套路）</del>。</p>
+<h2 id="准备环境"><a href="#准备环境" class="headerlink" title="准备环境"></a>准备环境</h2><p>系统：*nix（Ubuntu、macOS，不推荐windows）</p>
+<p>软件：apache(httpd)、mysql、php7+、composer、phpstorm</p>
+<p>库：thinkcmf、overtrue&#x2F;wechat</p>
+<h2 id="参阅文档"><a href="#参阅文档" class="headerlink" title="参阅文档"></a>参阅文档</h2><p>学习公众号开发建议参阅以下文档。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1445241432">微信公众号官方技术文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master">EasyWechat开发文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kancloud.cn/thinkcmf/doc/266473">ThinkCmf5开发手册</a></li>
+</ul>
+<h2 id="库的介绍"><a href="#库的介绍" class="headerlink" title="库的介绍"></a>库的介绍</h2><p>本人推荐使用<strong>ThinkCmf5</strong>+<strong>EasyWechat</strong>进行开发。</p>
+<h3 id="ThinkCmf"><a href="#ThinkCmf" class="headerlink" title="ThinkCmf"></a>ThinkCmf</h3><p>ThinkCmf是基于ThinkPHP的一个内容管理系统框架，在公众号开发里，主要担当提供后台管理系统的角色。</p>
+<h3 id="ThinkPHP基本知识"><a href="#ThinkPHP基本知识" class="headerlink" title="ThinkPHP基本知识"></a>ThinkPHP基本知识</h3><h3 id="MVC设计模式"><a href="#MVC设计模式" class="headerlink" title="MVC设计模式"></a>MVC设计模式</h3><p>由于ThinkPHP是一个使用MVC设计思想编写的框架，所以我们必须要对其有简单的了解。</p>
+<ul>
+<li>模型（Model）<ul>
+<li>与数据进行交互。</li>
+<li>在tp里，模型主要用于对数据库进行增删改查。</li>
+</ul>
+</li>
+<li>视图（View）<ul>
+<li>提供用户界面显示。</li>
+<li>在tp里，视图（模板）用于对html进行渲染，即按模板的格式注入数据，生成页面。</li>
+</ul>
+</li>
+<li>控制器（Controller）<ul>
+<li>逻辑交互的核心，处理视图与模型之间的交互。</li>
+<li>在tp里，控制器处理用户请求的参数，调用模型获取数据，处理数据，注入到模版，返回页面显示结果。</li>
+</ul>
+</li>
+</ul>
+<h3 id="其它结构"><a href="#其它结构" class="headerlink" title="其它结构"></a>其它结构</h3><p>ThinkPHP除了MVC这三个核心内容，还在此基础上作出了一些扩展。</p>
+<ul>
+<li>服务（Service）<ul>
+<li>对模型进行封装，比如调用模型，获取分页显示等逻辑业务操作。</li>
+</ul>
+</li>
+<li>Api<ul>
+<li>对模型以及服务进行封装，比如检查用户权限、遍历用户文件等复杂操作。</li>
+</ul>
+</li>
+<li>验证器（Validate）<ul>
+<li>对用户请求参数进行验证，比如邮箱格式、手机号格式、是否必填字段等。</li>
+</ul>
+</li>
+</ul>
+<h3 id="一些基本的方法"><a href="#一些基本的方法" class="headerlink" title="一些基本的方法"></a>一些基本的方法</h3><ul>
+<li>Controller类<ul>
+<li>Controller类对网页所需的大部分基本都进行了封装，使用起来比起原生方式难度极大的降低。<ul>
+<li>success（返回成功信息）</li>
+<li>error（返回错误信息）</li>
+<li>assign（向模板注入数据）</li>
+<li>fetch（渲染模板）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Model类<ul>
+<li>Model类基本上就是对SQL语句进行了封装，使用起来比直接写SQL语句更安全、更方便。<ul>
+<li>paginate（分页显示）</li>
+<li>save（插入数据或更新数据）</li>
+<li>find（查找单行数据）</li>
+<li>alias（定义表别名）</li>
+<li>join（联表查询）</li>
+<li>order（数据排序）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="ThinkCmf基本知识"><a href="#ThinkCmf基本知识" class="headerlink" title="ThinkCmf基本知识"></a>ThinkCmf基本知识</h3><p>在了解tp的情况下，使用ThinkCmf进行开发，主要要了解以下关键点。</p>
+<h3 id="各场景下的控制器"><a href="#各场景下的控制器" class="headerlink" title="各场景下的控制器"></a>各场景下的控制器</h3><p>不同场景，需要继承的控制器也不一样，你也可以选择继承tp的控制器基类，以下为Cmf实现的几个主要控制器。</p>
+<ul>
+<li>HomeBaseController<ul>
+<li>这是一个前台页面控制器，默认会往模板注入网站信息参数。</li>
+</ul>
+</li>
+<li>UserBaseController<ul>
+<li>这是一个用户页面控制器，继承HomeBaseController的所有特性，而且用户必须登陆才能访问其页面。</li>
+</ul>
+</li>
+<li>AdminBaseController<ul>
+<li>这是一个管理后台页面控制器，必须为管理员登陆时才能访问其页面。</li>
+</ul>
+</li>
+</ul>
+<h3 id="前端开发"><a href="#前端开发" class="headerlink" title="前端开发"></a>前端开发</h3><p>ThinkCmf使用了<strong>BootStrap3</strong>进行开发，详情请参阅以下文档：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.runoob.com/bootstrap/bootstrap-tutorial.html">BootStrap - 菜鸟教程</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/jquery/index.asp">jQuery - w3school</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.websiteplanet.com/blog/html-guide-beginners/">HTML基础语法学习</a>（由<strong>Virgy</strong>补充，感谢）</li>
+</ul>
+<h3 id="EasyWeChat"><a href="#EasyWeChat" class="headerlink" title="EasyWeChat"></a>EasyWeChat</h3><p>这是一个PHP的微信第三方SDK，把微信各种繁琐的操作都封装的十分的友好，所以推荐使用此库。</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>使用composer进行安装。</p>
+<pre><code>composer require overtrue/wechat -vvv
+</code></pre>
+<ul>
+<li>如果缺少php扩展，请使用各系统下的包管理软件进行安装。</li>
+</ul>
+<h3 id="微信对接"><a href="#微信对接" class="headerlink" title="微信对接"></a>微信对接</h3><p>官方对接的方法很麻烦，主要就是用请求的几个参数，计算一个特定的值，返回给微信服务器，但是这一步EasyWechat已经帮我们做好了。</p>
+<h3 id="对接准备"><a href="#对接准备" class="headerlink" title="对接准备"></a>对接准备</h3><p>1.公众号（测试号）</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">微信公众平台</a></li>
+<li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login">微信公众平台-测试号</a></li>
+<li>注册完成后，得到appid、secret，设置好token。</li>
+</ul>
+<p>2.一个带有80端口的公网服务器</p>
+<ul>
+<li>经济宽裕的选项：<a target="_blank" rel="noopener" href="https://www.aliyun.com/">阿里云</a><ul>
+<li>买个ECS云服务器，在上面部署。</li>
+</ul>
+</li>
+<li>经济拮据的选项：<a target="_blank" rel="noopener" href="https://hsk.oray.com/">花生壳</a><ul>
+<li>交个端口映射费，下载花生壳，映射到你的开发环境。</li>
+</ul>
+</li>
+</ul>
+<h3 id="对接"><a href="#对接" class="headerlink" title="对接"></a>对接</h3><p>请看EasyWechat的文档，那里写的很详细！！！</p>
+<p><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master/zh-CN/official-account/tutorial">传送门 - 对接操作</a></p>
+<p>这里要注意的是，ThinkPHP不能直接调用<strong>response</strong>进行返回值，要通过response取得内容，然后通过echo输出、exit，或是通过die输出内容，因为thinkphp在调试模式会对页面注入一些多余的内容。方法如下：</p>
+<pre><code class="language-php">$response = $app-&gt;server-&gt;serve();// 方法1die($response-&gt;getContent());// 方法2echo $response-&gt;getContent();exit();
+</code></pre>
+<h3 id="消息处理"><a href="#消息处理" class="headerlink" title="消息处理"></a>消息处理</h3><p>消息处理的流程一般为：</p>
+<p>用户操作-&gt;提交给微信服务器-&gt;转发到我们的服务器-&gt;处理数据，返回给微信服务器-&gt;返回给用户</p>
+<p>EasyWechat使用挂接事件的方式处理事件，详情参考文档。</p>
+<p><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master/zh-CN/official-account/server">传送门 - 挂接事件</a></p>
+<h3 id="消息类型"><a href="#消息类型" class="headerlink" title="消息类型"></a>消息类型</h3><p>在EasyWechat，消息分为两部分，一是Event，二是用户消息（Event以外）。</p>
+<ul>
+<li>事件（Event）</li>
+</ul>
+<p>用户点击菜单、扫码、上报地理位置等等行为，都会通过事件的形式传到我们的服务器。</p>
+<ul>
+<li>用户消息（Event以外）</li>
+</ul>
+<p>用户发送文字、图片、位置、视频、声音等等数据，都会通过消息的形式传到我们的服务器。</p>
+<h3 id="返回消息"><a href="#返回消息" class="headerlink" title="返回消息"></a>返回消息</h3><p>返回消息支持的消息类型，及创建方法，参考文档。</p>
+<p><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master/zh-CN/official-account/messages">传送门 - 消息类型</a></p>
+<h3 id="菜单"><a href="#菜单" class="headerlink" title="菜单"></a>菜单</h3><p>详情请参考以下文档。</p>
+<p><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master/zh-CN/official-account/menu">传送门 - 菜单基本操作</a></p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141013">传送门 - 菜单细节</a></p>
+<h3 id="识别用户-用户绑定（OAuth-开放验证）"><a href="#识别用户-用户绑定（OAuth-开放验证）" class="headerlink" title="识别用户&#x2F;用户绑定（OAuth-开放验证）"></a>识别用户&#x2F;用户绑定（OAuth-开放验证）</h3><p>用户识别的流程为：</p>
+<ol>
+<li>用户打开我们的网页</li>
+<li>网页检测是否有已经验证通过的session，有则无须验证</li>
+<li>session记录当前页面地址</li>
+<li>重定向到微信服务器进行验证（提交验证方法、回调页面）</li>
+<li>微信服务器验证通过，返回用户信息到回调页面（其实返回token，不过EasyWechat已经封装好了）</li>
+<li>回调页面记录验证通过的session，跳转到之前记录的页面地址</li>
+<li>重复1、2，通过验证。</li>
+</ol>
+<p>验证方法有：</p>
+<ul>
+<li>snsapi_base<ul>
+<li>只获取用户的openid，无须用户确认。</li>
+</ul>
+</li>
+<li>snsapi_userinfo<ul>
+<li>获取用户的基本信息，无需用户确认。</li>
+</ul>
+</li>
+<li>snsapi_login<ul>
+<li>网页验证授权，需要用户确认。</li>
+</ul>
+</li>
+</ul>
+<p>具体方法参考文档。</p>
+<p><a target="_blank" rel="noopener" href="https://www.easywechat.com/docs/master/zh-CN/official-account/oauth">传送门 - 网页授权</a></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>总而言之，EasyWechat的出现，使公众号开发的门槛变得很低，学会PHP的基本语法不需要很长时间，搞懂tp的基本使用也不需要很长时间，再有EasyWechat、ThinkCmf封装好了这么多内容，做出一个好的公众号也变得很简单。</p>
+<p><del>可见以后的竞争是多么的激烈。</del></p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/php/" class="tag">
+                    php
+                  </a>
+                
+                  <a href="/tags/wechat/" class="tag">
+                    wechat
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/01/06/vm-cross-platform-migration/">
+                  <h3 class="post-title">
+                    关于虚拟机在各VM平台间相互迁移的问题
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E7%8E%AF%E5%A2%83"><span class="toc-text">准备环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E9%98%85%E6%96%87%E6%A1%A3"><span class="toc-text">参阅文档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-text">库的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ThinkCmf"><span class="toc-text">ThinkCmf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThinkPHP%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-text">ThinkPHP基本知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="toc-text">MVC设计模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B6%E5%AE%83%E7%BB%93%E6%9E%84"><span class="toc-text">其它结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%BA%9B%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">一些基本的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ThinkCmf%E5%9F%BA%E6%9C%AC%E7%9F%A5%E8%AF%86"><span class="toc-text">ThinkCmf基本知识</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-text">各场景下的控制器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91"><span class="toc-text">前端开发</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EasyWeChat"><span class="toc-text">EasyWeChat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BE%AE%E4%BF%A1%E5%AF%B9%E6%8E%A5"><span class="toc-text">微信对接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8E%A5%E5%87%86%E5%A4%87"><span class="toc-text">对接准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%8E%A5"><span class="toc-text">对接</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%A4%84%E7%90%86"><span class="toc-text">消息处理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E7%B1%BB%E5%9E%8B"><span class="toc-text">消息类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E6%B6%88%E6%81%AF"><span class="toc-text">返回消息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8F%9C%E5%8D%95"><span class="toc-text">菜单</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%86%E5%88%AB%E7%94%A8%E6%88%B7-%E7%94%A8%E6%88%B7%E7%BB%91%E5%AE%9A%EF%BC%88OAuth-%E5%BC%80%E6%94%BE%E9%AA%8C%E8%AF%81%EF%BC%89"><span class="toc-text">识别用户&#x2F;用户绑定（OAuth-开放验证）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

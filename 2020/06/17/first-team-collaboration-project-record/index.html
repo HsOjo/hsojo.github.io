@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>初次团队协作整活全流程记录 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言最近与友人AtmosphereMao一同接了一微信小程序的活，途中出现了一些小小意外，故以此总结经验。
+整活场景开发的项目为XX报名系统，用于解决招生录取问题。
+最初先是完成后端的基本功能开发（5月18日）；前端是在后端基本完成后（5月27日左右）开始开发。
+直至今天（6月17日），项目经过了多" />
+    <meta name="keywords" content="php" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">初次团队协作整活全流程记录</h2>
+            <div class="post-date">
+              2020-06-17&emsp;&emsp;1688 字 &emsp;阅读时间 6 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近与友人<strong>AtmosphereMao</strong>一同接了一微信小程序的活，途中出现了一些小小意外，故以此总结经验。</p>
+<h2 id="整活场景"><a href="#整活场景" class="headerlink" title="整活场景"></a>整活场景</h2><p>开发的项目为<strong>XX报名系统</strong>，用于解决招生录取问题。</p>
+<p>最初先是完成后端的基本功能开发（5月18日）；前端是在后端基本完成后（5月27日左右）开始开发。</p>
+<p>直至今天（6月17日），项目经过了多番整改，终于趋于完成。</p>
+<h2 id="技术使用"><a href="#技术使用" class="headerlink" title="技术使用"></a>技术使用</h2><ul>
+<li>后台<ul>
+<li>ThinkCMF（基于ThinkPHP的内容管理框架）</li>
+</ul>
+</li>
+<li>前台（小程序）<ul>
+<li>WePY（腾讯开发的小程序组件化开发框架）</li>
+</ul>
+</li>
+</ul>
+<h2 id="初版需求"><a href="#初版需求" class="headerlink" title="初版需求"></a>初版需求</h2><p>以下是最初理解的需求，显然很简单。</p>
+<ul>
+<li>后台<ul>
+<li>基本的<strong>CRUD</strong>功能</li>
+<li>根据不同的类别进行数据统计</li>
+<li>针对不同类别的报名开关</li>
+</ul>
+</li>
+<li>前台（API）<ul>
+<li>录入报名数据</li>
+<li>查询报名信息</li>
+<li>查询录取信息</li>
+</ul>
+</li>
+</ul>
+<p>由于本人只负责后端实现，故前台只提供API。</p>
+<h2 id="无尽整改"><a href="#无尽整改" class="headerlink" title="无尽整改"></a>无尽整改</h2><p>按照前面所展示的初版需求，理论上几天就能完成基本功能；但显然现实不会按预想的来。</p>
+<p>首先，得到的需求是不清晰的，客户也不知道具体要如何实现。</p>
+<p>所以就出现了做完功能之后，让客户查阅后再根据意见修改，导致开发流程断断续续的情况。</p>
+<p>后面追加的3个需求，更是使程序复杂程度直线上升。（从简单的CRUD项目变成复杂的文档处理项目）</p>
+<h3 id="追加：录取通知书"><a href="#追加：录取通知书" class="headerlink" title="追加：录取通知书"></a>追加：录取通知书</h3><p>最初是以文件上传的形式实现，如上传图片&#x2F;文档。</p>
+<p>但是后来客户不满意，需要支持模版，例如根据docx，自动给每个学生生成录取通知书。</p>
+<ul>
+<li>但如果从追加需求的时候，就明确需要支持模版，那前面做的上传功能就不会白忙活了。</li>
+</ul>
+<p>同时录取通知书需要导出为pdf格式，当时图方便直接就在docx生成完成后接入了pdf转换功能；然而，此处设计不当为后面并发崩溃埋下了祸根。</p>
+<h3 id="追加：批量导出-导入数据"><a href="#追加：批量导出-导入数据" class="headerlink" title="追加：批量导出&#x2F;导入数据"></a>追加：批量导出&#x2F;导入数据</h3><p><del>干就完了，像这种追加的高强度体力活需求，只能要求增加报酬。</del></p>
+<h3 id="追加：报名表下载"><a href="#追加：报名表下载" class="headerlink" title="追加：报名表下载"></a>追加：报名表下载</h3><p>报名表为xls格式，与录取通知书一致，需要根据模版生成pdf。</p>
+<ul>
+<li>由于没有轮子，需要自行实现excel模版替换功能。</li>
+</ul>
+<h3 id="Bug：并发情况下崩溃"><a href="#Bug：并发情况下崩溃" class="headerlink" title="Bug：并发情况下崩溃"></a>Bug：并发情况下崩溃</h3><p>如前文所言，报名表以及录取通知书需要导出PDF。</p>
+<p>最初的实现是用户访问文档API时，直接生成相应文档并导出PDF再返回给用户。</p>
+<p>然而在大量并发的情况下，LibreOffice进程会直接被打到崩溃，再起不能。</p>
+<ul>
+<li>同时发出200个请求，只能成功生成2个文件。</li>
+</ul>
+<p>这里可能会有个疑问，为什么需要LibreOffice；原因很简单，PHP原生支持的<strong>dompdf&#x2F;mpdf</strong>过于篮子，无法正常使用，只能通过<strong>PHP-&gt;Python(unoconv)-&gt;LibreOffice</strong>的外挂方式实现PDF转换。</p>
+<p>所以当时我<a href="/2020/06/02/PHPWordToPdf/">发文diss</a>了一把PHP。</p>
+<p>为了解决这个问题，肝了一通宵终于解决，同时程序的复杂程度又进一步的提升了。</p>
+<h3 id="Bug：数据编辑-删除不完全"><a href="#Bug：数据编辑-删除不完全" class="headerlink" title="Bug：数据编辑&#x2F;删除不完全"></a>Bug：数据编辑&#x2F;删除不完全</h3><ul>
+<li>这个问题是因为没有使用事务。<del>这是没认真学数据库的后果。</del></li>
+</ul>
+<h3 id="Bug：生僻字无法录入"><a href="#Bug：生僻字无法录入" class="headerlink" title="Bug：生僻字无法录入"></a>Bug：生僻字无法录入</h3><pre><code>[10501]SQLSTATE[HY000]: General error: 1366 Incorrect string value: &#39;\xF0\xA3\x84\x83\xE8\x83...&#39; for column &#39;xxx&#39; at row 1
+</code></pre>
+<ul>
+<li>这个问题是MySQL的毒瘤utf8导致的，换成utf8mb4就好了。</li>
+</ul>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>将用户请求以及文档下载分开处理。</p>
+<p>用户请求文档则添加一个任务到数据库，后台使用专门的进程逐个任务进行处理。</p>
+<ul>
+<li>使用ThinkPHP的Command控制器配合Shell实现。</li>
+</ul>
+<p><del>这下子成功扛下了200+的请求，怪一开始没设计好。</del></p>
+<h3 id="整改：细枝末节"><a href="#整改：细枝末节" class="headerlink" title="整改：细枝末节"></a>整改：细枝末节</h3><p>由于客户也没提供<strong>样板&#x2F;设计图</strong>；所以像这类整改，<strong>多到3页纸都写不完</strong>。（已经无力吐槽）</p>
+<ul>
+<li>这真是一段艰辛的时光。<ul>
+<li>改n个地方，增加n*m个Bug</li>
+<li>根据需求改完又改，一改再改</li>
+<li>客户自己没搞清楚逻辑，提出错误的整改内容</li>
+<li>…</li>
+</ul>
+</li>
+</ul>
+<h2 id="前端对接"><a href="#前端对接" class="headerlink" title="前端对接"></a>前端对接</h2><p>由于前端由友人<strong>AtmosphereMao</strong>完成，我是比较放心的，一般情况下能接活便是有着十足的把握。</p>
+<p>API文档以及测试，我们采用友人<strong>XuQing</strong>之前跟我提到的<strong>EOLINKER</strong>，该工具相当好用，非常便于团队协作；可谓是国产<strong>Postman</strong>。</p>
+<p>有了这工具，我们对接的情况可谓是顺风顺水，没什么难度。</p>
+<h3 id="Deadline意外"><a href="#Deadline意外" class="headerlink" title="Deadline意外"></a>Deadline意外</h3><p>然而这个项目的前端需求也并不省心，同样是一改再改；改得多了嘛，就容易出现纰漏。（字段极多）</p>
+<p>终于，在<strong>临近deadline的时候</strong>发生了严重意外，修改完前端工程后忘记<strong>commit&#x2F;push</strong>就下线了。</p>
+<ul>
+<li>此时，客户更改了需求内容，在代码仓库中的程序仍是旧版本。</li>
+</ul>
+<p>尽管需求更改的内容很简单，只是改个文本，但之前也有一连串的需求改动，由于无法获得最新的代码，所以不熟悉wepy框架的我自然是无法更新前端工程的。</p>
+<p>幸运的是，最后赶在<strong>deadline</strong>之前发布了正式版。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>最终，这个面包车硬生生做成了坦克。</p>
+<ul>
+<li>客户的需求是多变的，在需求不清晰的情况下要衡量好是<strong>按自己的想法实现</strong>或是<strong>与客户详细沟通再实现</strong>。<ul>
+<li>否则就会出现做了白做的问题 <del>，但是沟通成本高啊</del>。</li>
+</ul>
+</li>
+<li>在团队协作项目中，一定要做好版本管理，代码修改完，马上<strong>commit &amp; push</strong>是最基本的要求。<ul>
+<li>否则在意外情况下无法联系时，团队其他技术人员无法及时补锅。</li>
+</ul>
+</li>
+<li>保持通讯环境畅通，在<strong>接近deadline时</strong>不要出现人间蒸发的情况。</li>
+</ul>
+<h3 id="可优化项"><a href="#可优化项" class="headerlink" title="可优化项"></a>可优化项</h3><ul>
+<li>针对每个API编写相关测试代码，不完整测试可能会导致Bug越改越多。<ul>
+<li>难怪EOLINKER测试功能收费；听说业内公司，一般开发和测试人数一比一。</li>
+</ul>
+</li>
+<li>学习业内对于并发高负载任务的解决方案，目前的方案过于Hack，泛用性不足。<ul>
+<li>这种场景，好像是要用消息队列来着</li>
+</ul>
+</li>
+<li>学习更多前端相关知识，否则无法给前端补锅。<ul>
+<li><del>去做前端咯</del></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/php/" class="tag">
+                    php
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2020/06/12/git-disable-password-remembering/">
+                  <h3 class="post-title">
+                    Git禁止记住密码
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B4%E6%B4%BB%E5%9C%BA%E6%99%AF"><span class="toc-text">整活场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8A%80%E6%9C%AF%E4%BD%BF%E7%94%A8"><span class="toc-text">技术使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E7%89%88%E9%9C%80%E6%B1%82"><span class="toc-text">初版需求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E5%B0%BD%E6%95%B4%E6%94%B9"><span class="toc-text">无尽整改</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%BD%E5%8A%A0%EF%BC%9A%E5%BD%95%E5%8F%96%E9%80%9A%E7%9F%A5%E4%B9%A6"><span class="toc-text">追加：录取通知书</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%BD%E5%8A%A0%EF%BC%9A%E6%89%B9%E9%87%8F%E5%AF%BC%E5%87%BA-%E5%AF%BC%E5%85%A5%E6%95%B0%E6%8D%AE"><span class="toc-text">追加：批量导出&#x2F;导入数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%BD%E5%8A%A0%EF%BC%9A%E6%8A%A5%E5%90%8D%E8%A1%A8%E4%B8%8B%E8%BD%BD"><span class="toc-text">追加：报名表下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bug%EF%BC%9A%E5%B9%B6%E5%8F%91%E6%83%85%E5%86%B5%E4%B8%8B%E5%B4%A9%E6%BA%83"><span class="toc-text">Bug：并发情况下崩溃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bug%EF%BC%9A%E6%95%B0%E6%8D%AE%E7%BC%96%E8%BE%91-%E5%88%A0%E9%99%A4%E4%B8%8D%E5%AE%8C%E5%85%A8"><span class="toc-text">Bug：数据编辑&#x2F;删除不完全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Bug%EF%BC%9A%E7%94%9F%E5%83%BB%E5%AD%97%E6%97%A0%E6%B3%95%E5%BD%95%E5%85%A5"><span class="toc-text">Bug：生僻字无法录入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E6%94%B9%EF%BC%9A%E7%BB%86%E6%9E%9D%E6%9C%AB%E8%8A%82"><span class="toc-text">整改：细枝末节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E5%AF%B9%E6%8E%A5"><span class="toc-text">前端对接</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Deadline%E6%84%8F%E5%A4%96"><span class="toc-text">Deadline意外</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E4%BC%98%E5%8C%96%E9%A1%B9"><span class="toc-text">可优化项</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Web开发基础课程 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言前段时间为完成学校任务，设计了一套Web开发课程。
+课程涉及前后端的基础应用，最终目标为开发一款简易的博客程序。
+博客程序包含最基本的功能（用户、发布文章、文章分类、文章留言、友情链接）。
+课程安排学习周期：2周（原定1周，翻车了）
+课程内容如下所示，都是些最基本的知识点。
+
+
+Web课程安排
+" />
+    <meta name="keywords" content="php,web" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Web开发基础课程</h2>
+            <div class="post-date">
+              2019-07-30&emsp;&emsp;316 字 &emsp;阅读时间 2 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间为完成学校任务，设计了一套Web开发课程。</p>
+<p>课程涉及前后端的基础应用，最终目标为开发一款简易的博客程序。</p>
+<p>博客程序包含最基本的功能（用户、发布文章、文章分类、文章留言、友情链接）。</p>
+<h2 id="课程安排"><a href="#课程安排" class="headerlink" title="课程安排"></a>课程安排</h2><p>学习周期：2周<del>（原定1周，翻车了）</del></p>
+<p>课程内容如下所示，都是些最基本的知识点。</p>
+<img src="/2019/07/30/web-development-basics-course/post-imagesWebBaseCoursemain.png" class="">
+
+<p>Web课程安排</p>
+<h2 id="软件环境"><a href="#软件环境" class="headerlink" title="软件环境"></a>软件环境</h2><ul>
+<li>系统：Windows 7</li>
+<li><a target="_blank" rel="noopener" href="http://phpstudy.php.cn/download.html">PhpStudy2016</a>（apache+php5.6+mysql，php集成环境）</li>
+<li><a target="_blank" rel="noopener" href="https://www.cr173.com/soft/47403.html">VC2012_x86</a>（php5.6运行库）</li>
+<li><a target="_blank" rel="noopener" href="http://google.cn/chrome">Chrome</a>（浏览器，前端调试工具）</li>
+<li><a target="_blank" rel="noopener" href="https://www.jetbrains.com/phpstorm/">PhpStorm</a>（ide，集成开发环境）</li>
+<li><a target="_blank" rel="noopener" href="https://www.cr173.com/soft/126934.html">Navicat</a>（数据库管理工具）</li>
+</ul>
+<h2 id="前端资料"><a href="#前端资料" class="headerlink" title="前端资料"></a>前端资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/html/index.asp">html</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/css/index.asp">css</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/b.asp">js</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/jquery/index.asp">jquery</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.runoob.com/bootstrap/bootstrap-tutorial.html">bootstrap</a></li>
+</ul>
+<h3 id="页面设计"><a href="#页面设计" class="headerlink" title="页面设计"></a>页面设计</h3><p>前端页面设计可参考BootStrap官方提供的几个样例。</p>
+<p><a target="_blank" rel="noopener" href="https://v3.bootcss.com/getting-started/#examples">点击查看</a></p>
+<p>以下为博客程序所需设计的页面。</p>
+<img src="/2019/07/30/web-development-basics-course/post-imagesWebBaseCoursedesign_frontend.png" class="">
+
+<p>页面设计</p>
+<h2 id="后端资料"><a href="#后端资料" class="headerlink" title="后端资料"></a>后端资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/php/index.asp">php</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.w3school.com.cn/sql/index.asp">mysql</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.cnblogs.com/WangBoBlog/p/7846456.html">mvc设计思想</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kancloud.cn/manual/thinkphp5/118003">thinkphp</a></li>
+</ul>
+<h3 id="模型设计（数据库-对象格式）"><a href="#模型设计（数据库-对象格式）" class="headerlink" title="模型设计（数据库&#x2F;对象格式）"></a>模型设计（数据库&#x2F;对象格式）</h3><p>以下为模型设计图。</p>
+<img src="/2019/07/30/web-development-basics-course/post-imagesWebBaseCoursedesign_backend.png" class="">
+
+<p>模型设计</p>
+<h2 id="课程完成作品参考"><a href="#课程完成作品参考" class="headerlink" title="课程完成作品参考"></a>课程完成作品参考</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/HsOjo/SimpleBlog">SimpleBlog</a></li>
+</ul>
+<p>使用方法：</p>
+<p>下载ThinkPhp5完整源代码并解压，将SimpleBlog的文件覆盖ThinkPhp5框架。</p>
+<p>使用PhpStudy导入 <strong>blog</strong> 数据库（blog.sql），使用默认数据库账号。（root root）</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/php/" class="tag">
+                    php
+                  </a>
+                
+                  <a href="/tags/web/" class="tag">
+                    web
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2019/06/17/vnc-xfce-fcitx-input-method/">
+                  <h3 class="post-title">
+                    Vnc+Xfce环境下使用Fcitx输入法
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E5%AE%89%E6%8E%92"><span class="toc-text">课程安排</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E7%8E%AF%E5%A2%83"><span class="toc-text">软件环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%AB%AF%E8%B5%84%E6%96%99"><span class="toc-text">前端资料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E8%AE%BE%E8%AE%A1"><span class="toc-text">页面设计</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E7%AB%AF%E8%B5%84%E6%96%99"><span class="toc-text">后端资料</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%EF%BC%88%E6%95%B0%E6%8D%AE%E5%BA%93-%E5%AF%B9%E8%B1%A1%E6%A0%BC%E5%BC%8F%EF%BC%89"><span class="toc-text">模型设计（数据库&#x2F;对象格式）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%BE%E7%A8%8B%E5%AE%8C%E6%88%90%E4%BD%9C%E5%93%81%E5%8F%82%E8%80%83"><span class="toc-text">课程完成作品参考</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

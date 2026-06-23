@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>记 macOS 下 Electron GPU 不完整支持的解决方案 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言前段时间，有友人赠予了一枚NVIDIA GeForce GTX 1050 Ti 2 GB，思来想去，这枚只有 2GB 显存的图形卡并不能带动游戏需求；但是作为黑苹果的亮机卡的话，还是绰绰有余的。
+于是乎，在 macOS Ventura 13.5.2 (22G91) 上驱动起来后，遇到了不少问题。" />
+    <meta name="keywords" content="macos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">记 macOS 下 Electron GPU 不完整支持的解决方案</h2>
+            <div class="post-date">
+              2023-09-26&emsp;&emsp;399 字 &emsp;阅读时间 2 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间，有友人赠予了一枚<strong>NVIDIA GeForce GTX 1050 Ti 2 GB</strong>，思来想去，这枚只有 2GB 显存的图形卡并不能带动游戏需求；但是作为黑苹果的亮机卡的话，还是绰绰有余的。</p>
+<p>于是乎，在 macOS Ventura 13.5.2 (22G91) 上驱动起来后，遇到了不少问题。</p>
+<h2 id="多屏窗口不显示问题"><a href="#多屏窗口不显示问题" class="headerlink" title="多屏窗口不显示问题"></a>多屏窗口不显示问题</h2><ul>
+<li>解决方案：关闭 “系统设置 - 桌面与程序坞 - 显示器具有单独的空间” 即可。</li>
+</ul>
+<p>原因可能是创建窗口时调用了仅 Metal 支持的 API 导致的，不过修改了以上设置会严重影响操作习惯，不过至少能用。</p>
+<h2 id="钉钉启动后崩溃问题"><a href="#钉钉启动后崩溃问题" class="headerlink" title="钉钉启动后崩溃问题"></a>钉钉启动后崩溃问题</h2><ul>
+<li>解决方案：通过执行 <code>open -a &quot;DingTalk&quot; --args --single-process</code> 启动即可。</li>
+</ul>
+<p>这应该算是 Electron 程序的通病，不过不一定在所有 Electron 程序都有效；但对于钉钉来说，实际上是可以正常使用的，钉钉崩溃的原因应该是跟 GPU 有关的跨进程调用导致，说到底应该还是不支持 Metal 的问题。</p>
+<h2 id="Jetbrains-Toolbox"><a href="#Jetbrains-Toolbox" class="headerlink" title="Jetbrains Toolbox"></a>Jetbrains Toolbox</h2><ul>
+<li>解决方案：修改文件 <code>/Users/&lt;username&gt;/Library/Application Support/JetBrains/Toolbox/.settings.json</code>，添加配置项 <code>&quot;graphics_api&quot;: &quot;Software&quot;</code> 即可。</li>
+</ul>
+<p>显然还是因为不支持 Metal，导致硬件渲染失效，虽然同样是 Electron 程序，但是钉钉的解决方案就不能套到 Toolbox 里使用了。</p>
+<p>以下是完整的 <code>.settings.json</code> 参考：</p>
+<pre><code class="language-json">{    &quot;internal&quot;: {        &quot;graphics_api&quot;: &quot;Software&quot;    },    &quot;ordering&quot;: {        &quot;local&quot;: ...    },    &quot;shell_scripts&quot;: {        &quot;location&quot;: ...    },    &quot;ui&quot;: {        &quot;language&quot;: &quot;zh-CN&quot;    },}
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/macos/" class="tag">
+                    macos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2023/07/13/dind-io-performance-analysis/">
+                  <h3 class="post-title">
+                    DinD 场景下IO性能问题分析
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%B1%8F%E7%AA%97%E5%8F%A3%E4%B8%8D%E6%98%BE%E7%A4%BA%E9%97%AE%E9%A2%98"><span class="toc-text">多屏窗口不显示问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%92%89%E9%92%89%E5%90%AF%E5%8A%A8%E5%90%8E%E5%B4%A9%E6%BA%83%E9%97%AE%E9%A2%98"><span class="toc-text">钉钉启动后崩溃问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Jetbrains-Toolbox"><span class="toc-text">Jetbrains Toolbox</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

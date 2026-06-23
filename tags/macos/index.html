@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>macos | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: macos</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/09/26/macos-electron-gpu-partial-support-fix/">
+                  <h2 class="post-title">记 macOS 下 Electron GPU 不完整支持的解决方案</h2>
+                </a>
+                <div class="post-date">
+                  2023-09-26
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，有友人赠予了一枚NVIDIA GeForce GTX 1050 Ti 2 GB，思来想去，这枚只有 2GB 显存的图形卡并不能带动游戏需求；但是作为黑苹果的亮机卡的话，还是绰绰有余的。
+于是乎，在 macOS Ventura 13.5.2 (22G91) 上驱动起来后，遇到了不少问题。
+多屏窗口不显示问题
+解决方案：关闭 “系统设置 - 桌面与程序坞 - 显示器具有单独的空间” 即可...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/11/18/rosetta-ubuntu-x86-dev-environment/">
+                  <h2 class="post-title">使用 Rosetta 建立 Ubuntu x86 开发环境</h2>
+                </a>
+                <div class="post-date">
+                  2022-11-18
+                </div>
+                <div class="post-abstract">
+                  前言尽管换了 M1 设备也有一年多了，但平时仍然依赖于 x86 平台进行开发，为此不得不单独部署一套 x86 的开发环境在 intel PC 上。
+随着 macOS 更新到了 Ventura (13.0.1)，以及 UTM 4.0 的更新，现已可以在 Linux 环境下启用 Rosetta 对 x86（含amd64） 应用进行加速。
+使用 Rosetta 加速后，在构建项目的速度上甚至几年前的 i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/30/enable-aptx-on-mac/">
+                  <h2 class="post-title">在Mac上开启AptX</h2>
+                </a>
+                <div class="post-date">
+                  2020-07-30
+                </div>
+                <div class="post-abstract">
+                  前言在使用Mac下使用蓝牙耳机时，声音时常断断续续；
+我寻思着会不会是音频编码的问题，猜测Intel蓝牙对AAC编码支持较差。
+在搜索相关资料后，发现Intel蓝牙似乎支持AptX，那么便尝试更换之。
+过程
+首先到Apple开发者站点下载Additional Tools for Xcode。
+找到包含Bluetooth Explorer的版本，如目前最新的是11.4版。
+
+
+打开下载的镜像包，再打...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/01/mac-xdebug-configuration/">
+                  <h2 class="post-title">Mac环境下配置XDebug</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-01
+                </div>
+                <div class="post-abstract">
+                  前言近日接了个CURD项目，在实现docx转pdf时出了点小问题，需要使用XDebug进行调试。
+在一般情况下，只要使用包管理工具安装“php-ext-xdebug”之类的包即可。
+然而Mac下的包管理，使用Homebrew搜索“php”，却没有相关结果。
+经过一番搜索，发现pecl可安装“xdebug”。
+配置环境变量在使用pecl前，需要先配置环境变量。（在使用brew安装php时有相关提示，...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/05/restart-usb-bluetooth-device-pd-vm/">
+                  <h2 class="post-title">重启Usb蓝牙设备（PD虚拟机模拟插拔）</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-05
+                </div>
+                <div class="post-abstract">
+                  前言小米pro的Hackintosh方案挺香的，用了也有8个月了，还是挺稳定的。
+但是其中有两个很操蛋的问题：
+
+内置蓝牙无法使用
+无法驱动内置Wi-Fi
+
+由于不想硬改，作出一些不可逆操作，所以以上问题均采用USB方案解决。
+
+Wi-Fi解决方案也比较完美了，使用Comfast的CF-811AC可支持5G网络，搭配GitHub上的驱动使用，效果极佳。
+蓝牙，当时随便在淘宝买了个比较mini的US...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/12/15/quicklook-quick-preview/">
+                  <h2 class="post-title">使用QuickLook进行快速预览</h2>
+                </a>
+                <div class="post-date">
+                  2018-12-15
+                </div>
+                <div class="post-abstract">
+                  前言在macOS下有一个便捷的功能，其名为QuickLook。
+只要在文件管理器选中一个文件，按下空格，即可快速预览。
+最近重装了macOS，发现这个功能好像失效了。（可能是应用没有注册快速预览功能）
+经过一番搜索，找到了更好的解决方案。（还找到了win版的QuickLook）
+Windows版QuickLook点击打开项目地址。
+安装即可，文章后面内容对此不适用。
+Mac QuickLook失效...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

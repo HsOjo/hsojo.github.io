@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>PHP中将Word文件转换为PDF | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在上一篇水文中，我提到了需要实现“docx转pdf”；
+经过一番折腾，最终得出了一个结论：PHP可真不愧是一两面撬刀的🔨。
+在尝试了使用“phpoffice&#x2F;phpword”+“dompdf&#x2F;mpdf”等主流PDF转换库对docx进行转换后，最后得到的效果实在是不尽人意。（" />
+    <meta name="keywords" content="php,office" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">PHP中将Word文件转换为PDF</h2>
+            <div class="post-date">
+              2020-06-02&emsp;&emsp;764 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在上一篇水文中，我提到了需要实现“docx转pdf”；</p>
+<p>经过一番折腾，最终得出了一个结论：PHP可真不愧是一两面撬刀的🔨。</p>
+<p>在尝试了使用“phpoffice&#x2F;phpword”+“dompdf&#x2F;mpdf”等主流PDF转换库对docx进行转换后，最后得到的效果实在是不尽人意。（错位+乱码）</p>
+<p>虽然在Windows平台可通过“.net COM组件”这种外挂方式实现转换，但这种方法不具备跨平台特性，不方便部署，同时也不方便在日后的项目复用。</p>
+<p>最后得到的解决方案则是通过<strong>PHP调用Python unoconv工具调用LibreOffice</strong>实现。<del>（究极套娃）</del></p>
+<h2 id="调用unoconv"><a href="#调用unoconv" class="headerlink" title="调用unoconv"></a>调用unoconv</h2><p>实现调用unoconv进行转换只需要简单两行代码。</p>
+<pre><code class="language-php">/** * @param string $unoconv unoconv执行文件位置 * @param string $uno_path LibreOffice执行文件所在目录 * @param string $src 待转换的源文件路径 * @param string|null $dest 转换文件的路径 * @param string $format 转换的文件格式，需要LibreOffice支持 */function unoconv($unoconv, $uno_path, $src, $dest = null, $format = &#39;pdf&#39;)
+{
+    putenv(&#39;UNO_PATH=&#39; . $uno_path);    shell_exec(sprintf(&#39;%s -f %s &quot;%s&quot; %s&#39;, $unoconv, $format, $src, empty($dest) ? &#39;&#39; : &#39;-o &#39; . $dest));}
+</code></pre>
+<p>以下是通过“phpoffice&#x2F;phpword”实现数据注入模版并转换为pdf的业务代码。（截选部分）</p>
+<pre><code class="language-php">header(&#39;Content-Type: application/pdf&#39;);header(sprintf(&#39;Content-Disposition: attachment;filename=&quot;%s&quot;&#39;, $cert_name));header(&#39;Cache-Control: max-age=0&#39;);$cert_path = WEB_ROOT . &#39;upload/&#39; . $cert_path;$template = new TemplateProcessor($cert_path);$template-&gt;setValues($data);$src = $template-&gt;save();$ext = @pathinfo($src)[&#39;extension&#39;];if (!empty($ext))
+    $dest = str_replace(&#39;.&#39; . $ext, &#39;.pdf&#39;, $src);else    $dest = $src . &#39;.pdf&#39;;unoconv($setting[&#39;unoconv&#39;], $setting[&#39;uno_path&#39;], $src, $dest);$io = fopen(&quot;php://output&quot;, &quot;w&quot;);fwrite($io, readfile($dest));fclose($io);
+</code></pre>
+<h2 id="部署unoconv环境"><a href="#部署unoconv环境" class="headerlink" title="部署unoconv环境"></a>部署unoconv环境</h2><ul>
+<li>安装最新版本LibreOffice</li>
+<li>安装最新版本Python（3.+）。</li>
+<li>使用pip安装unoconv。</li>
+</ul>
+<pre><code class="language-bash">pip install unoconv
+</code></pre>
+<ul>
+<li>配置“UNO_PATH”环境变量<ul>
+<li>&#x2F;Applications&#x2F;LibreOffice.app&#x2F;Contents&#x2F;MacOS</li>
+<li>C:Files</li>
+</ul>
+</li>
+</ul>
+<p>这时，一般情况下只要在终端输入unoconv，就可以看到相关帮助信息。</p>
+<ul>
+<li><p>但注意，Windows除外，在Windows里，unoconv并不是以可执行文件的形式存在（因为没有后缀）。</p>
+<p>  那么，在Windows环境下，则需要输入**python C:*运行unoconv。</p>
+</li>
+</ul>
+<p>到这里，unoconv环境的部署就完成了。</p>
+<h3 id="PHP调用前注意"><a href="#PHP调用前注意" class="headerlink" title="PHP调用前注意"></a>PHP调用前注意</h3><p>在不同的运行环境下，情况可能有所不同。</p>
+<p>通常情况下，PHP无法获取到完整的系统环境变量。（有些环境变量配置是仅限于Shell的）</p>
+<p>对于前面方法中的“unoconv执行文件位置”参数，建议提供绝对路径。</p>
+<h2 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h2><p>发现<a target="_blank" rel="noopener" href="https://github.com/alchemy-fr/PHP-Unoconv">PHP版unoconv</a>。<del>（dbq，是我🔨了）</del></p>
+<h3 id="ThinkPHP5-实现"><a href="#ThinkPHP5-实现" class="headerlink" title="ThinkPHP5 实现"></a>ThinkPHP5 实现</h3><pre><code class="language-php">/** * @param string $unoconv unoconv执行文件位置 * @param string $uno_path LibreOffice执行文件所在目录 * @param string $src 待转换的源文件路径 * @param string|null $dest 转换文件的路径 * @param string $format 转换的文件格式，需要LibreOffice支持 * @param int $timeout 超时时间 */function unoconv($unoconv, $uno_path, $src, $dest = null, $format = &#39;pdf&#39;, $timeout = 10)
+{
+    $builder = new \think\process\Builder();    $builder-&gt;setEnv(&#39;UNO_PATH&#39;, $uno_path);    $builder-&gt;setTimeout($timeout);    $args = [$unoconv, &#39;-f&#39;, $format, $src];    if (!empty($dest)) {
+        array_push($args, &#39;-o&#39;);        array_push($args, $dest);    }
+    $builder-&gt;setArguments($args);    $builder-&gt;getProcess()-&gt;run();}
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/php/" class="tag">
+                    php
+                  </a>
+                
+                  <a href="/tags/office/" class="tag">
+                    office
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2020/06/01/mac-xdebug-configuration/">
+                  <h3 class="post-title">
+                    Mac环境下配置XDebug
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8unoconv"><span class="toc-text">调用unoconv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2unoconv%E7%8E%AF%E5%A2%83"><span class="toc-text">部署unoconv环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#PHP%E8%B0%83%E7%94%A8%E5%89%8D%E6%B3%A8%E6%84%8F"><span class="toc-text">PHP调用前注意</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ThinkPHP5-%E5%AE%9E%E7%8E%B0"><span class="toc-text">ThinkPHP5 实现</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

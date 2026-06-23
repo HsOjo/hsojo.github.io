@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>麒麟系统瘦身 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言近期在完成项目部署的过程中，遇到了一台特殊设备。该设备在安装Ubuntu Server系统后，无法驱动网卡；经过一番分析，发现是Linux内核没有集成相关驱动。
+不过由于麒麟系统是由Ubuntu衍生的，用来部署项目也不是不可，但要用桌面系统来部署项目，就得精简一下了。
+关闭应用安装验证sed -" />
+    <meta name="keywords" content="linux" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">麒麟系统瘦身</h2>
+            <div class="post-date">
+              2022-05-25&emsp;&emsp;683 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近期在完成项目部署的过程中，遇到了一台特殊设备。该设备在安装<strong>Ubuntu Server</strong>系统后，无法驱动网卡；经过一番分析，发现是<strong>Linux内核</strong>没有集成相关驱动。</p>
+<p>不过由于麒麟系统是由<strong>Ubuntu</strong>衍生的，用来部署项目也不是不可，但要用桌面系统来部署项目，就得精简一下了。</p>
+<h2 id="关闭应用安装验证"><a href="#关闭应用安装验证" class="headerlink" title="关闭应用安装验证"></a>关闭应用安装验证</h2><pre><code class="language-bash">sed -i &#39;s/allow-kylinsign/#allow-kylinsign/g&#39; /etc/dpkg/dpkg.cfg
+sed -i &#39;s/verify-kylinsign/#verify-kylinsign/g&#39; /etc/dpkg/dpkg.cfg
+</code></pre>
+<h2 id="禁用KYSEC"><a href="#禁用KYSEC" class="headerlink" title="禁用KYSEC"></a>禁用KYSEC</h2><p>KYSEC是麒麟系统的安全防护模块，会在启动程序时进行拦截，一定程度上会降低系统性能，禁用之。</p>
+<p>修改文件<code>/etc/default/grub</code>，将<code>GRUB_CMDLINE_LINUX_DEFAULT</code>中的<code>security=kysec</code>修改为<code>security=</code>即可。</p>
+<blockquote>
+<p>命令方式</p>
+</blockquote>
+<pre><code class="language-bash">sed -i &#39;s/security=kysec/security= /g&#39; /etc/default/grub
+</code></pre>
+<ul>
+<li>执行以下命令以更新引导</li>
+</ul>
+<pre><code class="language-bash"># 标记为手动安装，否则后续自动卸载依赖会导致出错apt install archdetect-deb
+setstatus disable
+update-grub
+</code></pre>
+<ul>
+<li>在完成后续操作后，重启即可</li>
+</ul>
+<h2 id="卸载常驻服务"><a href="#卸载常驻服务" class="headerlink" title="卸载常驻服务"></a>卸载常驻服务</h2><pre><code class="language-bash">apt purge -y samba xrdp cups-daemon xl2tpd
+</code></pre>
+<h2 id="卸载桌面环境"><a href="#卸载桌面环境" class="headerlink" title="卸载桌面环境"></a>卸载桌面环境</h2><ul>
+<li>可选操作：卸载麒麟全家桶（除apt所依赖的kylin-keyring）</li>
+</ul>
+<pre><code class="language-bash">apt purge -y kylin-activation kylin-background-upgrade kylin-burner kylin-ca-certificates kylin-calculator kylin-camera kylin-display-switch kylin-fonts kylin-installer kylin-ipmsg kylin-kmre-daemon kylin-kmre-display-control kylin-kmre-image-data kylin-kmre-manager kylin-kmre-window kylin-log-viewer kylin-music kylin-nm kylin-photo-viewer kylin-printer kylin-recorder kylin-scanner kylin-screenshot kylin-service-support kylin-signtool kylin-software-center kylin-software-properties kylin-sso-client kylin-update-desktop-config kylin-update-desktop-security-database kylin-update-manager kylin-usb-creator kylin-user-guide-common kylin-user-guide kylin-verify-gui kylin-verify kylin-video kylin-xinput-calibrator
+</code></pre>
+<ul>
+<li>卸载国产特色软件（需要手动清扫<code>/opt</code>）</li>
+</ul>
+<pre><code class="language-bash">apt purge -y browser360-cn-stable wps-office sc-reader sogouimebs aurora.a3-mfp browser360-cn-stable certaide-kylin hplip
+</code></pre>
+<ul>
+<li>卸载桌面管理器</li>
+</ul>
+<pre><code class="language-bash">apt-get purge -y lightdm ukui*apt autoremove -y
+</code></pre>
+<ul>
+<li>配置SystemD</li>
+</ul>
+<pre><code class="language-bash">systemctl set-default multi-user.target
+systemctl isolate multi-user.target
+</code></pre>
+<h2 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h2><pre><code class="language-bash">sed -i &#39;s/allow-kylinsign/#allow-kylinsign/g&#39; /etc/dpkg/dpkg.cfg
+sed -i &#39;s/verify-kylinsign/#verify-kylinsign/g&#39; /etc/dpkg/dpkg.cfg
+setstatus disable
+sed -i &#39;s/security=kysec/security= /g&#39; /etc/default/grub
+apt install -y archdetect-deb
+update-grubapt purge -y samba xrdp cups-daemon xl2tpd
+apt purge -y kylin-activation kylin-background-upgrade kylin-burner kylin-ca-certificates kylin-calculator kylin-camera kylin-display-switch kylin-fonts kylin-installer kylin-ipmsg kylin-kmre-daemon kylin-kmre-display-control kylin-kmre-image-data kylin-kmre-manager kylin-kmre-window kylin-log-viewer kylin-music kylin-nm kylin-photo-viewer kylin-printer kylin-recorder kylin-scanner kylin-screenshot kylin-service-support kylin-signtool kylin-software-center kylin-software-properties kylin-sso-client kylin-update-desktop-config kylin-update-desktop-security-database kylin-update-manager kylin-usb-creator kylin-user-guide-common kylin-user-guide kylin-verify-gui kylin-verify kylin-video kylin-xinput-calibrator
+apt purge -y browser360-cn-stable wps-office sc-reader sogouimebs aurora.a3-mfp browser360-cn-stable certaide-kylin hplip
+apt-get purge -y lightdm ukui*apt autoremove -ysystemctl set-default multi-user.target
+systemctl isolate multi-user.target
+reboot
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/linux/" class="tag">
+                    linux
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2022/03/26/chroot-apt-systemd-detection-fix/">
+                  <h3 class="post-title">
+                    修复Chroot环境下APT包管理对systemd环境识别问题
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B3%E9%97%AD%E5%BA%94%E7%94%A8%E5%AE%89%E8%A3%85%E9%AA%8C%E8%AF%81"><span class="toc-text">关闭应用安装验证</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A6%81%E7%94%A8KYSEC"><span class="toc-text">禁用KYSEC</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E5%B8%B8%E9%A9%BB%E6%9C%8D%E5%8A%A1"><span class="toc-text">卸载常驻服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%B8%E8%BD%BD%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83"><span class="toc-text">卸载桌面环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E6%80%BB"><span class="toc-text">汇总</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

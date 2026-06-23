@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>python | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: python</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/05/18/gunicorn-gevent-fork-process-crash/">
+                  <h2 class="post-title">Gunicorn+GeventWorker环境下fork进程意外结束的问题</h2>
+                </a>
+                <div class="post-date">
+                  2021-05-18
+                </div>
+                <div class="post-abstract">
+                  前言在使用Gunicorn+GeventWorker托管Flask应用，使用os.fork时出现了以下问题。
+Parent changed, shutting down : &lt;Worker xxxx&gt;
+
+
+本文摘录自本人毕业设计论文。
+
+问题分析通过os.fork创建进程，实际上是将当前进程的内存数据复制了一份给子进程，当子进程发现其不是由Gunicorn主进程所创建时，Gunicor...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/22/install-pycrypto-on-windows/">
+                  <h2 class="post-title">在Windows平台安装PyCrypto</h2>
+                </a>
+                <div class="post-date">
+                  2020-07-22
+                </div>
+                <div class="post-abstract">
+                  前言在使用PyInstaller加密打包程序时，遇到了打包程序无法启动的问题。
+查阅资料后发现是因PyCrypto未能正确安装。
+首先尝试了安装替代品PyCryptoDome，后来发现并不可行。
+然后编译安装PyCrypto时又出现了无法安装的问题，再以此记录。
+正文遇到以下错误：
+  ...省略部分无关内容...
+    C:\Program Files (x86)\Microsoft Visu...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/14/python-compile-install-centos/">
+                  <h2 class="post-title">Python在CentOS下的编译安装过程</h2>
+                </a>
+                <div class="post-date">
+                  2020-07-14
+                </div>
+                <div class="post-abstract">
+                  前言最近在编写CentOS环境下的自动部署脚本，开发环境使用Python3.7+在CentOS环境下需要自行安装。
+在安装的过程中，把以前没记录下来的坑又踩了一遍，故以此记录。
+下载源码点击打开Python官方源码下载页。
+编译安装
+安装编译环境
+
+yum -y install gcc make
+
+
+安装依赖
+
+yum -y install zlib-devel
+# 以下可选，根据需要安装，不安装...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/23/unoconv-csv-chinese-garbled-fix/">
+                  <h2 class="post-title">unoconv转换Csv中文乱码问题</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-23
+                </div>
+                <div class="post-abstract">
+                  前言最近在使用PHPSpreadsheet导出大量数据到Xlsx时，频繁出现各种问题；如内存溢出、数据丢失等。
+后来更换导出格式为Csv，问题减少了，但是在Office中使用极其不友好；如不支持单元格格式、在不同系统中使用的编码不同可能会出现乱码的情况。
+于是就有了这么一个折中的方案，PHP导出时使用Csv格式，导出完成后，使用unoconv将文件转换为Xlsx格式。
+然而使用unoconv转换为...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/01/04/ufw-block-overseas-traffic/">
+                  <h2 class="post-title">使用 ufw 抵御海外流量攻击</h2>
+                </a>
+                <div class="post-date">
+                  2020-01-04
+                </div>
+                <div class="post-abstract">
+                  前言近日，检查阿里云服务器账单时，发现莫名其妙少了10块钱；仔细一看，费用都是由服务器流量产生的。
+但在这段时间里，我几乎没怎么使用服务器进行大流量操作，相必是被 Hack 了。
+抱着这样的想法，我开始检查服务器环境…
+检查网络由于费用都是由服务器流量产生的，第一步自然是检查网络。
+使用 nethogs 检查后发现，流量来自多个海外 IP，而且 IP 一直在改变；一直都在连接 RDP 协议的端口；...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/19/pyqt5-qwidget-initialization/">
+                  <h2 class="post-title">PyQt5 QWidget初始化问题</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-19
+                </div>
+                <div class="post-abstract">
+                  前言在初始化QWidget时出现了以下问题。
+Traceback (most recent call last):
+  File &quot;form/__init__.py&quot;, line 62, in __init__
+    self.setupUi(self)
+  File &quot;view/form.py&quot;, line 31, in setupUi
+    QtCo...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/01/python-closure-discussion/">
+                  <h2 class="post-title">Python闭包问题的探讨</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-01
+                </div>
+                <div class="post-abstract">
+                  前言今日在更新程序的时候遇到了个问题。
+如何生成多语言的菜单，创建并绑定相应的回调函数？
+生成菜单自然是很简单的，一个for循环就好了，但是生成相应函数就？？？
+正文在解决以下事件的过程中，又思考得出了别的内容。
+续：前言事件情况如下，现有语言列表及两个业务方法。
+# 现有两种语言，不排除以后会扩展#（即便只有两种语言也不写hardcode，便于日后扩展）languages = [&#39;en&...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-blueprint-nesting/">
+                  <h2 class="post-title">Flask 蓝图嵌套</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言Flask是一个轻量级的python web框架，与django相比，flask抛开了繁琐的配置项等等。
+Flask与Django一样，支持模块化开发，使用BluePrint（蓝图）实现。
+但是，这个蓝图并不支持嵌套。。
+正文当然，我能想到的问题早就有人想到，并解决了。
+详情见issue.
+解决方案class NestableBlueprint(Blueprint):
+    &quot;&q...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-selectfield-not-valid-choice-fix/">
+                  <h2 class="post-title">Flask SelectField (Not a vaild choice) 错误解决</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言最近折腾起来Flask，在使用WTForm的时候遇到了一点小问题。
+当提交表单时，SelectField项提示错误Not a vaild choice.
+正文此时表单代码为：
+class QuestionAddForm(FlaskForm):
+    type = SelectField(&#39;类型&#39;, choices=list(
+        {
+            1: ...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/03/18/python-url-query-parameter-parsing/">
+                  <h2 class="post-title">Python解析url请求参数</h2>
+                </a>
+                <div class="post-date">
+                  2019-03-18
+                </div>
+                <div class="post-abstract">
+                  前言在制作爬虫模拟登陆时发现表单数据如下。
+userName=xxx&amp;userPwd=xxx
+
+结构相当简单，想要转换成dict，分割两下就好了，但是仔细想想，这么常见的需求，一定会有相应的模块。
+寻找了一番，果然是有的。
+方法详细操作自行查看文档。
+from urllib.parse import parse_qs
+print(parse_qs(&#39;userName=xxx&amp...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/tags/python/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

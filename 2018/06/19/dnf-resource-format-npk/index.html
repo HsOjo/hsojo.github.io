@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Dnf资源文件格式-NPK篇 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在数个月之前，完成了OjoDnfExtractor的开发，该软件用于提取Dnf的资源包文件。
+在做Dnf这些资源包文件的解析过程中，我明白了文件结构该如何设计。（也尝试了去设计文件结构）
+经过多番观察、推测，成功解析了NPK以及IMG-Ver1、2、4、5、6的文件结构（支持读写）。
+正文npk" />
+    <meta name="keywords" content="python" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Dnf资源文件格式-NPK篇</h2>
+            <div class="post-date">
+              2018-06-19&emsp;&emsp;506 字 &emsp;阅读时间 2 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在数个月之前，完成了<strong>OjoDnfExtractor</strong>的开发，该软件用于提取Dnf的资源包文件。</p>
+<p>在做Dnf这些资源包文件的解析过程中，我明白了文件结构该如何设计。（也尝试了去设计文件结构）</p>
+<p>经过多番观察、推测，成功解析了<strong>NPK以及IMG-Ver1、2、4、5、6</strong>的文件结构（支持读写）。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>npk文件是dnf用于模拟文件目录结构所使用的，结构相对简单。</p>
+<p>为了直观的展示其结构，直接插图。</p>
+<img src="/2018/06/19/dnf-resource-format-npk/post-imagesDnfFileFormatWX20180619-193105.png" class="">
+
+<p>NPK头部结构图</p>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Name</th>
+<th>Type</th>
+<th>Remark</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>红色</td>
+<td>magic</td>
+<td>char[16]</td>
+<td>文件标识</td>
+</tr>
+<tr>
+<td>橙色</td>
+<td>count</td>
+<td>int</td>
+<td>文件数量</td>
+</tr>
+<tr>
+<td>黄色</td>
+<td>offset</td>
+<td>int</td>
+<td>文件偏移</td>
+</tr>
+<tr>
+<td>绿色</td>
+<td>size</td>
+<td>int</td>
+<td>文件尺寸</td>
+</tr>
+<tr>
+<td>青色</td>
+<td>name</td>
+<td>char[256]</td>
+<td>文件名，加密过</td>
+</tr>
+<tr>
+<td>蓝色</td>
+<td>hash</td>
+<td>byte[32]</td>
+<td>文件头哈希值（sha256）</td>
+</tr>
+</tbody></table>
+<pre><code class="language-python"># magic值FILE_MAGIC = &#39;NeoplePack_Bill&#39;# 文件名加解密密钥C_DECORD_FLAG = bytes(&#39;puchikon@neople dungeon and fighter %s\x00&#39; % (&#39;DNF&#39; * 73), encoding=&#39;ascii&#39;)
+</code></pre>
+<p>由此可见，npk首先是由头部的magic进行验证是否为npk文件。</p>
+<ul>
+<li>然后通过count取得文件数量，循环加载offset、size、name这些信息（三位一体）。<ul>
+<li>文件名加解密：使用密钥对文件名数据每一位进行<strong>位异或</strong>运算。（euc-kr编码）</li>
+</ul>
+</li>
+<li>加载完成后，通过hash可以对文件头部进行验证（毕竟都是关键信息）。<ul>
+<li><p>hash计算：取文件头数据左边，长度为整除17位再乘17位的部分，进行<strong>sha256</strong>运算。</p>
+<pre><code class="language-python">hashlib.sha256(head_data[:len(head_data) // 17 * 17]).digest()
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<p>一般读取完成头部信息+hash值之后，当前位置就是文件数据了（file[0][‘offset’]），如前面的图所示，后面就是IMG文件的magic了。</p>
+<p>当得到这些信息之后，即可通过offset以及size读取对应img&#x2F;ogg文件了。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>有以上的信息，要实现npk的读写，已经是轻而易举了。</p>
+<p>原来是打算一次写完的，不过当我写完NPK篇就已经花了不少时间，所以有空再更新IMG篇。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/python/" class="tag">
+                    python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/06/15/python-file-time-manipulation/">
+                  <h3 class="post-title">
+                    Python操作文件时间
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>使用 ufw 抵御海外流量攻击 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言近日，检查阿里云服务器账单时，发现莫名其妙少了10块钱；仔细一看，费用都是由服务器流量产生的。
+但在这段时间里，我几乎没怎么使用服务器进行大流量操作，相必是被 Hack 了。
+抱着这样的想法，我开始检查服务器环境…
+检查网络由于费用都是由服务器流量产生的，第一步自然是检查网络。
+使用 netho" />
+    <meta name="keywords" content="python,ubuntu" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">使用 ufw 抵御海外流量攻击</h2>
+            <div class="post-date">
+              2020-01-04&emsp;&emsp;738 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>近日，检查阿里云服务器账单时，发现莫名其妙少了10块钱；仔细一看，费用都是由服务器流量产生的。</p>
+<p>但在这段时间里，我几乎没怎么使用服务器进行大流量操作，相必是被 <strong>Hack</strong> 了。</p>
+<p>抱着这样的想法，我开始检查服务器环境…</p>
+<h2 id="检查网络"><a href="#检查网络" class="headerlink" title="检查网络"></a>检查网络</h2><p>由于费用都是由服务器流量产生的，第一步自然是检查网络。</p>
+<p>使用 <strong>nethogs</strong> 检查后发现，流量来自多个海外 IP，而且 IP 一直在改变；一直都在连接 <strong>RDP</strong> 协议的端口；同时还有一个固定不变的 IP ，随机连接服务器上的任意端口。</p>
+<p>此时，可推测对方使用了代理 IP 池，尝试对远程桌面服务进行爆破；以及使用一台 IP 不变的设备对服务器进行全端口扫描。</p>
+<h2 id="排查问题"><a href="#排查问题" class="headerlink" title="排查问题"></a>排查问题</h2><p>本人平时也算是比较注重安全管理，基本上不会存在配置不当而导致被钻空子的情况。</p>
+<p>不过由于服务器上也没有什么重要的东西，以防万一，便对服务器硬盘进行重置了。</p>
+<p>重置之后，再使用 <strong>nethogs</strong> 检查流量，发现即使服务全部删除了，始终还是有IP在尝试连接 <strong>RDP</strong> 协议的端口。</p>
+<p>此时，可以排除服务器被挂马、Hack或是中毒的情况；同时确定对方只是在尝试爆破。</p>
+<h2 id="应对思路"><a href="#应对思路" class="headerlink" title="应对思路"></a>应对思路</h2><p>要解决这种网络问题，只能上防火墙了。</p>
+<ul>
+<li>大致思路：只要把所有攻击 IP 都添加到防火墙规则里拒绝掉，那么就无法产生新的流量攻击。</li>
+</ul>
+<p>由于使用的是阿里云的服务器，对于固定 IP 的流量，可以使用<strong>安全组</strong> Ban 掉。（彻底的）</p>
+<p>而 IP 不固定，使用 IP 池进行操作的流量就没那么好处理了；因为安全组需要人工操作，不可能逐个IP进行屏蔽。（应该可调用阿里云 API，但复杂，不考虑）</p>
+<p>虽然没办法使用安全组来屏蔽这些恶意 IP，但是 <strong>Ubuntu</strong> 系统下有 <strong>ufw</strong> 这个防火墙，使用简单，与程序交互也方便。</p>
+<ul>
+<li>那么，只要写一个程序，从 <strong>nethogs</strong> 获取到可疑的IP，然后调用 <strong>ufw</strong> 添加拒绝该 IP 所有连接的规则，运行一段时间之后便无法产生新的攻击。<ul>
+<li>由于是私人服务器，只在国内使用；那么使用 <strong>GeoIP</strong> 对所连接的 IP 进行检测，除了 Country 为 <strong>CN</strong> 外的所有 IP 都 Ban 掉即可。</li>
+</ul>
+</li>
+</ul>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2><p>代码使用Python3实现，请到<a target="_blank" rel="noopener" href="https://github.com/HsOjo/ServerQAScripts/blob/master/ubuntu/hogs_ban.py">GitHub</a>查看。</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p><del>攻击的 IP，是真的多；跑了一天，添加了 1400+ 条规则。</del></p>
+<p>再后来（01.22）听说，<strong>深 圳 网 安</strong>在那段时间里似乎有对阿里云的服务器在扫描。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/python/" class="tag">
+                    python
+                  </a>
+                
+                  <a href="/tags/ubuntu/" class="tag">
+                    ubuntu
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2020/01/01/2019-annual-summary/">
+                  <h3 class="post-title">
+                    2019 年度总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%BD%91%E7%BB%9C"><span class="toc-text">检查网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%92%E6%9F%A5%E9%97%AE%E9%A2%98"><span class="toc-text">排查问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E5%AF%B9%E6%80%9D%E8%B7%AF"><span class="toc-text">应对思路</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AF%9D"><span class="toc-text">后话</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

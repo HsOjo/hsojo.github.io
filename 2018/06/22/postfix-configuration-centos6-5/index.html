@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Postfix配置（CentOS6.5） | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言现有需求要使用postfix服务配置一台邮箱服务器。（测试环境）
+要求：
+
+用户邮箱限额。
+用户发件大小限额。
+支持sasl验证。
+支持收件。（使用dovecot）
+
+配置过程首先配置软件安装源，这是必不可少的。
+配置发件服务器在CentOS6.5的环境下，默认已经安装上了postfix服务，所" />
+    <meta name="keywords" content="centos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Postfix配置（CentOS6.5）</h2>
+            <div class="post-date">
+              2018-06-22&emsp;&emsp;1182 字 &emsp;阅读时间 4 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>现有需求要使用postfix服务配置一台邮箱服务器。（测试环境）</p>
+<p>要求：</p>
+<ul>
+<li>用户邮箱限额。</li>
+<li>用户发件大小限额。</li>
+<li>支持sasl验证。</li>
+<li>支持收件。（使用dovecot）</li>
+</ul>
+<h2 id="配置过程"><a href="#配置过程" class="headerlink" title="配置过程"></a>配置过程</h2><p>首先配置软件安装源，这是必不可少的。</p>
+<h2 id="配置发件服务器"><a href="#配置发件服务器" class="headerlink" title="配置发件服务器"></a>配置发件服务器</h2><p>在CentOS6.5的环境下，默认已经安装上了postfix服务，所以就不进行安装了。</p>
+<h3 id="配置postfix"><a href="#配置postfix" class="headerlink" title="配置postfix"></a>配置postfix</h3><ul>
+<li>由于postfix仅需要配置 <strong>&#x2F;etc&#x2F;postfix&#x2F;main.cf</strong>，所以相对其他服务较为简单。</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/postfix/main.cf
+
+# 设置域名
+     78 # The mydomain parameter specifies the local internet domain name.
+     79 # The default is to use $myhostname minus the first component.
+     80 # $mydomain is used as a default value for many other configuration
+     81 # parameters.
+     82 #
+     83 mydomain = test.com
+
+# 设置发件后缀
+     93 #
+     94 # For the sake of consistency between sender and recipient addresses,
+     95 # myorigin also specifies the default domain name that is appended
+     96 # to recipient addresses that have no @domain part.
+     97 #
+     98 #myorigin = $myhostname
+     99 myorigin = $mydomain
+
+# 监听所有端口
+    110 #
+    111 # Note: you need to stop/start Postfix when this parameter changes.
+    112 #
+    113 inet_interfaces = all
+    114 #inet_interfaces = $myhostname
+    115 #inet_interfaces = $myhostname, localhost
+    116 #inet_interfaces = localhost    （注意屏蔽该行，作用：只监听回环端口）
+
+# 设置允许发件的域名
+    161 #
+    162 # See also below, section &quot;REJECTING MAIL FOR UNKNOWN LOCAL USERS&quot;.
+    163 #
+    164 mydestination = $mydomain
+
+# 设置监听的端口
+    260 # You can also specify the absolute pathname of a pattern file instead
+    261 # of listing the patterns here. Specify type:table for table-based lookups
+    262 # (the value on the table right-hand side is not used).
+    263 #
+    264 mynetworks = 0.0.0.0/0
+
+# 设置发件存储位置
+    412 #
+    413 # The home_mailbox parameter specifies the optional pathname of a
+    414 # mailbox file relative to a user&#39;s home directory. The default
+    415 # mailbox file is /var/spool/mail/user or /var/mail/user.  Specify
+    416 # &quot;Maildir/&quot; for qmail-style delivery (the / is required).
+    417 #
+    418 #home_mailbox = Mailbox
+    419 home_mailbox = Maildir/
+
+# 邮箱（20MB）以及邮件（5MB）大小限制
+    678 message_size_limit = 5242880
+    679 mailbox_size_limit = 20971520
+
+# 配置sasl验证
+    680 smtpd_sasl_enable = yes
+</code></pre>
+<ul>
+<li>sasl验证还要对<strong>saslauthd</strong>服务进行配置，默认情况下，sasl是不支持pam模式认证的。</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/sysconfig/saslauthd
+
+      5 # Mechanism to use when checking passwords.  Run &quot;saslauthd -v&quot; to get a list
+      6 # of which mechanism your installation was compiled with the ablity to use.
+      7 MECH=shadow
+
+# 配置完之后开启服务，并设置开机启动
+[root@centos-linux ~]# chkconfig saslauthd on
+[root@centos-linux ~]# service saslauthd start
+正在启动 saslauthd：                                       [确定]
+[root@centos-linux ~]# service saslauthd status
+saslauthd (pid  1636) 正在运行...
+</code></pre>
+<h2 id="配置收件服务器"><a href="#配置收件服务器" class="headerlink" title="配置收件服务器"></a>配置收件服务器</h2><p>由于CentOS6.5的镜像软件源提供了dovecot，所以安装dovecot服务即可实现收件功能。</p>
+<h3 id="安装dovecot"><a href="#安装dovecot" class="headerlink" title="安装dovecot"></a>安装dovecot</h3><pre><code>[root@centos-linux ~]# yum -y install dovecot
+
+...忽略无用内容...
+
+Installed:
+  dovecot.x86_64 1:2.0.9-7.el6
+
+Complete!
+</code></pre>
+<h3 id="配置dovecot"><a href="#配置dovecot" class="headerlink" title="配置dovecot"></a>配置dovecot</h3><ul>
+<li>开启对收件协议的支持（去掉注释符）</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/dovecot/dovecot.conf
+
+     19 # Protocols we want to be serving.
+     20 protocols = imap pop3 lmtp
+</code></pre>
+<ul>
+<li>关闭ssl协议（测试环境就不管安全性啦）</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/dovecot/conf.d/10-ssl.conf
+
+      1 ##
+      2 ## SSL settings
+      3 ##
+      4
+      5 # SSL/TLS support: yes, no, required. &lt;doc/wiki/SSL.txt&gt;
+      6 ssl = no
+</code></pre>
+<ul>
+<li>开启明文验证</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/dovecot/conf.d/10-auth.conf
+
+      1 ##
+      2 ## Authentication processes
+      3 ##
+      4
+      5 # Disable LOGIN command and all other plaintext authentications unless
+      6 # SSL/TLS is used (LOGINDISABLED capability). Note that if the remote IP
+      7 # matches the local IP (ie. you&#39;re connecting from the same computer), the
+      8 # connection is considered secure and plaintext authentication is allowed.
+      9 disable_plaintext_auth = no
+</code></pre>
+<ul>
+<li>设置邮箱存放位置<ul>
+<li>由于24行的样本位置即是postfix的默认发件位置，所以解除该行屏蔽即可。</li>
+</ul>
+</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/dovecot/conf.d/10-mail.conf
+
+     21 #
+     22 # See doc/wiki/Variables.txt for full list. Some examples:
+     23 #
+     24 mail_location = maildir:~/Maildir
+     25 #   mail_location = mbox:~/mail:INBOX=/var/mail/%u
+     26 #   mail_location = mbox:/var/mail/%d/%1n/%n:INDEX=/var/indexes/%d/%1n/%n
+     27 #
+     28 # &lt;doc/wiki/MailLocation.txt&gt;
+     29 #
+     30 #mail_location =
+     31
+</code></pre>
+<p>好了，做完以上操作后，基本上收件服务器的配置就完成了。</p>
+<p>然后配置下开机启动，以及开启服务。</p>
+<pre><code>[root@centos-linux ~]# chkconfig dovecot on
+[root@centos-linux ~]# service dovecot start
+正在启动 Dovecot Imap：                                    [确定]
+[root@centos-linux ~]# service dovecot status
+dovecot (pid  1556) 正在运行...
+[root@centos-linux ~]#
+</code></pre>
+<h2 id="配置测试环境"><a href="#配置测试环境" class="headerlink" title="配置测试环境"></a>配置测试环境</h2><ul>
+<li>首先当然是添加用户了。</li>
+</ul>
+<pre><code>[root@centos-linux ~]# useradd mail1
+[root@centos-linux ~]# echo 321|passwd --stdin mail1
+更改用户 mail1 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+[root@centos-linux ~]# useradd mail2
+[root@centos-linux ~]# echo 321|passwd --stdin mail2
+更改用户 mail2 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+</code></pre>
+<ul>
+<li>由于是测试环境，也没有进行dns服务器的配置，所以使用hosts模拟域名解析。</li>
+</ul>
+<pre><code>[root@centos-linux ~]# vi /etc/hosts
+
+      1 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+      2 ::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+      3 10.211.55.4     test.com
+</code></pre>
+<p>正常情况下，到这一步已经全部配置好了，已经可以进行发件测试了。（注意关闭防火墙）</p>
+<ul>
+<li>如图，发送成功，想必看到这套参数的人，都明白我做的是什么了，終わり。</li>
+</ul>
+<img src="/2018/06/22/postfix-configuration-centos6-5/post-imagesPostfixMailConfigWX20180621-174653.png" class="">
+
+<p>发送成功截图</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/centos/" class="tag">
+                    centos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/06/20/vim-adventures/">
+                  <h3 class="post-title">
+                    Vim Adventures
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E8%BF%87%E7%A8%8B"><span class="toc-text">配置过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%8F%91%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">配置发件服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEpostfix"><span class="toc-text">配置postfix</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%94%B6%E4%BB%B6%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">配置收件服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85dovecot"><span class="toc-text">安装dovecot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEdovecot"><span class="toc-text">配置dovecot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%B5%8B%E8%AF%95%E7%8E%AF%E5%A2%83"><span class="toc-text">配置测试环境</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

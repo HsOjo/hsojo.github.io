@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Python闭包问题的探讨 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言今日在更新程序的时候遇到了个问题。
+如何生成多语言的菜单，创建并绑定相应的回调函数？
+生成菜单自然是很简单的，一个for循环就好了，但是生成相应函数就？？？
+正文在解决以下事件的过程中，又思考得出了别的内容。
+续：前言事件情况如下，现有语言列表及两个业务方法。
+# 现有两种语言，不排除以后会扩展" />
+    <meta name="keywords" content="python" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Python闭包问题的探讨</h2>
+            <div class="post-date">
+              2019-08-01&emsp;&emsp;1567 字 &emsp;阅读时间 6 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>今日在更新程序的时候遇到了个问题。</p>
+<p>如何生成多语言的菜单，创建并绑定相应的回调函数？</p>
+<p>生成菜单自然是很简单的，一个for循环就好了，但是生成相应函数就？？？</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>在解决以下事件的过程中，又思考得出了别的内容。</p>
+<h3 id="续：前言事件"><a href="#续：前言事件" class="headerlink" title="续：前言事件"></a>续：前言事件</h3><p>情况如下，现有语言列表及两个业务方法。</p>
+<pre><code class="language-python"># 现有两种语言，不排除以后会扩展#（即便只有两种语言也不写hardcode，便于日后扩展）languages = [&#39;en&#39;, &#39;cn&#39;]
+def set_language(lang):
+    # TODO: 这里是设置语言的业务代码    passdef add_menu(name, callback):
+    # TODO: 这里是添加菜单的业务代码    pass
+</code></pre>
+<ul>
+<li>最初的想法如下（方法一）：</li>
+</ul>
+<pre><code class="language-python">for lang in languages:
+    # 菜单回调函数包含一个参数，该参数用于获取触发的菜单。（但是没有用到这个参数，所以添加 _ 占位）    add_menu(lang, callback=lambda _: set_language(lang))
+</code></pre>
+<p>但是菜单无论如何点击，都会设置成 <strong>‘cn’</strong>。（失败）</p>
+<p>这是因为，创建回调函数（lambda表达式）时，以<strong>引用</strong>的方式将 <strong>lang</strong> 变量传入了函数；而 <strong>lang</strong> 变量是随着<strong>for循环</strong>改变的，而<strong>for循环</strong>最后一个<strong>值</strong>为 <strong>‘cn’</strong>。（见languages list）</p>
+<ul>
+<li>略加改进之后（方法二）：</li>
+</ul>
+<pre><code class="language-python">for lang in languages:
+        add_menu(lang, callback=lambda _: (lambda x: set_language(x))(lang))
+</code></pre>
+<p>本以为，将操作再作为函数封装起来，然后再将 <strong>lang</strong> 变量传入参数 <strong>x</strong>（参数变量是临时的）即可解决问题（规避引用）。但是，结果与前面相同。（失败）</p>
+<ul>
+<li>正解操作：</li>
+</ul>
+<pre><code class="language-python">for lang in languages:
+        add_menu(lang, callback=(lambda x: lambda _: set_language(x))(lang))
+</code></pre>
+<p>来看看这个方法与前面两种方法的区别：</p>
+<p>简单来说，方法一与方法二是一致的，想法都是创建一个带占位符（菜单参数）的回调函数，然后在回调函数里设置语言（for循环中的 lang 变量）。</p>
+<p>而正解方法三的想法，则是<strong>创建</strong>一个<strong>生成回调函数</strong>的函数，然后将 <strong>lang</strong> 变量注入<strong>生成函数</strong>，最终返回设置各个语言的回调函数。（感觉有点反过来了）</p>
+<p>由于定义了生成函数的函数，所以此处可对其进行复用。（减少创建次数）</p>
+<pre><code class="language-python">g_set_lang = lambda x: lambda _: set_language(x)
+for lang in languages:
+        add_menu(lang, callback=g_set_lang(lang))
+</code></pre>
+<p>至此，问题解决。</p>
+<h3 id="什么是闭包"><a href="#什么是闭包" class="headerlink" title="什么是闭包"></a>什么是闭包</h3><p>在前面的事件中，思考<strong>方法二</strong>的代码要如何修改时，请教了友人 Musoucrow，其提到了<strong>闭包</strong>这一知识点。（似乎前面根据参数生成函数这种操作就是闭包？？？）</p>
+<p>经过一番查阅资料发现：闭包是由函数及其相关引用环境组合而成的实体；闭包就是指有权访问另一个函数作用域中的变量的函数。（？？？）</p>
+<p>来看下面一个例子：</p>
+<p>这是一个简单的求和函数。</p>
+<pre><code class="language-python">def sum(l: list):
+    s = 0    for i in l:
+        s += i
+    return s
+print(sum([1, 2, 3, 4, 5]))  # &gt;&gt;&gt; 15
+</code></pre>
+<p>假如有以下要求：求和函数非立即运算，而是在后面再调用进行运算。</p>
+<p>那么就需要将函数拆分成两部分：一是将被求和的变量初始化（生成环境），二是计算的过程。</p>
+<p>如下代码所示：</p>
+<pre><code class="language-python">def sum(l: list):
+    def core():
+            s = 0            for i in l:
+                    s += i
+            return s
+    return core
+f = sum([1, 2, 3, 4, 5])
+g = sum([1, 2, 3])
+print(f())  # &gt;&gt;&gt; 15print(g())  # &gt;&gt;&gt; 6
+</code></pre>
+<p>此时，调用 <strong>sum</strong> 函数生成的函数 <strong>f</strong> 和 <strong>g</strong> 都引用了被求和的 list - 变量 <strong>l</strong>，且变量 <strong>l</strong> 在两个函数间相互独立。</p>
+<p>也就是在生成函数时，同时创建了一套变量的环境。（可以理解成方法中的静态变量）</p>
+<p>据我所理解，闭包就是一个可以根据参数生成的，独立环境（一个或多个静态变量）与函数的集合体。</p>
+<h3 id="修改“静态变量”"><a href="#修改“静态变量”" class="headerlink" title="修改“静态变量”"></a>修改“静态变量”</h3><p>这里是一个加法函数的生成函数，逻辑上看并没有什么问题。</p>
+<pre><code class="language-python">def plus(init):
+    s = init
+    def core(x):
+        s += x
+        return s
+    return core
+f = plus(10)
+print(f(1))
+</code></pre>
+<p>当运行时会提示：</p>
+<pre><code>Traceback (most recent call last):
+  File &quot;&lt;input&gt;&quot;, line 1, in &lt;module&gt;
+  File &quot;&lt;input&gt;&quot;, line 4, in core
+UnboundLocalError: local variable &#39;s&#39; referenced before assignment
+</code></pre>
+<p>这时，如果要修改“静态变量”（外函数的变量），需要使用 <strong>nonlocal</strong> 关键字。</p>
+<pre><code class="language-python">def plus(init):
+    s = init
+    def core(x):
+        nonlocal s
+        s += x
+        return s
+    return core
+f = plus(10)
+print(f(1))  # &gt;&gt;&gt; 11print(f(2))  # &gt;&gt;&gt; 13print(f(3))  # &gt;&gt;&gt; 16g = plus(0)
+print(g(1))  # &gt;&gt;&gt; 1print(g(2))  # &gt;&gt;&gt; 3print(g(3))  # &gt;&gt;&gt; 6print(f(0), g(0))  # &gt;&gt;&gt; 16 6
+</code></pre>
+<p>由此可见，函数 <strong>f</strong> 与函数 <strong>g</strong> 之间，各拥有着一套独立的环境。</p>
+<h3 id="闭包与装饰器"><a href="#闭包与装饰器" class="headerlink" title="闭包与装饰器"></a>闭包与装饰器</h3><p>在查阅资料的过程中，见到一种说法：闭包用于实现装饰器。</p>
+<p>猛然想起，python里面的语法糖，装饰器！</p>
+<h3 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h3><p>以下是一个业务函数，为了检测其运行时间，通常会这么做：</p>
+<pre><code class="language-python">from time import time
+def xxx():
+    # TODO: 这里是业务代码    passt = time()
+xxx()
+print(&#39;time usage: %f&#39; % (time() - t))
+</code></pre>
+<p>装饰器，可用于对已有的函数进行包装，将某函数（如xxx）传入装饰器函数内，生成新的函数，并覆盖原函数。</p>
+<p>具体看代码。</p>
+<pre><code class="language-python">from time import time
+def time_count(func):
+    def core(*args, **kwargs):
+        t = time()
+        result = func(*args, **kwargs)
+        print(&#39;%s time usage: %f&#39; % (func.__name__, time() - t))
+        return result
+    return core
+@time_countdef xxx():
+    # TODO: 这里是业务代码    passxxx()
+</code></pre>
+<p>常见的装饰器有如 <strong>@property</strong>、<strong>@staticmethod</strong> 等，其本质应该还是闭包（创建函数及其独立环境）。</p>
+<h3 id="带参装饰器"><a href="#带参装饰器" class="headerlink" title="带参装饰器"></a>带参装饰器</h3><p>函数是可以具备参数的，所以装饰器也是同样道理可以带参。</p>
+<pre><code class="language-python">from time import time
+def time_count(to_int=False):
+    def time_count_core(func):
+        def core(*args, **kwargs):
+            t = time()
+            result = func(*args, **kwargs)
+            if to_int:
+                print(&#39;%s time usage: %d&#39; % (func.__name__, int(time() - t)))
+            else:
+                print(&#39;%s time usage: %f&#39; % (func.__name__, time() - t))
+            return result
+        return core
+    return time_count_core
+# 此处须加上括号调用带参装饰器。@time_count()
+def xxx():
+    # TODO: 这里是业务代码    pass@time_count(True)
+def yyy():
+    # TODO: 这里是业务代码    passxxx()
+yyy()
+</code></pre>
+<p>带参装饰器，只需要在原有装饰器函数再进行一次套皮即可。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/python/" class="tag">
+                    python
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2019/07/30/web-development-basics-course/">
+                  <h3 class="post-title">
+                    Web开发基础课程
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%AD%EF%BC%9A%E5%89%8D%E8%A8%80%E4%BA%8B%E4%BB%B6"><span class="toc-text">续：前言事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%97%AD%E5%8C%85"><span class="toc-text">什么是闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E2%80%9C%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E2%80%9D"><span class="toc-text">修改“静态变量”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85%E4%B8%8E%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">闭包与装饰器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="toc-text">计时器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%A6%E5%8F%82%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="toc-text">带参装饰器</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

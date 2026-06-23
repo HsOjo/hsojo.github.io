@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>使用&#34;hexo+github pages&#34;免费整个博客 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在很久以前，就有整个博客的打算。不过在各种原因之下都放弃了，比如搭建个博客需要个服务器，域名什么的。
+曾经还利用家里闲置的pc，利用花生壳内网端口映射做了个blog，最后由于花生壳的映射不稳定，以及对pc的电池损耗太大放弃了。（主要是没钱买服务器）
+后来，朋友Musoucrow利用github " />
+    <meta name="keywords" content="github,hexo" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">使用&#34;hexo+github pages&#34;免费整个博客</h2>
+            <div class="post-date">
+              2017-10-18&emsp;&emsp;728 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在很久以前，就有整个博客的打算。不过在各种原因之下都放弃了，比如搭建个博客需要个服务器，域名什么的。</p>
+<p>曾经还利用家里闲置的pc，利用花生壳内网端口映射做了个blog，最后由于花生壳的映射不稳定，以及对pc的电池损耗太大放弃了。（主要是没钱买服务器）</p>
+<p>后来，朋友Musoucrow利用github pages+hexo搭了个blog,我才发现，原来github有着免费托管静态网站的服务，我觉得这也是个好的方法，由于有着各种各样的事情，这个blog到现在才开始make。</p>
+<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><p>系统：macOS Sierra</p>
+<p>软件：brew,npm,node,git,hexo</p>
+<pre><code># 安装brew
+/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+# 安装npm,node,git
+brew install npm
+brew install node
+brew install git
+# 安装hexo
+npm install hexo-cli -g
+</code></pre>
+<p>执行以上代码即可完成环境的搭建。</p>
+<h3 id="建立仓库"><a href="#建立仓库" class="headerlink" title="建立仓库"></a>建立仓库</h3><h3 id="注册github"><a href="#注册github" class="headerlink" title="注册github"></a>注册github</h3><p>如果你已经有github账号就可以跳过此步。<br><a target="_blank" rel="noopener" href="https://github.com/join?source=header-home">点击注册</a></p>
+<h3 id="建立-github-io仓库"><a href="#建立-github-io仓库" class="headerlink" title="建立*.github.io仓库"></a>建立*.github.io仓库</h3><p>格式如图所示，我这个已经建立了，所以提示已存在。</p>
+<img src="/2017/10/18/free-blog-with-hexo-github-pages/post-imagesHexoBlogWX20171018-120220.png" class="">
+
+<p>建立仓库</p>
+<h2 id="初始化Hexo"><a href="#初始化Hexo" class="headerlink" title="初始化Hexo"></a>初始化Hexo</h2><p>随便找个位置创建个目录（需要空目录）</p>
+<p>然后在终端切换到这个目录，执行以下命令。</p>
+<pre><code>hexo init
+</code></pre>
+<p>这时，hexo已经完成初始化了。</p>
+<h2 id="配置Hexo"><a href="#配置Hexo" class="headerlink" title="配置Hexo"></a>配置Hexo</h2><p>配置文件为”_config.yml”</p>
+<h3 id="基本设置"><a href="#基本设置" class="headerlink" title="基本设置"></a>基本设置</h3><blockquote>
+<p>language设置项要结合主题来设置</p>
+</blockquote>
+<pre><code class="language-yaml"># Hexo Configuration# Docs: https://hexo.io/docs/configuration.html# Source: https://github.com/hexojs/hexo/# Sitetitle: HsOjo Blogsubtitle:description:author: 弱窝(Hs)language: defaulttimezone:# URL# If your site is put in a subdirectory, set url as &#39;http://yoursite.com/child&#39; and root as &#39;/child/&#39;url: https://hsojo.github.ioroot: /
+</code></pre>
+<h3 id="主题设置"><a href="#主题设置" class="headerlink" title="主题设置"></a>主题设置</h3><p><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/24422335">网上</a>找个主题放入”themes”目录即可，默认为”landscape”。</p>
+<pre><code class="language-yaml"># Extensions# Plugins: https://hexo.io/plugins/# Themes: https://hexo.io/themes/theme: hexo-theme-yilia
+</code></pre>
+<h3 id="部署设置"><a href="#部署设置" class="headerlink" title="部署设置"></a>部署设置</h3><p>在终端运行：</p>
+<pre><code>npm install hexo-deployer-git --save
+</code></pre>
+<p>然后在配置文件添加以下内容（适当修改）：</p>
+<pre><code class="language-yaml"># Deployment# Docs: https://hexo.io/docs/deployment.htmldeploy:  type: git  repository: https://github.com/HsOjo/hsojo.github.io  branch: master
+</code></pre>
+<h3 id="发表文章"><a href="#发表文章" class="headerlink" title="发表文章"></a>发表文章</h3><p>打开终端，切换到之前之前初始化hexo的目录。</p>
+<p>然后执行以下命令。</p>
+<pre><code>hexo new post 文章标题
+</code></pre>
+<p>hexo会基于”scaffolds&#x2F;post.md”为模版建立一个空md文件。</p>
+<h3 id="生成内容"><a href="#生成内容" class="headerlink" title="生成内容"></a>生成内容</h3><p>执行以下命令，将自动生成静态网站内容：</p>
+<pre><code>hexo generate
+</code></pre>
+<p>执行之前亦可先清除之前的内容：</p>
+<pre><code>hexo clean
+</code></pre>
+<h3 id="部署测试"><a href="#部署测试" class="headerlink" title="部署测试"></a>部署测试</h3><p>生成完成之后，可以执行如下命令进行本地测试：</p>
+<p>执行后将监听本机的”4000”端口，用浏览器<a target="_blank" rel="noopener" href="http://localhost:4000/">访问</a>即可。</p>
+<pre><code>hexo server
+</code></pre>
+<p>前面的部署设置完成后，可通过如下命令进行同步到github pages：</p>
+<pre><code>hexo deploy
+</code></pre>
+<h3 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h3><pre><code>&#123; [Error: Cannot find module &#39;./build/xxx/DTraceProviderBindings&#39;] code: &#39;MODULE_NOT_FOUND&#39; &#125;
+</code></pre>
+<p>如发生以上错误，重新安装即可：</p>
+<pre><code>npm uninstall hexo-cli -g
+npm install hexo-cli -g
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/github/" class="tag">
+                    github
+                  </a>
+                
+                  <a href="/tags/hexo/" class="tag">
+                    hexo
+                  </a>
+                
+              </div>
+            
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%90%AD%E5%BB%BA%E7%8E%AF%E5%A2%83"><span class="toc-text">搭建环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B%E4%BB%93%E5%BA%93"><span class="toc-text">建立仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B3%A8%E5%86%8Cgithub"><span class="toc-text">注册github</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BB%BA%E7%AB%8B-github-io%E4%BB%93%E5%BA%93"><span class="toc-text">建立*.github.io仓库</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96Hexo"><span class="toc-text">初始化Hexo</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEHexo"><span class="toc-text">配置Hexo</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE"><span class="toc-text">基本设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BB%E9%A2%98%E8%AE%BE%E7%BD%AE"><span class="toc-text">主题设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E8%AE%BE%E7%BD%AE"><span class="toc-text">部署设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E8%A1%A8%E6%96%87%E7%AB%A0"><span class="toc-text">发表文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%86%85%E5%AE%B9"><span class="toc-text">生成内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%8B%E8%AF%95"><span class="toc-text">部署测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3"><span class="toc-text">错误解决</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

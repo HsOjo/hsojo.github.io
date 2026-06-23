@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>重启Usb蓝牙设备（PD虚拟机模拟插拔） | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言小米pro的Hackintosh方案挺香的，用了也有8个月了，还是挺稳定的。
+但是其中有两个很操蛋的问题：
+
+内置蓝牙无法使用
+无法驱动内置Wi-Fi
+
+由于不想硬改，作出一些不可逆操作，所以以上问题均采用USB方案解决。
+
+Wi-Fi解决方案也比较完美了，使用Comfast的CF-811AC可" />
+    <meta name="keywords" content="macos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">重启Usb蓝牙设备（PD虚拟机模拟插拔）</h2>
+            <div class="post-date">
+              2019-08-05&emsp;&emsp;745 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>小米pro的<a target="_blank" rel="noopener" href="https://github.com/daliansky/XiaoMi-Pro-Hackintosh">Hackintosh方案</a>挺香的，用了也有8个月了，还是挺稳定的。</p>
+<p>但是其中有两个很操蛋的问题：</p>
+<ul>
+<li>内置蓝牙无法使用</li>
+<li>无法驱动内置Wi-Fi</li>
+</ul>
+<p>由于不想硬改，作出一些不可逆操作，所以以上问题均采用USB方案解决。</p>
+<ul>
+<li>Wi-Fi解决方案也比较完美了，使用Comfast的<strong>CF-811AC</strong>可支持5G网络，搭配<a target="_blank" rel="noopener" href="https://github.com/chris1111/Wireless-USB-Adapter">GitHub上的驱动</a>使用，效果极佳。</li>
+<li>蓝牙，当时随便在淘宝买了个比较mini的USB蓝牙（加搜黑苹果关键字），倒是能用，但<strong>睡眠唤醒（设备断电）<strong>之后（手动关闭亦是如此），会导致无法使用，但如果</strong>重新插拔</strong>就又能正常使用了。（可能是驱动问题）</li>
+</ul>
+<p>所以为了让蓝牙正常的工作，而又不希望每次都进行物理插拔（一点都不geek），就诞生了现在的想法：</p>
+<ul>
+<li>使用虚拟机模拟插拔！</li>
+</ul>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先是会导致蓝牙翻车的情况有：</p>
+<ul>
+<li>长时间的睡眠唤醒</li>
+<li>手动关闭蓝牙（无法再打开）</li>
+</ul>
+<p>睡眠唤醒的话，直接模拟插拔就OK。</p>
+<p>而手动关闭蓝牙，会在重新插上的时候，系统会根据之前关闭的状态再一次把蓝牙设备关闭（关闭就翻车了），形成了死循环。</p>
+<p>所以这时需要在系统里，将蓝牙开关打开；</p>
+<p>可以使用blueutil（终端下的蓝牙工具）进行打开操作。<del>（拒绝手动操作）</del></p>
+<p>模拟插拔使用PD虚拟机，其SDK极其完善。（在.app&#x2F;Contents&#x2F;MacOS内的命令行工具）</p>
+<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><p>shell脚本的语法十分诡异，查了好久才能写出个判断、循环语句。（？？？）</p>
+<ul>
+<li>将以上所有内容结合，最后得出以下结果：</li>
+</ul>
+<pre><code class="language-bash">#!/bin/bash# 设置变量program=&quot;/Applications/Parallels Desktop.app/Contents/MacOS/prlctl&quot;vm=&quot;Windows 10&quot;device=&quot;CSR8510 A10&quot;vm_app=&quot;$HOME/Parallels/$vm.pvm/$vm.app&quot;# 重置蓝牙开关（后台运行以缩短时间）{    /usr/local/bin/blueutil -p 0 2&gt; /dev/null
+    /usr/local/bin/blueutil -p 1 2&gt; /dev/null
+} &amp;# 等待PD启动start=false
+while true; do    status_content=$(&quot;$program&quot; status &quot;$vm&quot; 2&gt;&amp;1)    if [[ &quot;$status_content&quot; =~ &quot;Unable to connect to Parallels Service&quot; ]]; then        if [ !$start ]; then            start=true
+            open &quot;$vm_app&quot;        fi        echo &quot;Waiting PD Service Start...&quot;        sleep 0.5
+    elif [[ &quot;$status_content&quot; =~ &quot;$vm&quot; ]]; then        break    fidone# 获取VM状态echo $status_contentstatus=$(echo &quot;$status_content&quot;|awk &#39;{print $NF}&#39;)[ &quot;$status&quot; == &quot;suspended&quot; -o &quot;$status&quot; == &quot;stopped&quot; -o &quot;$status&quot; == &quot;paused&quot; ]need_resume=$?# 开启VMif [ $need_resume -eq 0 ]; then    &quot;$program&quot; resume &quot;$vm&quot; 2&gt; /dev/null
+fiwhile true; do    status_content=$(&quot;$program&quot; status &quot;$vm&quot; 2&gt;&amp;1)    if [[ &quot;$status_content&quot; =~ &quot;resuming&quot; ]]; then        echo &quot;Waiting VM Resuming...&quot;        sleep 0.5
+    elif [[ &quot;$status_content&quot; =~ &quot;running&quot; ]]; then        break    fidone# 模拟USB插拔&quot;$program&quot; set &quot;$vm&quot; --device-connect &quot;$device&quot;&quot;$program&quot; set &quot;$vm&quot; --device-disconnect &quot;$device&quot;# 根据操作前状态决定是否暂停VMif [ $need_resume -eq 0 ]; then    &quot;$program&quot; pause &quot;$vm&quot;fi
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/macos/" class="tag">
+                    macos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2019/08/01/python-closure-discussion/">
+                  <h3 class="post-title">
+                    Python闭包问题的探讨
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

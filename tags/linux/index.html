@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>linux | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: linux</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/11/17/kvm-virtualization-in-container-permissions/">
+                  <h2 class="post-title">记容器内运行 KVM 虚拟化的权限问题</h2>
+                </a>
+                <div class="post-date">
+                  2023-11-17
+                </div>
+                <div class="post-abstract">
+                  前言一直以来有个想法，想要将大象（OpenStack）塞进冰箱（Docker），像 OpenStack 这样的庞然大物，每次部署都会浪费至少大半个小时。
+当然，这个想法在一年前就被本人验证可行了，但是仍存在一些不完善的地方……
+特权模式的KVM虚拟化特权模式，即使用--privileged选项创建容器，在这种场景下，会将宿主机中的设备目录（&#x2F;dev），毫无保留的暴露到容器中，并且允许使用...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/07/13/dind-io-performance-analysis/">
+                  <h2 class="post-title">DinD 场景下IO性能问题分析</h2>
+                </a>
+                <div class="post-date">
+                  2023-07-13
+                </div>
+                <div class="post-abstract">
+                  前言Docker in Docker（DinD）是一种在容器内运行 Docker 的解决方案，但在未为 DinD 容器使用 Volume 时，内部容器的 Copy-on-Write（写时复制）存储驱动会严重影响性能。
+分析当试图在容器内使用 Docker，且不使用 Volume 为内部 Docker 提供存储时，内部 Docker 将无法使用 OverlayFS 作为 Storage Driver...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/04/06/ssh-slow-authentication/">
+                  <h2 class="post-title">SSH 验证缓慢问题</h2>
+                </a>
+                <div class="post-date">
+                  2023-04-06
+                </div>
+                <div class="post-abstract">
+                  前言最近在维护服务器时发现 SSH 连接异常缓慢，排除了网络问题后，便陷入了沉思。
+由于系统安装了很长一段时间，不可控因素太多，一时之间不知道从何查起。
+分析检查了最可疑的UseDNS设置项，确定为No，那么还会有什么因素会导致验证缓慢呢？
+由于是验证过程缓慢，所以也排除profile以及rc的可能性。
+经过一番调研，发现是GSSAPIAuthentication设置项导致的。
+它是什么？为什么会...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/01/05/ssh-rsa-key-login-failure/">
+                  <h2 class="post-title">SSH RSA公钥登录失效</h2>
+                </a>
+                <div class="post-date">
+                  2023-01-05
+                </div>
+                <div class="post-abstract">
+                  前言SSH免密登录早已是开发过程中的基本操作，最近在连接一台CentOS的服务器时遇到了无法使用公钥登录的情况。
+Ojos-MacBook-Pro:~ hsojo$ ssh root@192.168.*.*
+root@192.168.*.*&#39;s password:
+
+公钥早已在服务端添加信任，但连接时反复提示输入密码。
+排查对比两台机器连接的日志，尝试找出原因。
+
+登录失败机器的日志
+
+d...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/11/18/rosetta-ubuntu-x86-dev-environment/">
+                  <h2 class="post-title">使用 Rosetta 建立 Ubuntu x86 开发环境</h2>
+                </a>
+                <div class="post-date">
+                  2022-11-18
+                </div>
+                <div class="post-abstract">
+                  前言尽管换了 M1 设备也有一年多了，但平时仍然依赖于 x86 平台进行开发，为此不得不单独部署一套 x86 的开发环境在 intel PC 上。
+随着 macOS 更新到了 Ventura (13.0.1)，以及 UTM 4.0 的更新，现已可以在 Linux 环境下启用 Rosetta 对 x86（含amd64） 应用进行加速。
+使用 Rosetta 加速后，在构建项目的速度上甚至几年前的 i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/mysql-max-connections-issue/">
+                  <h2 class="post-title">MySQL 最大连接数问题</h2>
+                </a>
+                <div class="post-date">
+                  2022-09-04
+                </div>
+                <div class="post-abstract">
+                  前言有些问题，在开发过程中不会遇到；但当要在生产环境中进行部署的时候便会暴露出来。
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1040, &#39;Too many connections&#39;)
+
+为什么会引发这个问题？因为生产环境的 CPU 核心数太多了。
+业务进程的数量一般为 CPU 数量的倍数，而数...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/centos-network-bonding/">
+                  <h2 class="post-title">CentOS 网卡聚合</h2>
+                </a>
+                <div class="post-date">
+                  2022-09-04
+                </div>
+                <div class="post-abstract">
+                  前言最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。
+不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？
+抱着这样的想法，展开了本次调研。
+桥接（Bridge）桥接可以简单理解成，使多张网卡处于同一VLAN；在网段相同的情况下，接入同一VLAN的设备可以相互通信。
+操作流程
+建立文件...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/05/25/kylin-os-cleanup/">
+                  <h2 class="post-title">麒麟系统瘦身</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-25
+                </div>
+                <div class="post-abstract">
+                  前言近期在完成项目部署的过程中，遇到了一台特殊设备。该设备在安装Ubuntu Server系统后，无法驱动网卡；经过一番分析，发现是Linux内核没有集成相关驱动。
+不过由于麒麟系统是由Ubuntu衍生的，用来部署项目也不是不可，但要用桌面系统来部署项目，就得精简一下了。
+关闭应用安装验证sed -i &#39;s/allow-kylinsign/#allow-kylinsign/g&#39; /...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/03/26/chroot-apt-systemd-detection-fix/">
+                  <h2 class="post-title">修复Chroot环境下APT包管理对systemd环境识别问题</h2>
+                </a>
+                <div class="post-date">
+                  2022-03-26
+                </div>
+                <div class="post-abstract">
+                  前言近期在折腾Chroot环境下的设备时，发现软件包无法更新，得到以下错误：
+(Reading database ... 77272 files and directories currently installed.)
+Preparing to unpack .../mariadb-server-10.3_1%3a10.3.34-0ubuntu0.20.04.1_arm64.deb ...
+Ru...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/chroot-linux-subsystem/">
+                  <h2 class="post-title">通过chroot实现Linux子系统</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言在一些精简的Linux发行版里，很多时候会有无法运行需要某些依赖的程序的情况。
+然而，会搭载这种精简系统的设备，一般无法重新安装系统；例如：路由器、手机等其他嵌入式设备。
+而且受限于系统内核（缺少cgroup的一些高级特性等），也无法安装docker。
+同时，在不同的Linux发行版下，使用的C语言标准库也不尽相同；如：glibc、musl等。
+即使CPU支持程序所使用的指令集，使用glibc...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/tags/linux/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

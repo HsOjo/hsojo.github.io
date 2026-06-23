@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>CentOS 网卡聚合 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。
+不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？
+抱着这样的想法，展开了本次调研。
+桥接（Bridge）桥接可以简单理解成，使多" />
+    <meta name="keywords" content="linux,centos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">CentOS 网卡聚合</h2>
+            <div class="post-date">
+              2022-09-04&emsp;&emsp;885 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。</p>
+<p>不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？</p>
+<p>抱着这样的想法，展开了本次调研。</p>
+<h2 id="桥接（Bridge）"><a href="#桥接（Bridge）" class="headerlink" title="桥接（Bridge）"></a>桥接（Bridge）</h2><p>桥接可以简单理解成，使多张网卡处于同一VLAN；在网段相同的情况下，接入同一VLAN的设备可以相互通信。</p>
+<h3 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h3><ul>
+<li>建立文件<code>/etc/sysconfig/network-scripts/ifcfg-virbr0</code>，并设定对应IP。</li>
+</ul>
+<pre><code>DEVICE=&quot;virbr0&quot;BOOTPROTO=&quot;static&quot;IPADDR=&quot;192.168.100.201&quot;NETMASK=&quot;255.255.255.0&quot;ONBOOT=&quot;yes&quot;TYPE=&quot;Bridge&quot;NM_CONTROLLED=&quot;no&quot;
+</code></pre>
+<ul>
+<li>修改需要桥接的网卡配置文件<code>ifcfg-xxx</code>，例如这里是修改<code>ifcfg-em2</code>。</li>
+</ul>
+<pre><code>TYPE=EthernetPROXY_METHOD=noneBROWSER_ONLY=noDEFROUTE=yesIPV4_FAILURE_FATAL=noIPV6INIT=yesIPV6_AUTOCONF=yesIPV6_DEFROUTE=yesIPV6_FAILURE_FATAL=noIPV6_ADDR_GEN_MODE=stable-privacyNAME=em2UUID=8ef001df-9b86-418f-bb26-cae983a39a93DEVICE=em2ONBOOT=yes# 添加/修改以下内容BOOTPROTO=noneBRIDGE=virbr0NM_CONTROLLED=no
+</code></pre>
+<ul>
+<li>修改其它需要桥接的网卡配置文件，并添加同样的配置内容，最后重启网络即可。</li>
+</ul>
+<pre><code class="language-bash">systemctl restart network
+</code></pre>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>桥接可以使一台设备模拟成一台交换机，但如果尝试将同一台设备用多根网线接入到这台交换机，便会出现类似环路的情况，导致网络无法正常通信。</p>
+<p>桥接方案并不能解决大带宽需求的问题，但是将服务器作为交换机使用也算一个比较实用的解决方案。（比如，需要在多台万兆设备间进行通信，又不想添置万兆交换机的情况下，可以节约一笔开支</p>
+<h2 id="汇聚（Bond）"><a href="#汇聚（Bond）" class="headerlink" title="汇聚（Bond）"></a>汇聚（Bond）</h2><p>在尝试了桥接无法达到预期的效果后，继续调研发现了网卡汇聚的方法。</p>
+<h3 id="操作流程-1"><a href="#操作流程-1" class="headerlink" title="操作流程"></a>操作流程</h3><ul>
+<li>建立文件<code>/etc/sysconfig/network-scripts/ifcfg-bond0</code>，并设定对应IP。</li>
+</ul>
+<pre><code>DEVICE=bond0NAME=bond0BOOTPROTO=noneONBOOT=yesTYPE=BondBONDING_MASTER=yesBONDING_OPTS=&quot;mode=0 miimon=100&quot;IPADDR=192.168.100.201PREFIX=24GATEWAY=192.168.100.100
+</code></pre>
+<ul>
+<li>修改需要桥接的网卡配置文件<code>ifcfg-xxx</code>，例如这里是修改<code>ifcfg-em2</code>。</li>
+</ul>
+<pre><code>TYPE=EthernetPROXY_METHOD=noneBROWSER_ONLY=noDEFROUTE=yesIPV4_FAILURE_FATAL=noIPV6INIT=yesIPV6_AUTOCONF=yesIPV6_DEFROUTE=yesIPV6_FAILURE_FATAL=noIPV6_ADDR_GEN_MODE=stable-privacyNAME=em2UUID=8ef001df-9b86-418f-bb26-cae983a39a93DEVICE=em2ONBOOT=yes# 添加/修改以下内容BOOTPROTO=noneUSERCTL=noMASTER=bond0SLAVE=yes
+</code></pre>
+<ul>
+<li>修改其它需要桥接的网卡配置文件，并添加同样的配置内容，最后重启网络即可。</li>
+</ul>
+<pre><code class="language-bash">systemctl restart network
+</code></pre>
+<h3 id="结论-1"><a href="#结论-1" class="headerlink" title="结论"></a>结论</h3><p>汇聚可以同时利用多张网卡进行通讯，在数据传输时会不断进行轮换（<strong>mode&#x3D;0</strong>）；但当其中一条链路断开时，吞吐量会严重下降，甚至达不到单张网卡的满载速率。</p>
+<p>与桥接不同，汇聚只能接入单台设备，并需要两端设备完成同样的配置，否则无法正常通信。</p>
+<p>完成配置后，两台设备间突破了千兆的传输速率，但是并没有得到带宽翻倍的效果，或许是存在CPU瓶颈？（没时间深挖背后的原因了，有空再调研一下</p>
+<p>无论是聚合两张网卡，还是三张网卡，数据传输时最终都仅得到 170+MB&#x2F;s（比千兆多一点），即使协商速率是 2000Mb&#x2F;s，实际应用达不到满载速率的话，其实意义不大。</p>
+<h2 id="最终结论"><a href="#最终结论" class="headerlink" title="最终结论"></a>最终结论</h2><ul>
+<li>采用汇聚两张千兆网卡突破千兆速率，便是在不添置硬件前提下的最优解。</li>
+</ul>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/linux/" class="tag">
+                    linux
+                  </a>
+                
+                  <a href="/tags/centos/" class="tag">
+                    centos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2022/05/25/kylin-os-cleanup/">
+                  <h3 class="post-title">
+                    麒麟系统瘦身
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A1%A5%E6%8E%A5%EF%BC%88Bridge%EF%BC%89"><span class="toc-text">桥接（Bridge）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">操作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E8%81%9A%EF%BC%88Bond%EF%BC%89"><span class="toc-text">汇聚（Bond）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B-1"><span class="toc-text">操作流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="toc-text">结论</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E7%BB%88%E7%BB%93%E8%AE%BA"><span class="toc-text">最终结论</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

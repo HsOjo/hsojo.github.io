@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>运维技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 运维技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/17/vnc-xfce-fcitx-input-method/">
+                  <h2 class="post-title">Vnc+Xfce环境下使用Fcitx输入法</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-17
+                </div>
+                <div class="post-abstract">
+                  前言在Ubuntu下实现远程控制，一般的解决方案为安装xfce桌面环境及vncserver。（自带的vino必须要登录后才能连接，不方便在服务器环境使用）
+一般linux比较好用的输入法如sogou，其基于fcitx输入法环境。
+但xfce环境并不包含fcitx输入法环境的配置及运行，也就是通过vnc连接时xfce桌面无法使用fcitx输入法。
+正文通常我们使用vnc+xfce时，vnc的启动脚本...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/16/kvm-usb-redirection-fix/">
+                  <h2 class="post-title">Kvm USB重定向问题解决</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-16
+                </div>
+                <div class="post-abstract">
+                  前言最近在使用Ubuntu下的Kvm虚拟机时，无法通过spice将USB设备传入虚拟机。
+其中出现以下提示：
+spice-client-error-quark: Could not redirect USB Device [046d:081b] at 3-2: Error setting USB device node ACL: &#39;Not authorized&#39; (0)
+
+正文解决...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/12/22/wsl-fix-0x800700b7/">
+                  <h2 class="post-title">Wsl解决0x800700b7问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-12-22
+                </div>
+                <div class="post-abstract">
+                  前言今天将win10的server重启之后，wsl无法正常运行，提示：
+Installing, this may take a few minutes...
+WslRegisterDistribution failed with error: 0x800700b7
+The distribution installation has become corrupted.
+Please select R...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/09/03/win10-screen-brightness-issue/">
+                  <h2 class="post-title">关于Win10无法调整屏幕亮度的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-09-03
+                </div>
+                <div class="post-abstract">
+                  前言在win10从1511更新到1803之后，出现了显卡驱动正常，但无法修改屏幕亮度的情况。
+搜索了一些修复教程，但却无一成功。
+总结了一下教程的关键点–驱动、监视器。
+随便操作了下，成功修复，记录下。
+过程
+打开“设备管理器”，展开“监视器”项。
+更新驱动-选择“通用即插即用监视器”。
+更新驱动-选择原来的驱动。
+
+后话也许跟teamviewer有关，不过无所谓了，能用就行。
+
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/12/nis-auth-environment-centos/">
+                  <h2 class="post-title">Nis用户验证环境搭建（CentOS）</h2>
+                </a>
+                <div class="post-date">
+                  2018-07-12
+                </div>
+                <div class="post-abstract">
+                  前言在linux环境下，若要实现一个用户在多台主机上登录，需要怎么操作呢。
+使用ldap？不，这过于复杂了，要实现轻量的用户验证环境，只需要配置nis+nfs即可。
+nis服务可以集中式管理账户（用户、组、hosts、等等。。），配置过程相对简单。
+环境
+Server
+ip: 172.16.70.129
+安装软件: ypserv（nis服务）, nfs-utils（nfs服务）
+
+
+Client
+...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/22/postfix-configuration-centos6-5/">
+                  <h2 class="post-title">Postfix配置（CentOS6.5）</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-22
+                </div>
+                <div class="post-abstract">
+                  前言现有需求要使用postfix服务配置一台邮箱服务器。（测试环境）
+要求：
+
+用户邮箱限额。
+用户发件大小限额。
+支持sasl验证。
+支持收件。（使用dovecot）
+
+配置过程首先配置软件安装源，这是必不可少的。
+配置发件服务器在CentOS6.5的环境下，默认已经安装上了postfix服务，所以就不进行安装了。
+配置postfix
+由于postfix仅需要配置 &#x2F;etc&#x2F;...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/05/29/linux-adjust-screen-brightness/">
+                  <h2 class="post-title">Linux调整屏幕亮度</h2>
+                </a>
+                <div class="post-date">
+                  2018-05-29
+                </div>
+                <div class="post-abstract">
+                  前言由于给平板安装了Ubuntu Server系统，在字符界面模式下，亮度一直保持在最高值。
+怕是开久了，会把屏幕给烧了，于是乎了解了一下调整亮度的方法。
+操作方法需要开机调节的话，可以写入&#x2F;etc&#x2F;rc.local。
+# 查看亮度最大值。
+cat /sys/class/backlight/intel_backlight/max_brightness
+# 设置屏幕亮度为最低，0...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/05/28/apt-enable-i386-repository/">
+                  <h2 class="post-title">Apt开启i386软件源</h2>
+                </a>
+                <div class="post-date">
+                  2018-05-28
+                </div>
+                <div class="post-abstract">
+                  前言在Ubuntu 64位环境下想要安装32位软件，软件包名称正确，但是却找不到对应包。
+经过一番研究发现，是因为没有打开32位软件源。
+解决方法执行以下命令即可。
+dpkg --add-architecture i386
+apt update
+
+
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/05/27/ubuntu-sensor-screen-rotation/">
+                  <h2 class="post-title">关于Ubuntu下传感器导致屏幕反转的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-05-27
+                </div>
+                <div class="post-abstract">
+                  前言今天给一台平板电脑安装了ubuntu系统，旋转了一番屏幕，发现屏幕在各个方向都按逆时针旋转了90度。
+经过一番搜索，发现可以通过修改ACCEL_MOUNT_MATRIX来实现屏幕的翻转。
+虽然最后依旧没能解决问题，但是估计关键点就在这了。
+参考文档点击查看
+点击查看
+具体操作获取型号执行命令查看传感器设备信息，得到设备型号。
+# /dev/iio\:deviceXX，XX要按实际情况修改。
+u...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/28/windows-common-commands/">
+                  <h2 class="post-title">Windows常用命令</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-28
+                </div>
+                <div class="post-abstract">
+                  前言本文专门用于介绍一些windows常用的命令，不定期更新。
+简单命令这些命令较为简单，一般不需要参数。
+域（Active Directory）相关命令
+dcpromo
+配置域控制器（win2012以前的server系统）
+
+
+gpmc.msc
+组策略管理器
+
+
+adsiedit.msc
+账户属性管理器
+
+
+gpupdate
+更新计算机策略
+
+
+sysdm.msc
+计算机名&#x2F;域管理页
+...
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/page/3/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

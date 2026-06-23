@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/01/mac-xdebug-configuration/">
+                  <h2 class="post-title">Mac环境下配置XDebug</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-06-01
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                        <a href="/tags/macos/" class="tag">
+                          macos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近日接了个CURD项目，在实现docx转pdf时出了点小问题，需要使用XDebug进行调试。
+在一般情况下，只要使用包管理工具安装“php-ext-xdebug”之类的包即可。
+然而Mac下的包管理，使用Homebrew搜索“php”，却没有相关结果。
+经过一番搜索，发现pecl可安装“xdebug”。
+配置环境变量在使用pecl前，需要先配置环境变量。（在使用brew安装php时有相关提示，...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/03/22/asus-vc60-junkyard-adventure/">
+                  <h2 class="post-title">华硕VC60踩坑记 - 垃圾佬的冒险经历</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-03-22
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，家里的一台笔记本寿终正寝了，应是主板等部件损坏了。
+由于这台机器的主板曾经续过一次命（换过）；那么这个主板想必是个坑大的家伙，就放弃了再换主板的想法。（修好了也容易再坏）
+但是很多外设都还能正常使用，有如CPU（i3-2310m）、内存（DDR3 8G）、硬盘（固态128G）、网卡（intel 7620）；折合下来也值个几百块吧，为了不浪费这些闲置资源，我在某宝寻找了可匹配这些硬件的...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/01/04/ufw-block-overseas-traffic/">
+                  <h2 class="post-title">使用 ufw 抵御海外流量攻击</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-01-04
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/ubuntu/" class="tag">
+                          ubuntu
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近日，检查阿里云服务器账单时，发现莫名其妙少了10块钱；仔细一看，费用都是由服务器流量产生的。
+但在这段时间里，我几乎没怎么使用服务器进行大流量操作，相必是被 Hack 了。
+抱着这样的想法，我开始检查服务器环境…
+检查网络由于费用都是由服务器流量产生的，第一步自然是检查网络。
+使用 nethogs 检查后发现，流量来自多个海外 IP，而且 IP 一直在改变；一直都在连接 RDP 协议的端口；...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/01/01/2019-annual-summary/">
+                  <h2 class="post-title">2019 年度总结</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-01-01
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言又一年过去了，总结一下今年的经历，迎接新的一年。
+学业大一已经过去了，大二也过去了一半，咸鱼的时间过得可真快。
+之前一直在纠结的插本问题进入了半放弃状态，走投无路只能继续投入各项比赛。
+今年（主要集中在上半年）拿到的奖项有：
+
+2019年 蓝桥杯 Java软件开发 广东赛区 二等奖（3月）
+2019年 团体程序设计天梯赛 广东省 团队二等奖（4月）
+2019年 广东省高职技能大赛 人工智能技术...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/12/04/centos7-network-rename/">
+                  <h2 class="post-title">CentOS7 网卡更名</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-12-04
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近日，在尝试将 CentOS 系统从虚拟机迁移安装到物理机时，发现网卡名称发生了变化。（eno1 -&gt; enp0s1）
+但系统中所运行的服务应用与网卡名称有所关联（OVSPort），迁移之后出现了故障。
+此时，则需要为网卡进行更名操作。
+操作过程
+修改引导参数
+
+vi /etc/default/grub
+# 在 GRUB_CMDLINE_LINUX 行加上 net.ifnames=0 b...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/10/24/android-app-fullscreen-adaptation-game/">
+                  <h2 class="post-title">安卓应用全屏适配（游戏）</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-10-24
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/android/" class="tag">
+                          android
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在前些日子中，DFQ默认的全屏方案在各种花里胡哨的安卓手机屏幕（如水滴屏、额头屏等全面屏）中出现大黑边。
+在游戏应用中，如果两边有黑边，自然是玩起来不舒服的；所以只能寻找解决方案进行适配。
+经过一番搜寻、实践，发现问题意外的简单。
+解决方案只需要在AndroidManifest.xml中对应的Application 标签中，添加以下内容即可：
+&lt;meta-data    android:...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/19/pyqt5-qwidget-initialization/">
+                  <h2 class="post-title">PyQt5 QWidget初始化问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-08-19
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/qt/" class="tag">
+                          qt
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在初始化QWidget时出现了以下问题。
+Traceback (most recent call last):
+  File &quot;form/__init__.py&quot;, line 62, in __init__
+    self.setupUi(self)
+  File &quot;view/form.py&quot;, line 31, in setupUi
+    QtCo...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/05/restart-usb-bluetooth-device-pd-vm/">
+                  <h2 class="post-title">重启Usb蓝牙设备（PD虚拟机模拟插拔）</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-08-05
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/macos/" class="tag">
+                          macos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言小米pro的Hackintosh方案挺香的，用了也有8个月了，还是挺稳定的。
+但是其中有两个很操蛋的问题：
+
+内置蓝牙无法使用
+无法驱动内置Wi-Fi
+
+由于不想硬改，作出一些不可逆操作，所以以上问题均采用USB方案解决。
+
+Wi-Fi解决方案也比较完美了，使用Comfast的CF-811AC可支持5G网络，搭配GitHub上的驱动使用，效果极佳。
+蓝牙，当时随便在淘宝买了个比较mini的US...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/01/python-closure-discussion/">
+                  <h2 class="post-title">Python闭包问题的探讨</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-08-01
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言今日在更新程序的时候遇到了个问题。
+如何生成多语言的菜单，创建并绑定相应的回调函数？
+生成菜单自然是很简单的，一个for循环就好了，但是生成相应函数就？？？
+正文在解决以下事件的过程中，又思考得出了别的内容。
+续：前言事件情况如下，现有语言列表及两个业务方法。
+# 现有两种语言，不排除以后会扩展#（即便只有两种语言也不写hardcode，便于日后扩展）languages = [&#39;en&...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/07/30/web-development-basics-course/">
+                  <h2 class="post-title">Web开发基础课程</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2019-07-30
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                        <a href="/tags/web/" class="tag">
+                          web
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间为完成学校任务，设计了一套Web开发课程。
+课程涉及前后端的基础应用，最终目标为开发一款简易的博客程序。
+博客程序包含最基本的功能（用户、发布文章、文章分类、文章留言、友情链接）。
+课程安排学习周期：2周（原定1周，翻车了）
+课程内容如下所示，都是些最基本的知识点。
+
+
+Web课程安排
+软件环境
+系统：Windows 7
+PhpStudy2016（apache+php5.6+mysql...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/page/3/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/page/5/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

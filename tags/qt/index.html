@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>qt | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: qt</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/19/pyqt5-qwidget-initialization/">
+                  <h2 class="post-title">PyQt5 QWidget初始化问题</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-19
+                </div>
+                <div class="post-abstract">
+                  前言在初始化QWidget时出现了以下问题。
+Traceback (most recent call last):
+  File &quot;form/__init__.py&quot;, line 62, in __init__
+    self.setupUi(self)
+  File &quot;view/form.py&quot;, line 31, in setupUi
+    QtCo...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/09/19/qt-plugin-load-failure/">
+                  <h2 class="post-title">关于Qt插件无法加载的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-09-19
+                </div>
+                <div class="post-abstract">
+                  前言某友人做了个Qt&#x2F;C++ Project，开发环境Qt4.8+VS2017。
+开发环境运行程序正常，但发布版在实际环境中无法运行。
+首先是Qt对VC2010的依赖，缺失msvc*xxx.dll。
+运行库安装后，出现错误：
+CATCH:    Driver not loaded Driver not loaded
+SQL_ERR:    Database Open Fail
+
+解决方法...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/23/pyinstaller-pyqt5-5-11-2-issue/">
+                  <h2 class="post-title">关于PyInstaller与PyQt5-5.11.2的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-07-23
+                </div>
+                <div class="post-abstract">
+                  前言前段时间由于没有使用virtualenv进行模块测试，导致pip安装的模块乱七八糟。
+于是乎使用pip卸载掉所有模块，重新把常用的装上。
+今天出现了个问题，pyinstaller打包出来的pyqt5应用无法启动。
+ModuleNotFoundError: No module named &#39;PyQt5.sip&#39;
+
+解决方法经过一番搜索，发现是pyinstaller内置的sip版本...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

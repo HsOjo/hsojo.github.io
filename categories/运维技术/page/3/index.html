@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>运维技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 运维技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/20/autofs-on-demand-mounting/">
+                  <h2 class="post-title">AutoFS的妙用--实现按需挂载</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-20
+                </div>
+                <div class="post-abstract">
+                  前言当我们在linux环境下想要访问一些需要挂载才能使用的文件或目录时，也许你会毫不犹豫的直接mount就好了。
+当你经常访问这个文件时，也许你会想，写入开机挂载（&#x2F;etc&#x2F;fstab）就好了。
+但当你经常访问很多的文件，目录，镜像等等，而且挂载点有些是网络资源时，全部写入开机挂载项就有点不合适了。
+而且全部挂载会拖慢开机速度，这时，按需自动挂载就很重要了，而autofs正可以...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/27/file-sharing-ad-subdomain-access/">
+                  <h2 class="post-title">关于文件共享在ad域与子域名访问的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-27
+                </div>
+                <div class="post-abstract">
+                  前言长话短说，现需要以简短的域名（类似于主机名）访问文件共享。
+比如文件共享服务器于ad域test.com，而需要使用**\share**的方式直接访问共享服务器。
+一般来说，直接在test.com区域中添加主机记录share即可（即share.test.com），但问题来了，当使用文件共享服务器自身访问的时候，遇到了怎么都登录不上的情况（提示密码错误）。
+按理说，这样解析是没问题的，其它机器访问...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/27/vsftpd-notes/">
+                  <h2 class="post-title">关于vsftpd的那些琐碎事</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-27
+                </div>
+                <div class="post-abstract">
+                  前言由于一直没有把ftp错误排查方法记录下来，一段时间之后忘记后就又要重复踩坑，今天又踩了一遍，为避免日后再踩，特以此篇文章以作记录。
+各种坑点先把想到的写下来，一时想不起来所有问题。
+通用
+确保selinux已关闭（不考虑selinux）
+
+登录失败
+确保用户拥有目录的读权限（文件权限）
+新版vsftpd确保参数allow_writeable_chroot（allow_writable_chro...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/01/centos-install-eol-software/">
+                  <h2 class="post-title">CentOS安装不再维护(EOL)的软件</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-01
+                </div>
+                <div class="post-abstract">
+                  前言随着时代的发展，现在的软件日新月异，软件寿命不断缩短，服务器软件也总是在更新迭代。一些软件很快就被淘汰了。
+当这些软件到了EOL（end-of-life）时，官方不再对其软件源维护，这些软件就无法通过包管理进行安装了。（[Error 256] No more mirrors to try.&#x2F;[404] Http Not Found）
+然而实际环境总是为了追求稳定性（更新成本巨大？），...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/02/07/shell-background-execution/">
+                  <h2 class="post-title">关于Shell后台运行</h2>
+                </a>
+                <div class="post-date">
+                  2018-02-07
+                </div>
+                <div class="post-abstract">
+                  前言在shell里执行程序时，在最后加上&amp;可以使程序在后台运行，不占用当前屏幕。
+单独执行一条命令时，在最后加上&amp;即可。
+但当我们想同时开启多个后台的时候，也许你的想法如此：
+for file in * ; do
+    echo $file &amp;;
+done
+
+如果是这样，恭喜你，想法跟我一样，是错的。
+正解正确做法是，把每条命令都用花括号括起来，再在后面加上&amp;。（...
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

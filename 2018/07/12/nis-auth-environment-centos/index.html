@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Nis用户验证环境搭建（CentOS） | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在linux环境下，若要实现一个用户在多台主机上登录，需要怎么操作呢。
+使用ldap？不，这过于复杂了，要实现轻量的用户验证环境，只需要配置nis+nfs即可。
+nis服务可以集中式管理账户（用户、组、hosts、等等。。），配置过程相对简单。
+环境
+Server
+ip: 172.16.70.1" />
+    <meta name="keywords" content="centos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Nis用户验证环境搭建（CentOS）</h2>
+            <div class="post-date">
+              2018-07-12&emsp;&emsp;1054 字 &emsp;阅读时间 4 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在linux环境下，若要实现一个用户在多台主机上登录，需要怎么操作呢。</p>
+<p>使用ldap？不，这过于复杂了，要实现轻量的用户验证环境，只需要配置nis+nfs即可。</p>
+<p>nis服务可以集中式管理账户（用户、组、hosts、等等。。），配置过程相对简单。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>Server<ul>
+<li>ip: 172.16.70.129</li>
+<li>安装软件: ypserv（nis服务）, nfs-utils（nfs服务）</li>
+</ul>
+</li>
+<li>Client<ul>
+<li>ip: 172.16.70.130</li>
+<li>安装软件: ypbind（nis客户端）, nfs-utils-lib（nfs挂载支持）, setuptool（自动配置工具）</li>
+</ul>
+</li>
+</ul>
+<h2 id="nis服务端配置"><a href="#nis服务端配置" class="headerlink" title="nis服务端配置"></a>nis服务端配置</h2><p>配置允许访问的网段。</p>
+<pre><code>[root@localhost ~]# vi /etc/ypserv.conf
+     41 # If you comment out the next rule, ypserv and rpc.ypxfrd will
+     42 # look for YP_SECURE and YP_AUTHDES in the maps. This will make
+     43 # the security check a little bit slower, but you only have to
+     44 # change the keys on the master server, not the configuration files
+     45 # on each NIS server.
+     46 # If you have maps with YP_SECURE or YP_AUTHDES, you should create
+     47 # a rule for them above, that&#39;s much faster.
+     48 # *                        : *       : *                : none
+     49
+     50 172.16.70.0/255.255.255.0 : * : * : none
+</code></pre>
+<p>配置nis域的域名。</p>
+<pre><code>[root@localhost ~]# vi /etc/sysconfig/network
+      1 NETWORKING=yes
+      2 HOSTNAME=localhost.localdomain
+      3 NISDOMAIN=test.com
+</code></pre>
+<p>建立用户，初始化数据库，环境配置。</p>
+<pre><code>[root@localhost ~]# useradd user1
+[root@localhost ~]# useradd user2
+[root@localhost ~]# echo 123456|passwd --stdin user1
+更改用户 user1 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+[root@localhost ~]# echo 123456|passwd --stdin user2
+更改用户 user2 的密码 。
+passwd： 所有的身份验证令牌已经成功更新。
+[root@localhost ~]# service rpcbind restart
+停止 rpcbind：                                             [失败]
+正在启动 rpcbind：                                         [确定]
+[root@localhost ~]# service ypserv restart
+停止 YP 服务器的服务：                                     [失败]
+设置 NIS 域名 test.com：                                   [确定]
+启动 YP 服务器的服务：                                     [确定]
+[root@localhost ~]# /usr/lib64/yp/ypinit -m
+At this point, we have to construct a list of the hosts which will run NIS
+servers.  localhost is in the list of NIS server hosts.  Please continue to add
+the names for the other hosts, one per line.  When you are done with the
+list, type a &lt;control D&gt;.
+    next host to add:  localhost
+    next host to add:  # 此处按下ctrl+d即可。
+The current list of NIS servers looks like this:
+
+localhost
+
+Is this correct?  [y/n: y]
+We need a few minutes to build the databases...
+Building /var/yp/test.com/ypservers...
+
+...
+
+localhost has been set up as a NIS master server.
+
+Now you can run ypinit -s localhost on all slave server.
+</code></pre>
+<p>到这里，nis服务就配置完成了。</p>
+<h2 id="nis客户端配置"><a href="#nis客户端配置" class="headerlink" title="nis客户端配置"></a>nis客户端配置</h2><p>客户端的配置就相当简单了，使用setup工具即可。</p>
+<pre><code>[root@localhost ~]# setup
+# 第一页确认即可。
+# 第二页选中nis项（User Infomation，左侧），next.
+# 第三页，填写域名及nis服务器ip，确认。
+# 配置完成后退出即可。（正常情况1-3秒即可配置完成）
+正在启动 rpcbind：                                         [确定]
+启动 NIS 服务：                                            [确定]
+绑定 NIS 服务：.                                           [确定]
+[root@localhost ~]#
+</code></pre>
+<p>到此，nis客户端配置完成。</p>
+<h2 id="nfs服务配置"><a href="#nfs服务配置" class="headerlink" title="nfs服务配置"></a>nfs服务配置</h2><p>由于使用远程账户验证，那么客户端登录远程用户时，在本地没有对应的home目录。</p>
+<p>以下为使用user1从Client登录的情况。</p>
+<pre><code>Ojo-Laptop:Blog hsojo$ ssh user1@172.16.70.130
+user1@172.16.70.130&#39;s password:
+Could not chdir to home directory /home/user1: No such file or directory
+-bash-4.1$
+</code></pre>
+<p>可见user1已经可以在Client正常登录了，但是没有家目录，所以没法正常工作。</p>
+<p>那么为了实现家目录能在Server与Client之间实时同步操作，可以使用nfs服务实现。</p>
+<p>由于普通用户的home目录处于&#x2F;home位置下，所以只需要对&#x2F;home配置nfs即可。</p>
+<pre><code>[root@localhost ~]# vi /etc/exports
+      1 /home 172.16.70.0/255.255.255.0(rw)
+[root@localhost ~]# service nfs restart
+关闭 NFS 守护进程：                                        [确定]
+关闭 NFS mountd：                                          [确定]
+关闭 NFS 服务：                                            [确定]
+Shutting down RPC idmapd:                                  [确定]
+启动 NFS 服务：                                            [确定]
+启动 NFS mountd：                                          [确定]
+启动 NFS 守护进程：                                        [确定]
+正在启动 RPC idmapd：                                      [确定]
+[root@localhost ~]#
+</code></pre>
+<h2 id="nfs客户端配置"><a href="#nfs客户端配置" class="headerlink" title="nfs客户端配置"></a>nfs客户端配置</h2><p>方法1: 直接把Server的&#x2F;home，挂载到Client的&#x2F;home。（不推荐，不过简单粗暴）</p>
+<p>方法2: 参考关于AutoFS的<a href="/2018/04/19/AutoFS">文档</a>，实现自动按需挂载。</p>
+<p>以下为配置完成，正常登录的结果（使用方法1，最快的方法）。</p>
+<pre><code>Ojo-Laptop:Blog hsojo$ ssh user1@172.16.70.130
+user1@172.16.70.130&#39;s password:
+Last login: Thu Jul 12 21:49:14 2018 from 172.16.70.1
+[user1@localhost ~]$ mount|grep home
+172.16.70.129:/home on /home type nfs (rw,vers=4,addr=172.16.70.129,clientaddr=172.16.70.130)
+[user1@localhost ~]$
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/centos/" class="tag">
+                    centos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/06/26/mpk-file-format-steins-gate/">
+                  <h3 class="post-title">
+                    Mpk文件格式（STEINS;GATE）
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nis%E6%9C%8D%E5%8A%A1%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">nis服务端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nis%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">nis客户端配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfs%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE"><span class="toc-text">nfs服务配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#nfs%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%85%8D%E7%BD%AE"><span class="toc-text">nfs客户端配置</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

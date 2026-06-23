@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>php | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: php</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/12/23/php-environment-variable-fix/">
+                  <h2 class="post-title">PHP无法获取环境变量解决办法</h2>
+                </a>
+                <div class="post-date">
+                  2020-12-23
+                </div>
+                <div class="post-abstract">
+                  前言在开发PHP项目时，遇到了无法通过getenv获取PATH的情况，检查phpinfo发现PHP无法获取环境变量。
+解决方法
+修改php-fpm.conf，添加以下内容即可。
+
+clear_env = no
+
+
+默认情况下，php-fpm会清除环境变量，以提高安全性。
+
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/23/unoconv-csv-chinese-garbled-fix/">
+                  <h2 class="post-title">unoconv转换Csv中文乱码问题</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-23
+                </div>
+                <div class="post-abstract">
+                  前言最近在使用PHPSpreadsheet导出大量数据到Xlsx时，频繁出现各种问题；如内存溢出、数据丢失等。
+后来更换导出格式为Csv，问题减少了，但是在Office中使用极其不友好；如不支持单元格格式、在不同系统中使用的编码不同可能会出现乱码的情况。
+于是就有了这么一个折中的方案，PHP导出时使用Csv格式，导出完成后，使用unoconv将文件转换为Xlsx格式。
+然而使用unoconv转换为...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/17/first-team-collaboration-project-record/">
+                  <h2 class="post-title">初次团队协作整活全流程记录</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-17
+                </div>
+                <div class="post-abstract">
+                  前言最近与友人AtmosphereMao一同接了一微信小程序的活，途中出现了一些小小意外，故以此总结经验。
+整活场景开发的项目为XX报名系统，用于解决招生录取问题。
+最初先是完成后端的基本功能开发（5月18日）；前端是在后端基本完成后（5月27日左右）开始开发。
+直至今天（6月17日），项目经过了多番整改，终于趋于完成。
+技术使用
+后台
+ThinkCMF（基于ThinkPHP的内容管理框架）
+
+
+...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/02/php-word-to-pdf-conversion/">
+                  <h2 class="post-title">PHP中将Word文件转换为PDF</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-02
+                </div>
+                <div class="post-abstract">
+                  前言在上一篇水文中，我提到了需要实现“docx转pdf”；
+经过一番折腾，最终得出了一个结论：PHP可真不愧是一两面撬刀的🔨。
+在尝试了使用“phpoffice&#x2F;phpword”+“dompdf&#x2F;mpdf”等主流PDF转换库对docx进行转换后，最后得到的效果实在是不尽人意。（错位+乱码）
+虽然在Windows平台可通过“.net COM组件”这种外挂方式实现转换，但这种方法...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/01/mac-xdebug-configuration/">
+                  <h2 class="post-title">Mac环境下配置XDebug</h2>
+                </a>
+                <div class="post-date">
+                  2020-06-01
+                </div>
+                <div class="post-abstract">
+                  前言近日接了个CURD项目，在实现docx转pdf时出了点小问题，需要使用XDebug进行调试。
+在一般情况下，只要使用包管理工具安装“php-ext-xdebug”之类的包即可。
+然而Mac下的包管理，使用Homebrew搜索“php”，却没有相关结果。
+经过一番搜索，发现pecl可安装“xdebug”。
+配置环境变量在使用pecl前，需要先配置环境变量。（在使用brew安装php时有相关提示，...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/07/30/web-development-basics-course/">
+                  <h2 class="post-title">Web开发基础课程</h2>
+                </a>
+                <div class="post-date">
+                  2019-07-30
+                </div>
+                <div class="post-abstract">
+                  前言前段时间为完成学校任务，设计了一套Web开发课程。
+课程涉及前后端的基础应用，最终目标为开发一款简易的博客程序。
+博客程序包含最基本的功能（用户、发布文章、文章分类、文章留言、友情链接）。
+课程安排学习周期：2周（原定1周，翻车了）
+课程内容如下所示，都是些最基本的知识点。
+
+
+Web课程安排
+软件环境
+系统：Windows 7
+PhpStudy2016（apache+php5.6+mysql...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/17/web-application-penetration-test/">
+                  <h2 class="post-title">【湿货】Web应用渗透实验</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-17
+                </div>
+                <div class="post-abstract">
+                  前言最近为完成作业，以及复习web安全知识，做了个简单关于web应用的渗透测试教程。
+使用PentesterLab进行演示，有兴趣的可以看看。
+
+PS：非常简单的小白向，但常见的案例都有。
+
+正文作业为ppt格式，为方便网页查看，将其转换成了pdf。(但是有些图片被遮罩了)
+点击查看pdf
+点击下载ppt
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/12/01/php7-legacy-mysql-api-compatibility/">
+                  <h2 class="post-title">PHP7 兼容旧 MySQL Api</h2>
+                </a>
+                <div class="post-date">
+                  2018-12-01
+                </div>
+                <div class="post-abstract">
+                  前言这几天折腾网络安全的玩意，在搭建安全测试平台的过程中出现了点小问题。
+安全测试平台使用的php版本是5.x，但我在服务器上安装的是7.x，7.x的php废除了对mysql的api，添加了一套新的api，mysqli。
+虽然可以去安装php5.x来解决这个问题，不过常用的5.6好像也不支持了，那就不折腾了。
+考虑到各种因素，于是乎用mysqli的api修改一下，做了个mysql的api兼容层。
+...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/02/06/php-file-upload-issue/">
+                  <h2 class="post-title">关于PHP文件上传的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-02-06
+                </div>
+                <div class="post-abstract">
+                  前言今天测试一个图片上传功能，发现了一个诡异的现象，PC端正常上传图片，手机端上传图片则提示没有添加图片，反复尝试，无果。
+我以为是browser&#x2F;thinkphp&#x2F;thinkcmf的问题，结果找了相关的文章，无果。
+解决方法当我重复尝试手机上传，无意中选择了其它图片时，成功了。
+经过一番折腾，发现是图片大小的问题。
+在php.ini修改如下内容即可。
+upload_max_f...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/01/24/wechat-official-account-tutorial/">
+                  <h2 class="post-title">微信公众号简易入门教程</h2>
+                </a>
+                <div class="post-date">
+                  2018-01-24
+                </div>
+                <div class="post-abstract">
+                  前言在我学习公众号开发，也有一段时间了，其中也做过两个公众号项目，最近有友人向我请教公众号该如何学习，特以此篇文章总结一下，同时也巩固一下我的知识（套路）。
+准备环境系统：*nix（Ubuntu、macOS，不推荐windows）
+软件：apache(httpd)、mysql、php7+、composer、phpstorm
+库：thinkcmf、overtrue&#x2F;wechat
+参阅文档学...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

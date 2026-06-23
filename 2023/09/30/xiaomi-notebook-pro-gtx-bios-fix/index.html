@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>小米笔记本 Pro GTX BIOS 修复 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言最近忽然心血来潮，掏出了吃灰已久的小米Pro，倒腾黑果；但不幸的是，BIOS 在折腾的过程中损坏了。
+准备工作
+TM1707 BIOS
+InsydeImageExtractor
+CH341A&#x2F;NeoProgrammer
+CH341A 可以到某宝自行购入，需要带转接卡及烧录夹
+价格参考：" />
+    <meta name="keywords" content="" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">小米笔记本 Pro GTX BIOS 修复</h2>
+            <div class="post-date">
+              2023-09-30&emsp;&emsp;734 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近忽然心血来潮，掏出了吃灰已久的小米Pro，倒腾黑果；但不幸的是，BIOS 在折腾的过程中损坏了。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/daliansky/XiaoMi-Pro-Hackintosh/tree/main/BIOS/TM1707">TM1707 BIOS</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/LongSoft/InsydeImageExtractor/releases">InsydeImageExtractor</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.crsky.com/soft/280892.html">CH341A&#x2F;NeoProgrammer</a><ul>
+<li>CH341A 可以到某宝自行购入，需要带转接卡及烧录夹</li>
+<li>价格参考：18 RMB（可能更便宜</li>
+</ul>
+</li>
+</ul>
+<h3 id="获取-BIOS-二进制文件"><a href="#获取-BIOS-二进制文件" class="headerlink" title="获取 BIOS 二进制文件"></a>获取 BIOS 二进制文件</h3><ul>
+<li>下载 <strong>InsydeImageExtractor</strong> 及 <strong>TM1707 BIOS</strong></li>
+<li>在虚拟机运行<strong>TM1707 BIOS</strong>可执行文件，会出现报错，但不要点击确认</li>
+<li>打开任务管理器并找到<code>H2OFFT-Wx64.exe</code>进程，并<strong>打开文件所在的位置</strong></li>
+<li>找到目录下的<code>XMAKB5RRP0C05.fd</code>文件，然后使用<strong>InsydeImageExtractor</strong>对文件进行转换</li>
+</ul>
+<blockquote>
+<p>以下是InsydeImageExtractor的帮助信息。</p>
+</blockquote>
+<pre><code>InsydeFlashExtractor v0.2
+Usage: ./extractor INFILE OUTFILE
+</code></pre>
+<ul>
+<li>参考以上信息可知，执行<code>extractor XMAKB5RRP0C05.fd XMAKB5RRP0C05.bin</code>，即可得到可烧录的二进制文件</li>
+</ul>
+<h3 id="组装-CH341A"><a href="#组装-CH341A" class="headerlink" title="组装 CH341A"></a>组装 CH341A</h3><p>具体操作可以参考<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/557485017">知乎文章</a></p>
+<h3 id="上夹子-嘤嘤嘤"><a href="#上夹子-嘤嘤嘤" class="headerlink" title="上夹子 嘤嘤嘤"></a>上夹子 <del>嘤嘤嘤</del></h3><ul>
+<li><p><strong>开始操作之前首先把电池连接断开！</strong></p>
+</li>
+<li><p>怎么夹</p>
+  <img src="/2023/09/30/xiaomi-notebook-pro-gtx-bios-fix/p1.jpg" class="">
+</li>
+<li><p>夹好的参考</p>
+  <img src="/2023/09/30/xiaomi-notebook-pro-gtx-bios-fix/p2.jpg" class="">
+  <img src="/2023/09/30/xiaomi-notebook-pro-gtx-bios-fix/p3.jpg" class=""></li>
+</ul>
+<h2 id="刷入-BIOS"><a href="#刷入-BIOS" class="headerlink" title="刷入 BIOS"></a>刷入 BIOS</h2><ul>
+<li>注意：根据这个方法刷入BIOS，<strong>将会丢失设备序列号</strong>信息</li>
+</ul>
+<blockquote>
+<p>不过既然机子都废了，序列号已经无所谓了，估计是与擦除IC的步骤有关；如果需要保留序列号，可以对新旧BIOS文件进行二进制比对，找到关于设备序列号的差异部分进行修改即可。</p>
+</blockquote>
+<ul>
+<li>接入 CH341A 并 启动 NeoProgrammer</li>
+</ul>
+<ol>
+<li><strong>对原始BIOS进行备份</strong><ul>
+<li>点击“读取IC”按钮</li>
+<li>将读取后的二进制文件保存即可</li>
+</ul>
+</li>
+<li><strong>擦除原始BIOS</strong>（不擦除会导致CRC校验不一致<ul>
+<li>点击“擦除IC”按钮</li>
+</ul>
+</li>
+<li><strong>写入并校验BIOS</strong><ul>
+<li>在“写入&#x2F;编程IC”项选中校验</li>
+<li>点击“写入&#x2F;编程IC”按钮</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Tips：写入完之后第一次开机时间会比较长，会触发一次重启，并清空以前的BIOS设置。</p>
+</blockquote>
+<h2 id="后记：为什么我会倒腾坏BIOS"><a href="#后记：为什么我会倒腾坏BIOS" class="headerlink" title="后记：为什么我会倒腾坏BIOS"></a>后记：为什么我会倒腾坏BIOS</h2><p>因为我使用了 <a target="_blank" rel="noopener" href="https://github.com/daliansky/XiaoMi-Pro-Hackintosh/tree/main/BIOS/TM1701/DVMT_and_0xE2_fix">TM1701</a> 的<strong>DVMT设置脚本</strong>，即<code>DVMT_set.cmd</code>。</p>
+<p>尽管 README 中已提及仅支持 MX150 机型，但是记得以前有进行过同样的操作但BIOS并未造成损坏，而且重要数据并没有保存于这台机器，所以就放开折腾了。</p>
+<p>经过验证，已知下列脚本在 TM1707 <strong>可用</strong>，并不会造成损坏：</p>
+<ul>
+<li>bios_unlock.cmd</li>
+<li>CFG_unlock.cmd</li>
+<li>speedshift_unlock.cmd</li>
+<li>voltage_unlock.cmd</li>
+</ul>
+<blockquote>
+<p>本人使用OC引导，确认AppleXcpmCfgLock取消后可以正常工作，也就是说至少CFG_unlock.cmd是可用的；可以通过在BIOS设置页按F9重置设置，验证以上脚本是否工作正常。</p>
+</blockquote>
+<p>不过<code>DVMT_set.cmd</code>不行，原因应该是GTX机型相较于MX150机型在图形设置方面的地址有差异。<br>具体的BIOS修改逻辑可以在<code>patchscript_dvmt.ps1</code>中找到，不过分析BIOS是个复杂的工作我就不再深入了；</p>
+<p>有兴趣的可以使用 <code>UEFITool</code> 及 <code>Universal IFR Extractor</code> 进行深入分析。</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2023/09/26/macos-electron-gpu-partial-support-fix/">
+                  <h3 class="post-title">
+                    记 macOS 下 Electron GPU 不完整支持的解决方案
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96-BIOS-%E4%BA%8C%E8%BF%9B%E5%88%B6%E6%96%87%E4%BB%B6"><span class="toc-text">获取 BIOS 二进制文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E8%A3%85-CH341A"><span class="toc-text">组装 CH341A</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8A%E5%A4%B9%E5%AD%90-%E5%98%A4%E5%98%A4%E5%98%A4"><span class="toc-text">上夹子 嘤嘤嘤</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%B7%E5%85%A5-BIOS"><span class="toc-text">刷入 BIOS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BC%9A%E5%80%92%E8%85%BE%E5%9D%8FBIOS"><span class="toc-text">后记：为什么我会倒腾坏BIOS</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

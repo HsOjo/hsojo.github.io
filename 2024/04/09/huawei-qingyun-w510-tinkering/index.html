@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>华为擎云 W510 折腾记 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言去年在朋友推荐下买了这台灵车，虽然物超所值，但一直由于种种原因，没能把资源充分利用上。
+首当其冲的就是没有办法使用 Ubuntu 以及 原装的 UOS 以外的操作系统；倒也不是不能安装，只是会出现无限重启的 Bug（又或者是 Feature）。
+为了充分利用资源，计划安装 PVE，但当时一直没有" />
+    <meta name="keywords" content="" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">华为擎云 W510 折腾记</h2>
+            <div class="post-date">
+              2024-04-09&emsp;&emsp;870 字 &emsp;阅读时间 3 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>去年在朋友推荐下买了这台灵车，虽然物超所值，但一直由于种种原因，没能把资源充分利用上。</p>
+<p>首当其冲的就是没有办法使用 Ubuntu 以及 原装的 UOS 以外的操作系统；倒也不是不能安装，只是会出现无限重启的 Bug（又或者是 Feature）。</p>
+<p>为了充分利用资源，计划安装 PVE，但当时一直没有发现可用的 PVE&#x2F;ARM64 镜像。</p>
+<p>但在今天…事情有了转机。</p>
+<p>PVE&#x2F;ARM64 安装镜像：<a target="_blank" rel="noopener" href="https://mirrors.apqa.cn/proxmox/isos/">Proxmox Port Mirrors</a></p>
+<h2 id="安装-Ubuntu-无法进入系统的解决方案"><a href="#安装-Ubuntu-无法进入系统的解决方案" class="headerlink" title="安装 Ubuntu 无法进入系统的解决方案"></a>安装 Ubuntu 无法进入系统的解决方案</h2><p>系统启动时需要添加以下内核参数：</p>
+<pre><code>initcall_blacklist=hisi_ddrc_pmu_module_init
+</code></pre>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://loongf.art/zh/devices/huawei/w510">龙息百科&#x2F;华为擎云 W510</a></p>
+<h2 id="安装-PVE-显卡无法驱动的解决方案"><a href="#安装-PVE-显卡无法驱动的解决方案" class="headerlink" title="安装 PVE 显卡无法驱动的解决方案"></a>安装 PVE 显卡无法驱动的解决方案</h2><p>更新至 Debian&#x2F;bookworm 后，显卡无法正常启动，画面会卡死在以下日志附近：</p>
+<pre><code>[   15.009974] input: HDA ATI HDMI HDMI/DP,pcm=3 as /devices/pci0000:00/0000:00:00.0/0000:01:00.1/sound/card1/input8
+[   15.024610] [drm] radeon kernel modesetting enabled.
+[   15.030008] radeon 0000:01:00.0: SI support disabled by module param
+[   15.080559] [drm] amdgpu kernel modesetting enabled.
+</code></pre>
+<p>通过 SSH 排查得知显卡固件无法正常加载，见以下日志。</p>
+<pre><code>[   15.531744] si_cp: Failed to load firmware &quot;radeon/OLAND_me.bin&quot;
+[   15.531748] [drm:si_init [radeon]] *ERROR* Failed to load firmware!
+[   15.552948] radeon 0000:01:00.0: Fatal error during GPU init
+</code></pre>
+<p>可知问题与 radeon 驱动中的 si 功能有关。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>查阅文档可知，radeon 驱动提供了 si_support 的参数，禁用该功能即可：</p>
+<pre><code>radeon.si_support=0
+</code></pre>
+<p>持久化保存则需要编辑 <strong>&#x2F;etc&#x2F;default&#x2F;grub</strong> 中的 <strong>GRUB_CMDLINE_LINUX_DEFAULT</strong> 并更新 grub。</p>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://forum.manjaro.org/t/amdgpu-driver-is-not-in-use/138739">amdgpu-driver-is-not-in-use</a></p>
+<p>注：需要使用文本界面安装，显示不太正常，但 It works!</p>
+<h2 id="安装-PVE-无限重启的解决方案"><a href="#安装-PVE-无限重启的解决方案" class="headerlink" title="安装 PVE 无限重启的解决方案"></a>安装 PVE 无限重启的解决方案</h2><p>需要修改 bootloader-id 为 Ubuntu 才能正常启动。</p>
+<pre><code># 注意修改为自己所使用的硬盘
+grub-install --bootloader-id=ubuntu /dev/nvme0n1
+</code></pre>
+<p>参考资料：<a target="_blank" rel="noopener" href="https://loongf.art/zh/devices/huawei/w510">龙息百科&#x2F;华为擎云 W510</a></p>
+<h2 id="参考：一些不影响运行的报错"><a href="#参考：一些不影响运行的报错" class="headerlink" title="参考：一些不影响运行的报错"></a>参考：一些不影响运行的报错</h2><pre><code>[    5.086884] ACPI: IORT: [Firmware Bug]: [map (____ptrval____)] conflicting mapping for input ID 0x7c00
+[    5.096183] ACPI: IORT: [Firmware Bug]: applying workaround.
+...
+[    5.131905] ACPI CPPC: Failed to ioremap PCC comm region mem for 0
+[    5.138100] PCCT PCCT: Channel not found for idx: 0
+[    5.142966] ACPI CPPC: Failed to find PCC channel for subspace 0
+[    5.148980] PCCT PCCT: Channel not found for idx: 0
+...
+[   11.256294] cma: cma_alloc: reserved: alloc failed, req-size: 1024 pages, ret: -12
+[   11.265617] hisi_sas_v3_hw 0000:74:04.0: 16 hw queues
+...
+[   15.232502] hisi_dma 0000:7b:00.0: enabling device (0000 -&gt; 0002)
+[   15.240745] hisi_sec2 0000:76:00.0: enabling device (0000 -&gt; 0002)
+[   15.241114] hisi_sec2 0000:76:00.0: failed to enable IOPF feature! ret = -ENODEV
+[   15.256449] hisi_sec2 0000:76:00.0: fail to alloc uacce (-22)
+[   15.257476] arm_spe_pmu arm,spe-v1: profiling buffer inaccessible. Try passing &quot;kpti=off&quot; on the kernel command line
+[   15.261279] sbsa-gwdt sbsa-gwdt.0: Initialized with 10s timeout @ 100000000 Hz, action=0.
+[   15.266387] Adding 8388604k swap on /dev/mapper/pve-swap.  Priority:-2 extents:1 across:8388604k SSFS
+[   15.274919] arm_spe_pmu: probe of arm,spe-v1 failed with error -1
+[   15.307905] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316331] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316351] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316372] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316388] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316405] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316425] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316441] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.316459] cma: cma_alloc: reserved: alloc failed, req-size: 37 pages, ret: -12
+[   15.321160] hisi_sec2 0000:76:00.0: fail to init sec mem
+[   15.334350] mc: Linux media interface: v0.10
+[   15.341574] hisi_sec2 0000:76:00.0: Failed to probe!
+[   15.342009] hisi_sec2: probe of 0000:76:00.0 failed with error -110
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2023/12/31/2023-annual-summary/">
+                  <h3 class="post-title">
+                    2023 年度总结
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-Ubuntu-%E6%97%A0%E6%B3%95%E8%BF%9B%E5%85%A5%E7%B3%BB%E7%BB%9F%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">安装 Ubuntu 无法进入系统的解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-PVE-%E6%98%BE%E5%8D%A1%E6%97%A0%E6%B3%95%E9%A9%B1%E5%8A%A8%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">安装 PVE 显卡无法驱动的解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-PVE-%E6%97%A0%E9%99%90%E9%87%8D%E5%90%AF%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="toc-text">安装 PVE 无限重启的解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%EF%BC%9A%E4%B8%80%E4%BA%9B%E4%B8%8D%E5%BD%B1%E5%93%8D%E8%BF%90%E8%A1%8C%E7%9A%84%E6%8A%A5%E9%94%99"><span class="toc-text">参考：一些不影响运行的报错</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

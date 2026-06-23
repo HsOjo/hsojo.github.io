@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>运维技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 运维技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2024/06/19/ssh-session-open-files-limit-fix/">
+                  <h2 class="post-title">解决 SSH Session 中 open files 限制问题</h2>
+                </a>
+                <div class="post-date">
+                  2024-06-19
+                </div>
+                <div class="post-abstract">
+                  前言本人日常开发流程中常使用 PyCharm 中的 Remote Interpreter，其通过 SSH 连接到基于 systemD 的容器环境，长时间运行项目后会出现 OSError: [Errno 24] Too many open files。
+虽然这个问题一定程度上可能与业务代码有关，但默认限制允许单进程打开的文件数量（1024）属实也太低了，多线程场景下会超出限制也是常有的事情。
+原因分...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/04/06/ssh-slow-authentication/">
+                  <h2 class="post-title">SSH 验证缓慢问题</h2>
+                </a>
+                <div class="post-date">
+                  2023-04-06
+                </div>
+                <div class="post-abstract">
+                  前言最近在维护服务器时发现 SSH 连接异常缓慢，排除了网络问题后，便陷入了沉思。
+由于系统安装了很长一段时间，不可控因素太多，一时之间不知道从何查起。
+分析检查了最可疑的UseDNS设置项，确定为No，那么还会有什么因素会导致验证缓慢呢？
+由于是验证过程缓慢，所以也排除profile以及rc的可能性。
+经过一番调研，发现是GSSAPIAuthentication设置项导致的。
+它是什么？为什么会...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/01/05/ssh-rsa-key-login-failure/">
+                  <h2 class="post-title">SSH RSA公钥登录失效</h2>
+                </a>
+                <div class="post-date">
+                  2023-01-05
+                </div>
+                <div class="post-abstract">
+                  前言SSH免密登录早已是开发过程中的基本操作，最近在连接一台CentOS的服务器时遇到了无法使用公钥登录的情况。
+Ojos-MacBook-Pro:~ hsojo$ ssh root@192.168.*.*
+root@192.168.*.*&#39;s password:
+
+公钥早已在服务端添加信任，但连接时反复提示输入密码。
+排查对比两台机器连接的日志，尝试找出原因。
+
+登录失败机器的日志
+
+d...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/mysql-max-connections-issue/">
+                  <h2 class="post-title">MySQL 最大连接数问题</h2>
+                </a>
+                <div class="post-date">
+                  2022-09-04
+                </div>
+                <div class="post-abstract">
+                  前言有些问题，在开发过程中不会遇到；但当要在生产环境中进行部署的时候便会暴露出来。
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1040, &#39;Too many connections&#39;)
+
+为什么会引发这个问题？因为生产环境的 CPU 核心数太多了。
+业务进程的数量一般为 CPU 数量的倍数，而数...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/centos-network-bonding/">
+                  <h2 class="post-title">CentOS 网卡聚合</h2>
+                </a>
+                <div class="post-date">
+                  2022-09-04
+                </div>
+                <div class="post-abstract">
+                  前言最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。
+不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？
+抱着这样的想法，展开了本次调研。
+桥接（Bridge）桥接可以简单理解成，使多张网卡处于同一VLAN；在网段相同的情况下，接入同一VLAN的设备可以相互通信。
+操作流程
+建立文件...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/05/25/kylin-os-cleanup/">
+                  <h2 class="post-title">麒麟系统瘦身</h2>
+                </a>
+                <div class="post-date">
+                  2022-05-25
+                </div>
+                <div class="post-abstract">
+                  前言近期在完成项目部署的过程中，遇到了一台特殊设备。该设备在安装Ubuntu Server系统后，无法驱动网卡；经过一番分析，发现是Linux内核没有集成相关驱动。
+不过由于麒麟系统是由Ubuntu衍生的，用来部署项目也不是不可，但要用桌面系统来部署项目，就得精简一下了。
+关闭应用安装验证sed -i &#39;s/allow-kylinsign/#allow-kylinsign/g&#39; /...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/postmarketos-guide/">
+                  <h2 class="post-title">postmarketOS食用指南</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言postmarketOS是一个运行在手机上的Linux系统，基于Alpine Linux。
+在整理杂物时，翻出了一台旧手机（骁龙650+3G+32G）；这样的硬件资源，比云学生机好太多了。
+卖了又不划算，闲置着怪可惜的，便有了接下来尝试充分利用资源的计划。
+
+往手机安装Linux，打造一台下载服务器。
+
+构建环境安装postmarketOS需要Linux环境，以及python&#x2F;pip...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/samba-large-file-transfer-fix/">
+                  <h2 class="post-title">Samba传输大文件出错的解决方案</h2>
+                </a>
+                <div class="post-date">
+                  2021-04-11
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，使用samba看电影，每次跳到46分钟左右的时侯，视频就中断了。
+尝试下载视频文件，却得到了这样的结果。
+“访达”不能完成该操作，因为不能读取或写入“[NC-Raws] Fate／stay night [Heaven&#39;s Feel]Ⅲ.春樱之歌 - 01 [B-Global][WEB-DL][1080p][AVC AAC][CHS_CHT_ENG_TH_SRT][MKV].m...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/01/04/ufw-block-overseas-traffic/">
+                  <h2 class="post-title">使用 ufw 抵御海外流量攻击</h2>
+                </a>
+                <div class="post-date">
+                  2020-01-04
+                </div>
+                <div class="post-abstract">
+                  前言近日，检查阿里云服务器账单时，发现莫名其妙少了10块钱；仔细一看，费用都是由服务器流量产生的。
+但在这段时间里，我几乎没怎么使用服务器进行大流量操作，相必是被 Hack 了。
+抱着这样的想法，我开始检查服务器环境…
+检查网络由于费用都是由服务器流量产生的，第一步自然是检查网络。
+使用 nethogs 检查后发现，流量来自多个海外 IP，而且 IP 一直在改变；一直都在连接 RDP 协议的端口；...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/12/04/centos7-network-rename/">
+                  <h2 class="post-title">CentOS7 网卡更名</h2>
+                </a>
+                <div class="post-date">
+                  2019-12-04
+                </div>
+                <div class="post-abstract">
+                  前言近日，在尝试将 CentOS 系统从虚拟机迁移安装到物理机时，发现网卡名称发生了变化。（eno1 -&gt; enp0s1）
+但系统中所运行的服务应用与网卡名称有所关联（OVSPort），迁移之后出现了故障。
+此时，则需要为网卡进行更名操作。
+操作过程
+修改引导参数
+
+vi /etc/default/grub
+# 在 GRUB_CMDLINE_LINUX 行加上 net.ifnames=0 b...
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/categories/%E8%BF%90%E7%BB%B4%E6%8A%80%E6%9C%AF/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

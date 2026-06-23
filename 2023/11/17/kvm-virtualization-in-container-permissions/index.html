@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>记容器内运行 KVM 虚拟化的权限问题 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言一直以来有个想法，想要将大象（OpenStack）塞进冰箱（Docker），像 OpenStack 这样的庞然大物，每次部署都会浪费至少大半个小时。
+当然，这个想法在一年前就被本人验证可行了，但是仍存在一些不完善的地方……
+特权模式的KVM虚拟化特权模式，即使用--privileged选项创建容" />
+    <meta name="keywords" content="linux,kvm,systemd,docker" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">记容器内运行 KVM 虚拟化的权限问题</h2>
+            <div class="post-date">
+              2023-11-17&emsp;&emsp;1157 字 &emsp;阅读时间 4 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一直以来有个想法，想要将大象（OpenStack）塞进冰箱（Docker），像 OpenStack 这样的庞然大物，每次部署都会浪费至少大半个小时。</p>
+<p>当然，这个想法在一年前就被本人验证可行了，但是仍存在一些不完善的地方……</p>
+<h2 id="特权模式的KVM虚拟化"><a href="#特权模式的KVM虚拟化" class="headerlink" title="特权模式的KVM虚拟化"></a>特权模式的KVM虚拟化</h2><p>特权模式，即使用<code>--privileged</code>选项创建容器，在这种场景下，会将宿主机中的设备目录（<strong>&#x2F;dev</strong>），毫无保留的暴露到容器中，并且允许使用所有内核功能（CAP）。</p>
+<p><del>但这种方式存在一个问题，当宿主机 <strong>&#x2F;dev</strong> 目录被挂载到容器后，若使用 <strong>systemd</strong> 进行初始化（init），便会导致宿主机的终端不可用，宿主机所使用的 tty，会被容器中的 getty 占用；导致线下维护极大的不便。</del></p>
+<blockquote>
+<p>后记：宿主机的终端被占用是由于本人显式挂载了宿主机的 &#x2F;dev 目录，正常使用特权模式不会引发终端占用问题；但容器内的 &#x2F;dev 目录是不完全跟随宿主机更新的。</p>
+</blockquote>
+<p>不过，虚拟化相关的功能一切正常。</p>
+<h2 id="非特权模式的KVM虚拟化"><a href="#非特权模式的KVM虚拟化" class="headerlink" title="非特权模式的KVM虚拟化"></a>非特权模式的KVM虚拟化</h2><p>当不使用<code>--privileged</code>选项创建容器时，需要确保以下两点：</p>
+<ul>
+<li><strong>&#x2F;dev&#x2F;kvm</strong> 设备文件能够被正确访问（使用KVM加速必须</li>
+<li><strong>&#x2F;dev&#x2F;net&#x2F;tun</strong> 设备文件能够被正确访问（根据是否需要创建网络接口决定</li>
+</ul>
+<p>其中，<strong>&#x2F;dev&#x2F;kvm</strong> 尤其需要注意，要从宿主机暴露至容器中，需要使用 <code>--device</code> 选项来完成主机设备的暴露。</p>
+<p>如果使用 <code>--mount type=bind</code>，或是 <strong>-v</strong>（等价于<strong>mount type&#x3D;volume</strong> + <strong>mkdir -p</strong>），会导致出现以下结果：</p>
+<pre><code>Could not access KVM kernel module: Permission denied
+</code></pre>
+<p>经过一番搜索，本以为是容器内的用户 <strong>gid</strong> 与宿主机不一致引发的问题，但经过测试后发现并非如此，由于容器内使用的用户是<strong>root</strong>，且 uid&#x2F;gid 均为 0，不受 gid 权限问题的影响。</p>
+<ul>
+<li>后来据友人 <strong>xxxuuu</strong> 所言：</li>
+</ul>
+<pre><code>--devices会在cgroup上给设备加白名单 而-v不会
+所以这种要通过ioctl控制的东西 都要用--devices
+不然你可以在容器里看到 挂上的东西不会被标识为设备，只会是一个普通的文件
+</code></pre>
+<ul>
+<li>本人才意识到问题所在：是缺少关于 <strong>cgroup</strong> 的权限。</li>
+</ul>
+<p>尽管 <strong>mount bind</strong> 方式在容器中创建的设备文件，与宿主机中的设备文件别无二致，但如果缺少了关于 <strong>cgroup</strong> 的权限，还是会出现 <code>Permission denied</code>的情况。</p>
+<p>后来查阅了 <code>docker run</code> 的 <a target="_blank" rel="noopener" href="https://docs.docker.com/engine/reference/commandline/run/#device">使用文档</a> 发现，是有单独针对设备文件进行分配、控制 cgroup 规则的选项。</p>
+<p>最后发现这一切问题的源头，竟是源自于对 <strong>mount bind</strong> 的想当然，真可恨。</p>
+<p>尽管如此，但这里面还是有一个例外影响了我的判断，<strong>&#x2F;dev&#x2F;net&#x2F;tun</strong> 设备，似乎可以在 <strong>mount bind</strong> 的方式下正常使用；</p>
+<blockquote>
+<p>补充：&#x2F;dev&#x2F;net&#x2F;tun 设备是否可用，或许是由 NET_ADMIN 的内核功能（CAP）所决定；还有一种可能是程序仅对设备文件是否存在进行了判断，实际上设备也是不可用的。</p>
+</blockquote>
+<p>但是不管是什么原因，以后只要使用 <code>--device</code> 的方式来分配设备就好了。</p>
+<h2 id="非特权模式下容器内的内核参数调教"><a href="#非特权模式下容器内的内核参数调教" class="headerlink" title="非特权模式下容器内的内核参数调教"></a>非特权模式下容器内的内核参数调教</h2><p>经过了前文提及的一个案例，我开始思考 <strong>–privileged</strong> 使用与否差异是什么。</p>
+<p>据我所知，<strong>–privileged</strong> 似乎是组合了 <strong>–cap-add all</strong> 与 <strong>mount bind &#x2F;dev</strong>，且允许对 <strong>sysfs</strong> 进行读写。</p>
+<p>当我试图仅使用 <strong>–cap-add all</strong> 创建非特权容器时，会发现容器无法对内核参数进行调教；这是一个十分关键的问题，在这里我发现容器内的设备命名空间与宿主机中的设备命名空间是不一致的。</p>
+<p>简单说就是：容器内创建的 TUN 设备，无法在宿主机下的 <strong>&#x2F;sys</strong> 目录中发现。</p>
+<p>也就是容器内的设备被隔离了，<strong>并且</strong> 容器内无法修改设备运行时的参数，因为容器中的 <strong>&#x2F;sys</strong> 是 <strong>Read Only</strong> 的。</p>
+<p>宿主机无法访问容器内的设备，容器中无法修改 <strong>&#x2F;sys</strong> 下的内容，很好，似乎路被堵死了。</p>
+<p>如何解决呢？方法却很简单，在容器中重新挂载 <strong>sysfs</strong> 即可。</p>
+<pre><code class="language-bash">mount -o remount,rw /sys
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/linux/" class="tag">
+                    linux
+                  </a>
+                
+                  <a href="/tags/kvm/" class="tag">
+                    kvm
+                  </a>
+                
+                  <a href="/tags/systemd/" class="tag">
+                    systemd
+                  </a>
+                
+                  <a href="/tags/docker/" class="tag">
+                    docker
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2023/09/30/xiaomi-notebook-pro-gtx-bios-fix/">
+                  <h3 class="post-title">
+                    小米笔记本 Pro GTX BIOS 修复
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E7%9A%84KVM%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-text">特权模式的KVM虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E7%9A%84KVM%E8%99%9A%E6%8B%9F%E5%8C%96"><span class="toc-text">非特权模式的KVM虚拟化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%9E%E7%89%B9%E6%9D%83%E6%A8%A1%E5%BC%8F%E4%B8%8B%E5%AE%B9%E5%99%A8%E5%86%85%E7%9A%84%E5%86%85%E6%A0%B8%E5%8F%82%E6%95%B0%E8%B0%83%E6%95%99"><span class="toc-text">非特权模式下容器内的内核参数调教</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

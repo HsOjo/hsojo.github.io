@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>openstack | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: openstack</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/29/openstack-novnc-code-1006/">
+                  <h2 class="post-title">关于Openstack NoVNC code 1006的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-29
+                </div>
+                <div class="post-abstract">
+                  前言今天使用其他人的电脑，通过horizon（dashboard）连接实例时发生了以下错误。
+
+Failed to connect to server (code: 1006)
+
+搜索了很多相关问题，都没有找到解决方案。
+后来误打误撞解决了，特以此文章记录。
+解决方法由于是其他人的电脑，别人用的是360浏览器打开，360浏览器本身没有问题，支持chrome模式以及ie模式。
+但他访问dashboa...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/21/openstack-password-reset/">
+                  <h2 class="post-title">Openstack忘记密码</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-21
+                </div>
+                <div class="post-abstract">
+                  前言忘记密码了，怎么办？当然是重置啦。
+如何重置？这就是本文要说的内容了。
+由于我部署openstack时使用rdo，对手动安装不是很了解，所以才会产生了不会重置密码的问题。
+如果我的方法有错，轻喷轻喷。
+关于初始令牌（admin_token）在手动安装时，一开始是没有admin用户的，也没有用户验证一说。
+
+Q：没有管理用户，那要怎么管理呢？
+A：使用admin_token进行管理
+
+这个tok...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/04/openstack-security-group-notes/">
+                  <h2 class="post-title">Openstack安全组的那些事</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-04
+                </div>
+                <div class="post-abstract">
+                  前言当安装完openstack，配置好vlan模式后，你要从外部访问实例的时候，你会发现，无法连通，无论是tcp,udp还是icmp(ping)，都无法访问实例。
+但是实例可以访问外部的服务器，即网络是可通信的，只是被限制了。
+也许你第一时间想到的是openstack主机的防火墙，但是你关掉之后，依然还是不行。
+经过一番研究，我发现是由于openstack安全组规则导致的，特此记录。
+安全组概述据...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/03/openstack-mitaka-rdo-installation/">
+                  <h2 class="post-title">Openstack安装（mitaka），RDO方式</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-03
+                </div>
+                <div class="post-abstract">
+                  前言每次安装openstack，都是一个重复踩坑的过程，虽然越踩就越深刻，不过还是记录下文档吧。
+环境
+系统：CentOS 7
+网卡：enp7s0，enp8s0
+SELinux: permissive&#x2F;disabled**（重要）**
+
+安装packstack首先根据我之前文章的方法进行配置，使用CentOS7.2（1511）版本的软件源，然后安装openstack源。
+yum -y i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/02/openstack-nova-instance-encoding-error/">
+                  <h2 class="post-title">OpenstackNova创建实例编码报错</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-02
+                </div>
+                <div class="post-abstract">
+                  前言重新搭建了一遍openstack，创建虚拟机失败，提示错误：
+云主机 &quot;abc&quot; 执行所请求操作失败，云主机处于错误状态。: 请稍后再试 [错误: &#39;ascii&#39; codec can&#39;t decode byte 0xe6 in position 96: ordinal not in range(128)].
+
+以前也遇到过这情况，由于解决方法过于简单...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/26/openstack-neutron-router-unavailable/">
+                  <h2 class="post-title">关于Openstack Neutron Router无法使用的问题</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-26
+                </div>
+                <div class="post-abstract">
+                  前言因学习需要，配置openstack上的路由时发现，创建路由及其子接口后，子接口无法激活，经过一番研究，终于发现问题所在。
+解决方法这估计是neutron的一个bug，创建router之后，没有指定availability_zones这个属性，即没有指定其可用区域，也就是哪个区域都不能用。
+然而availability_zones这个属性是只读的，刚开始我还以为直接更新这个区域就可用了，后来发现...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

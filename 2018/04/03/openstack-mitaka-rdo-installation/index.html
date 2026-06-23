@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>Openstack安装（mitaka），RDO方式 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言每次安装openstack，都是一个重复踩坑的过程，虽然越踩就越深刻，不过还是记录下文档吧。
+环境
+系统：CentOS 7
+网卡：enp7s0，enp8s0
+SELinux: permissive&#x2F;disabled**（重要）**
+
+安装packstack首先根据我之前文章的方法进行配" />
+    <meta name="keywords" content="openstack,centos" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">Openstack安装（mitaka），RDO方式</h2>
+            <div class="post-date">
+              2018-04-03&emsp;&emsp;1262 字 &emsp;阅读时间 5 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>每次安装openstack，都是一个重复踩坑的过程，虽然越踩就越深刻，不过还是记录下文档吧。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>系统：CentOS 7</li>
+<li>网卡：enp7s0，enp8s0</li>
+<li>SELinux: permissive&#x2F;disabled**（重要）**</li>
+</ul>
+<h2 id="安装packstack"><a href="#安装packstack" class="headerlink" title="安装packstack"></a>安装packstack</h2><p>首先根据我之前<a href="/2018/03/01/CentOSVault/">文章</a>的方法进行配置，使用CentOS7.2（1511）版本的软件源，然后安装openstack源。</p>
+<pre><code>yum -y install centos-release-openstack-mitaka
+</code></pre>
+<p>安装完源之后，根据配置vault软件源的方法，对openstack的源进行修改（因为eol了），配置好之后开始安装packstack。</p>
+<pre><code>yum -y install openstack-packstack
+</code></pre>
+<h2 id="安装配置openstack"><a href="#安装配置openstack" class="headerlink" title="安装配置openstack"></a>安装配置openstack</h2><p>主要就是修改配置文件，当然，不修改也行，默认是<strong>all in one</strong>模式安装，密码随机生成。</p>
+<h3 id="生成安装配置文件"><a href="#生成安装配置文件" class="headerlink" title="生成安装配置文件"></a>生成安装配置文件</h3><p>该文件包含了数据库的密码，ip，以及openstack各组件的参数，所有设置都在这个文件修改。</p>
+<pre><code># 文件名（answer.conf），可自行定义，配置完后建议保留备份。
+packstack --gen-answer-file=answer.conf
+</code></pre>
+<h3 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h3><p>默认配置好像是为vxlan模式，具体作用我并不了解，所以先把我知道的写下来。</p>
+<p>生成配置时，默认使用网卡一的ip（DEFROUTE？）作为管理ip，如果是dhcp获取的，在安装前注意替换成静态ip（or 主机名？）。</p>
+<p>注意，安装需要连接网络，替换静态ip若无法联网，则无法安装。</p>
+<ul>
+<li>如果只有两块网卡，可以在管理网卡，通过配置网卡别名方式联网。（配置多个ip）</li>
+<li>如果有三块网卡，那更好办了，直接使用网卡三来联网。</li>
+</ul>
+<h3 id="vlan模式"><a href="#vlan模式" class="headerlink" title="vlan模式"></a>vlan模式</h3><p>网卡一（enp7s0）用作管理网络，网卡二（enp8s0）用作数据网络（在vlan模式，可以通过trunk方式转发到交换机）。</p>
+<pre><code># ...无关内容...
+
+# Comma-separated list of network-type driver entry points to be
+# loaded from the neutron.ml2.type_drivers namespace. [&#39;local&#39;,
+# &#39;flat&#39;, &#39;vlan&#39;, &#39;gre&#39;, &#39;vxlan&#39;]
+CONFIG_NEUTRON_ML2_TYPE_DRIVERS=vlan
+
+# Comma-separated, ordered list of network types to allocate as
+# tenant networks. The &#39;local&#39; value is only useful for single-box
+# testing and provides no connectivity between hosts. [&#39;local&#39;,
+# &#39;vlan&#39;, &#39;gre&#39;, &#39;vxlan&#39;]
+CONFIG_NEUTRON_ML2_TENANT_NETWORK_TYPES=vlan
+
+# Comma-separated ordered list of networking mechanism driver entry
+# points to be loaded from the neutron.ml2.mechanism_drivers
+# namespace. [&#39;logger&#39;, &#39;test&#39;, &#39;linuxbridge&#39;, &#39;openvswitch&#39;,
+# &#39;hyperv&#39;, &#39;ncs&#39;, &#39;arista&#39;, &#39;cisco_nexus&#39;, &#39;mlnx&#39;, &#39;l2population&#39;,
+# &#39;sriovnicswitch&#39;]
+CONFIG_NEUTRON_ML2_MECHANISM_DRIVERS=openvswitch
+
+# Comma-separated list of physical_network names with which flat
+# networks can be created. Use * to allow flat networks with arbitrary
+# physical_network names.
+CONFIG_NEUTRON_ML2_FLAT_NETWORKS=*
+
+# Comma-separated list of &lt;physical_network&gt;:&lt;vlan_min&gt;:&lt;vlan_max&gt; or
+# &lt;physical_network&gt; specifying physical_network names usable for VLAN
+# provider and tenant networks, as well as ranges of VLAN tags on each
+# available for allocation to tenant networks.
+CONFIG_NEUTRON_ML2_VLAN_RANGES=default:10:1000
+
+# ...无关内容...
+
+# Comma-separated list of bridge mappings for the OpenStack
+# Networking Open vSwitch plugin. Each tuple in the list must be in
+# the format &lt;physical_network&gt;:&lt;ovs_bridge&gt;. Example: physnet1:br-
+# eth1,physnet2:br-eth2,physnet3:br-eth3
+CONFIG_NEUTRON_OVS_BRIDGE_MAPPINGS=default:br-ex
+
+# Comma-separated list of colon-separated Open vSwitch
+# &lt;bridge&gt;:&lt;interface&gt; pairs. The interface will be added to the
+# associated bridge. If you desire the bridge to be persistent a value
+# must be added to this directive, also
+# CONFIG_NEUTRON_OVS_BRIDGE_MAPPINGS must be set in order to create
+# the proper port. This can be achieved from the command line by
+# issuing the following command: packstack --allinone --os-neutron-
+# ovs-bridge-mappings=ext-net:br-ex --os-neutron-ovs-bridge-interfaces
+# =br-ex:eth0
+CONFIG_NEUTRON_OVS_BRIDGE_IFACES=br-ex:enp8s0
+</code></pre>
+<h3 id="配置密码"><a href="#配置密码" class="headerlink" title="配置密码"></a>配置密码</h3><p>密码的配置相对简单，搜索**_PW**配置项，进行修改即可。</p>
+<p>horizon（dashboard）的密码验证是调用keystone的，所以要修改管理页面的密码，直接修改keystone的密码即可。</p>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><p>这些都是openstack未明确指出的依赖，不安装无法正常配置openstack。</p>
+<pre><code>yum -y install mariadb-libs libvirt-client qemu-kvm
+</code></pre>
+<h3 id="开始安装"><a href="#开始安装" class="headerlink" title="开始安装"></a>开始安装</h3><p>执行以下命令即可。</p>
+<pre><code>packstack --answer-file=answer.conf
+</code></pre>
+<p>执行完之后，不报错的话，那就是安装完成了。</p>
+<h3 id="访问Dashboard"><a href="#访问Dashboard" class="headerlink" title="访问Dashboard"></a>访问Dashboard</h3><p>你以为安装完成就结束了？不信你访问dashboard试试看。</p>
+<p>访问不了对吧，是的没错，这也是openstack的坑。（起码我用rdo装mitaka是这样的）</p>
+<h2 id="错误解决"><a href="#错误解决" class="headerlink" title="错误解决"></a>错误解决</h2><h3 id="无法访问dashboard"><a href="#无法访问dashboard" class="headerlink" title="无法访问dashboard"></a>无法访问dashboard</h3><p>打开**&#x2F;etc&#x2F;httpd&#x2F;conf.d&#x2F;15-horizon_vhost.conf**，在<strong>VirtualHost</strong>容器内添加：</p>
+<pre><code>WSGIApplicationGroup %{GLOBAL}
+</code></pre>
+<h3 id="无法创建实例"><a href="#无法创建实例" class="headerlink" title="无法创建实例"></a>无法创建实例</h3><p>关闭selinux。（你一定没细心看本文。）</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>我使用过很多脚本安装过openstack，有openshit，onestack等等，还有devstack。</p>
+<p>然而却没有任何一个能安装成功，正常使用的。</p>
+<p>唯独rdo的packstack成功了，在我看来，openstack的安装也是一大难题，坑点太多了，rdo真的是解决了一个大难题，虽然还有一点小坑就是了。</p>
+<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>后来又遇到了一些问题，导致无法正常安装，解决方法如下。</p>
+<h3 id="ERROR-Error-appeared-during-Puppet-run-x-x-x-x-provision-pp"><a href="#ERROR-Error-appeared-during-Puppet-run-x-x-x-x-provision-pp" class="headerlink" title="ERROR : Error appeared during Puppet run: x.x.x.x_provision.pp"></a>ERROR : Error appeared during Puppet run: x.x.x.x_provision.pp</h3><p>在网上没有找到有关资料，经过一番研究，据我理解应该是openstack应用某些默认规则失败，比如网段冲突什么的。</p>
+<p>解决方法简单粗暴，关闭这个provision的测试开关就好。（据猜测应该不影响使用）</p>
+<pre><code># Specify &#39;y&#39; to provision for demo usage and testing. [&#39;y&#39;, &#39;n&#39;]
+CONFIG_PROVISION_DEMO=n
+
+# Specify &#39;y&#39; to configure the OpenStack Integration Test Suite
+# (tempest) for testing. The test suite requires OpenStack Networking
+# to be installed. [&#39;y&#39;, &#39;n&#39;]
+CONFIG_PROVISION_TEMPEST=n
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/openstack/" class="tag">
+                    openstack
+                  </a>
+                
+                  <a href="/tags/centos/" class="tag">
+                    centos
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2018/04/02/openstack-nova-instance-encoding-error/">
+                  <h3 class="post-title">
+                    OpenstackNova创建实例编码报错
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83"><span class="toc-text">环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85packstack"><span class="toc-text">安装packstack</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AEopenstack"><span class="toc-text">安装配置openstack</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">生成安装配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E7%BD%91%E7%BB%9C"><span class="toc-text">配置网络</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#vlan%E6%A8%A1%E5%BC%8F"><span class="toc-text">vlan模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E5%AF%86%E7%A0%81"><span class="toc-text">配置密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%AE%89%E8%A3%85"><span class="toc-text">开始安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AEDashboard"><span class="toc-text">访问Dashboard</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3"><span class="toc-text">错误解决</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AEdashboard"><span class="toc-text">无法访问dashboard</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B"><span class="toc-text">无法创建实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A5%E5%85%85"><span class="toc-text">补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ERROR-Error-appeared-during-Puppet-run-x-x-x-x-provision-pp"><span class="toc-text">ERROR : Error appeared during Puppet run: x.x.x.x_provision.pp</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

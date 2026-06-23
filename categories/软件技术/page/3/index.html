@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>软件技术 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">分类: 软件技术</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/08/01/python-closure-discussion/">
+                  <h2 class="post-title">Python闭包问题的探讨</h2>
+                </a>
+                <div class="post-date">
+                  2019-08-01
+                </div>
+                <div class="post-abstract">
+                  前言今日在更新程序的时候遇到了个问题。
+如何生成多语言的菜单，创建并绑定相应的回调函数？
+生成菜单自然是很简单的，一个for循环就好了，但是生成相应函数就？？？
+正文在解决以下事件的过程中，又思考得出了别的内容。
+续：前言事件情况如下，现有语言列表及两个业务方法。
+# 现有两种语言，不排除以后会扩展#（即便只有两种语言也不写hardcode，便于日后扩展）languages = [&#39;en&...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/07/30/web-development-basics-course/">
+                  <h2 class="post-title">Web开发基础课程</h2>
+                </a>
+                <div class="post-date">
+                  2019-07-30
+                </div>
+                <div class="post-abstract">
+                  前言前段时间为完成学校任务，设计了一套Web开发课程。
+课程涉及前后端的基础应用，最终目标为开发一款简易的博客程序。
+博客程序包含最基本的功能（用户、发布文章、文章分类、文章留言、友情链接）。
+课程安排学习周期：2周（原定1周，翻车了）
+课程内容如下所示，都是些最基本的知识点。
+
+
+Web课程安排
+软件环境
+系统：Windows 7
+PhpStudy2016（apache+php5.6+mysql...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-blueprint-nesting/">
+                  <h2 class="post-title">Flask 蓝图嵌套</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言Flask是一个轻量级的python web框架，与django相比，flask抛开了繁琐的配置项等等。
+Flask与Django一样，支持模块化开发，使用BluePrint（蓝图）实现。
+但是，这个蓝图并不支持嵌套。。
+正文当然，我能想到的问题早就有人想到，并解决了。
+详情见issue.
+解决方案class NestableBlueprint(Blueprint):
+    &quot;&q...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/06/13/flask-selectfield-not-valid-choice-fix/">
+                  <h2 class="post-title">Flask SelectField (Not a vaild choice) 错误解决</h2>
+                </a>
+                <div class="post-date">
+                  2019-06-13
+                </div>
+                <div class="post-abstract">
+                  前言最近折腾起来Flask，在使用WTForm的时候遇到了一点小问题。
+当提交表单时，SelectField项提示错误Not a vaild choice.
+正文此时表单代码为：
+class QuestionAddForm(FlaskForm):
+    type = SelectField(&#39;类型&#39;, choices=list(
+        {
+            1: ...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/03/18/python-url-query-parameter-parsing/">
+                  <h2 class="post-title">Python解析url请求参数</h2>
+                </a>
+                <div class="post-date">
+                  2019-03-18
+                </div>
+                <div class="post-abstract">
+                  前言在制作爬虫模拟登陆时发现表单数据如下。
+userName=xxx&amp;userPwd=xxx
+
+结构相当简单，想要转换成dict，分割两下就好了，但是仔细想想，这么常见的需求，一定会有相应的模块。
+寻找了一番，果然是有的。
+方法详细操作自行查看文档。
+from urllib.parse import parse_qs
+print(parse_qs(&#39;userName=xxx&amp...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/12/15/quicklook-quick-preview/">
+                  <h2 class="post-title">使用QuickLook进行快速预览</h2>
+                </a>
+                <div class="post-date">
+                  2018-12-15
+                </div>
+                <div class="post-abstract">
+                  前言在macOS下有一个便捷的功能，其名为QuickLook。
+只要在文件管理器选中一个文件，按下空格，即可快速预览。
+最近重装了macOS，发现这个功能好像失效了。（可能是应用没有注册快速预览功能）
+经过一番搜索，找到了更好的解决方案。（还找到了win版的QuickLook）
+Windows版QuickLook点击打开项目地址。
+安装即可，文章后面内容对此不适用。
+Mac QuickLook失效...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/12/01/php7-legacy-mysql-api-compatibility/">
+                  <h2 class="post-title">PHP7 兼容旧 MySQL Api</h2>
+                </a>
+                <div class="post-date">
+                  2018-12-01
+                </div>
+                <div class="post-abstract">
+                  前言这几天折腾网络安全的玩意，在搭建安全测试平台的过程中出现了点小问题。
+安全测试平台使用的php版本是5.x，但我在服务器上安装的是7.x，7.x的php废除了对mysql的api，添加了一套新的api，mysqli。
+虽然可以去安装php5.x来解决这个问题，不过常用的5.6好像也不支持了，那就不折腾了。
+考虑到各种因素，于是乎用mysqli的api修改一下，做了个mysql的api兼容层。
+...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/11/30/pycrypto-vs-compile-error/">
+                  <h2 class="post-title">【转】安装PyCrypto时VS编译出错</h2>
+                </a>
+                <div class="post-date">
+                  2018-11-30
+                </div>
+                <div class="post-abstract">
+                  前言最近做了个project，需要用到PyCrypto。
+PyCrypto在Windows下需要使用VC进行编译，不过Python模块在Windows平台编译坑点比较多。
+如：
+winrand.c
+D:\Windows Kits\10\include\10.0.17134.0\ucrt\inttypes.h(27): error C2061: 语法错误: 标识符“intmax_t”
+D:\Wind...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/10/31/cpp-get-array-length/">
+                  <h2 class="post-title">C++之获取数组长度</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-31
+                </div>
+                <div class="post-abstract">
+                  前言在研究数组排序的过程中，发现了个很基础的问题–如何获取数组长度（成员数）。
+似乎C++并没有提供获取数组长度的方法，网上搜索得知sizeof可以计算变量大小，可以通过获取数组大小&#x2F;成员大小的办法得到数组长度。
+当我将这个计算数组长度的方法封装起来时，发现事情并不简单。
+int array_length(int ai[]) {   return sizeof ai / sizeof a...
+                </div>
+              </div>
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/10/12/python-regex-test-data-generation/">
+                  <h2 class="post-title">Python生成正则测试数据</h2>
+                </a>
+                <div class="post-date">
+                  2018-10-12
+                </div>
+                <div class="post-abstract">
+                  前言匹配文本，最简单的方法就是使用正则表达式了。
+但根据表达式生成测试数据，反过来一看，缺没什么头绪。
+万幸的是，使用的是轮子遍地的python，所以只要找到相关模块就可以了。
+正文可使用xeger或rstr（含xeger）模块。
+这里使用xeger模块。
+pip3 install xeger
+
+from xeger import Xeger
+reg_str = &#39;0\((.+?)\);&...
+                </div>
+              </div>
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%8A%80%E6%9C%AF/page/4/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

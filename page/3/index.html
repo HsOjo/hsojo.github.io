@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/samba-large-file-transfer-fix/">
+                  <h2 class="post-title">Samba传输大文件出错的解决方案</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2021-04-11
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/samba/" class="tag">
+                          samba
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，使用samba看电影，每次跳到46分钟左右的时侯，视频就中断了。
+尝试下载视频文件，却得到了这样的结果。
+“访达”不能完成该操作，因为不能读取或写入“[NC-Raws] Fate／stay night [Heaven&#39;s Feel]Ⅲ.春樱之歌 - 01 [B-Global][WEB-DL][1080p][AVC AAC][CHS_CHT_ENG_TH_SRT][MKV].m...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/12/31/2020-annual-summary/">
+                  <h2 class="post-title">2020 年度总结</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-12-31
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言又一年过去了，总结一下今年的经历，迎接新的一年。
+学业转眼间，我也将是毕业生了；大三的日子已经过完了一半，即将到达升学与工作的分岔路。
+虽然离插本的时间已经不远了，但却仍未准备就绪；果然还是自制力太差了。也被学校各种乱七八糟的内容（课程、实践等）占据了不少时间。
+再回顾今年开局，疫情爆发，打乱了很多人的计划，只能窝在家里上网课。
+当然，我也不会去老实上课的，日常挂机整活。
+比赛今年和XuQin...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/12/23/php-environment-variable-fix/">
+                  <h2 class="post-title">PHP无法获取环境变量解决办法</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-12-23
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在开发PHP项目时，遇到了无法通过getenv获取PATH的情况，检查phpinfo发现PHP无法获取环境变量。
+解决方法
+修改php-fpm.conf，添加以下内容即可。
+
+clear_env = no
+
+
+默认情况下，php-fpm会清除环境变量，以提高安全性。
+
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/30/enable-aptx-on-mac/">
+                  <h2 class="post-title">在Mac上开启AptX</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-07-30
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/macos/" class="tag">
+                          macos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在使用Mac下使用蓝牙耳机时，声音时常断断续续；
+我寻思着会不会是音频编码的问题，猜测Intel蓝牙对AAC编码支持较差。
+在搜索相关资料后，发现Intel蓝牙似乎支持AptX，那么便尝试更换之。
+过程
+首先到Apple开发者站点下载Additional Tools for Xcode。
+找到包含Bluetooth Explorer的版本，如目前最新的是11.4版。
+
+
+打开下载的镜像包，再打...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/22/install-pycrypto-on-windows/">
+                  <h2 class="post-title">在Windows平台安装PyCrypto</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-07-22
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在使用PyInstaller加密打包程序时，遇到了打包程序无法启动的问题。
+查阅资料后发现是因PyCrypto未能正确安装。
+首先尝试了安装替代品PyCryptoDome，后来发现并不可行。
+然后编译安装PyCrypto时又出现了无法安装的问题，再以此记录。
+正文遇到以下错误：
+  ...省略部分无关内容...
+    C:\Program Files (x86)\Microsoft Visu...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/14/python-compile-install-centos/">
+                  <h2 class="post-title">Python在CentOS下的编译安装过程</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-07-14
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近在编写CentOS环境下的自动部署脚本，开发环境使用Python3.7+在CentOS环境下需要自行安装。
+在安装的过程中，把以前没记录下来的坑又踩了一遍，故以此记录。
+下载源码点击打开Python官方源码下载页。
+编译安装
+安装编译环境
+
+yum -y install gcc make
+
+
+安装依赖
+
+yum -y install zlib-devel
+# 以下可选，根据需要安装，不安装...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/23/unoconv-csv-chinese-garbled-fix/">
+                  <h2 class="post-title">unoconv转换Csv中文乱码问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-06-23
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                        <a href="/tags/office/" class="tag">
+                          office
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近在使用PHPSpreadsheet导出大量数据到Xlsx时，频繁出现各种问题；如内存溢出、数据丢失等。
+后来更换导出格式为Csv，问题减少了，但是在Office中使用极其不友好；如不支持单元格格式、在不同系统中使用的编码不同可能会出现乱码的情况。
+于是就有了这么一个折中的方案，PHP导出时使用Csv格式，导出完成后，使用unoconv将文件转换为Xlsx格式。
+然而使用unoconv转换为...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/17/first-team-collaboration-project-record/">
+                  <h2 class="post-title">初次团队协作整活全流程记录</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-06-17
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近与友人AtmosphereMao一同接了一微信小程序的活，途中出现了一些小小意外，故以此总结经验。
+整活场景开发的项目为XX报名系统，用于解决招生录取问题。
+最初先是完成后端的基本功能开发（5月18日）；前端是在后端基本完成后（5月27日左右）开始开发。
+直至今天（6月17日），项目经过了多番整改，终于趋于完成。
+技术使用
+后台
+ThinkCMF（基于ThinkPHP的内容管理框架）
+
+
+...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/12/git-disable-password-remembering/">
+                  <h2 class="post-title">Git禁止记住密码</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-06-12
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/git/" class="tag">
+                          git
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在生产环境中部署git项目时，当pull时输入账号密码后，会被Git Bash记住；但如果部署在公共环境下，被记住就不太合适了。
+解决方法Git Bash执行以下内容。
+git credential-manager uninstall
+
+
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/06/02/php-word-to-pdf-conversion/">
+                  <h2 class="post-title">PHP中将Word文件转换为PDF</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2020-06-02
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/php/" class="tag">
+                          php
+                        </a>
+                      
+                        <a href="/tags/office/" class="tag">
+                          office
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在上一篇水文中，我提到了需要实现“docx转pdf”；
+经过一番折腾，最终得出了一个结论：PHP可真不愧是一两面撬刀的🔨。
+在尝试了使用“phpoffice&#x2F;phpword”+“dompdf&#x2F;mpdf”等主流PDF转换库对docx进行转换后，最后得到的效果实在是不尽人意。（错位+乱码）
+虽然在Windows平台可通过“.net COM组件”这种外挂方式实现转换，但这种方法...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+    <a href="/page/2/" class="prev"><i class="icon-arrow-ios-back-outline"></i> 上一页</a>
+  
+  
+    <a href="/page/4/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

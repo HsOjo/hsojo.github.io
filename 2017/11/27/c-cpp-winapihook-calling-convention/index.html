@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>C/C++ WinApiHook注意调用方式！！！ | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言在前段时间使用易语言hook的方式，实现了《11月的阿卡迪亚》的部分汉化，当时只是抱着试一试的心态，不过既然成功了，就当然想要深入的理解和研究。
+最近又发现了个有趣的エロ游戏，于是乎我又打算尝试汉化，不过机会渺茫，没有搞懂资源结构，但是修改程序使其支持中文显示，应该还是可以的。
+然后在尝试Hoo" />
+    <meta name="keywords" content="c++,hook" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">C/C++ WinApiHook注意调用方式！！！</h2>
+            <div class="post-date">
+              2017-11-27&emsp;&emsp;1192 字 &emsp;阅读时间 4 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在前段时间使用易语言hook的方式，实现了<a href="/2017/10/18/11GatsuNoArcadia/">《11月的阿卡迪亚》</a>的部分汉化，当时只是抱着试一试的心态，不过既然成功了，就当然想要深入的理解和研究。</p>
+<p>最近又发现了个有趣的<del>エロ</del>游戏，于是乎我又打算尝试汉化，不过机会渺茫，没有搞懂资源结构，但是修改程序使其支持中文显示，应该还是可以的。</p>
+<p>然后在尝试Hook某些API的时候，程序崩溃了，研究了整整一天才发现原因，So,写篇文章记录下来。</p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="放弃易语言"><a href="#放弃易语言" class="headerlink" title="放弃易语言"></a>放弃易语言</h3><p>于是乎使用<strong>OllyDbg</strong>分析了一波api，发现这次的程序创建字体使用的是<strong>CreateFontIndirectA</strong>，传入参数是一个结构体，这<strong>d<em>g sh</em>t 易语言</strong>涉及到结构体的参数就不好处理，由于并不打算再深入研究易语言，So 我花了两天时间学习了<strong>C++</strong>。</p>
+<h3 id="使用C-MHook"><a href="#使用C-MHook" class="headerlink" title="使用C++ &amp; MHook"></a>使用C++ &amp; MHook</h3><p>虽然搞懂了C++的基本使用，不过我还不打算直接就干新的程序，首先参考之前汉化**《11月的阿卡迪亚》<strong>做一个</strong>C++ Ver的Hooker<strong>替代</strong>易语言Ver的Hooker**，了解了一番C++ APIHook后，我选择了使用MHook库，方便。</p>
+<h3 id="传统Hook-MHook的区别"><a href="#传统Hook-MHook的区别" class="headerlink" title="传统Hook &amp; MHook的区别"></a>传统Hook &amp; MHook的区别</h3><blockquote>
+<p>传统Hook</p>
+<p>调用被Hook的API时一般分为以下几步，比较繁琐。</p>
+<blockquote>
+<p>调用Hooked API跳转到Hook Func暂停Hook修改参数并调用True Func恢复Hook返回结果</p>
+</blockquote>
+<ul>
+<li>MHook</li>
+</ul>
+<p>使用<strong>MHook</strong>可以简化为以下几步~~ 帮你封装好了 ~~，比较简单，完善。</p>
+<blockquote>
+<p>调用Hooked API跳转到Hook Func修改参数并调用True Func返回结果</p>
+<ul>
+<li>注意：<strong>在Hook Func里不能调用Hooked API，必须通过True Func来操作原API，否则会崩溃（死循环了）</strong>。</li>
+</ul>
+</blockquote>
+</blockquote>
+<h3 id="开始Hook"><a href="#开始Hook" class="headerlink" title="开始Hook"></a>开始Hook</h3><h3 id="操作环境"><a href="#操作环境" class="headerlink" title="操作环境"></a>操作环境</h3><p>系统：Windows 7</p>
+<p>软件：<br>Clion &amp; MinGW(CMake),<br>MHook(Source Code),<br>LordPE</p>
+<h3 id="修改MHook"><a href="#修改MHook" class="headerlink" title="修改MHook"></a>修改MHook</h3><p>由于MHook原来是个VC++的project，我所使用的编译环境是CMake(好像是gcc)，某些VC++特性不支持，比如没有某些头文件。</p>
+<p>经过一番观察，还好MHook用到VC++的部分都是些debug用的输出内容，将其全部去掉即可<del>，出了问题又不会修</del>。还有一些基础类型不存在，不过有替代的选项，全部换掉即可。</p>
+<h3 id="尝试Hook"><a href="#尝试Hook" class="headerlink" title="尝试Hook"></a>尝试Hook</h3><p>首先Hook的是，<strong>KERNEL32-GetSystemDefaultLangID</strong>，很轻松的Hook成功了。</p>
+<p>于是乎，我傻逼傻逼的以为Hook就这么简单，一口气把之前的所有API的Hook Code都写好了，然后便是噩梦的开始。</p>
+<h3 id="莫名崩溃"><a href="#莫名崩溃" class="headerlink" title="莫名崩溃"></a>莫名崩溃</h3><p>当时我Hook的API有以下：</p>
+<blockquote>
+<p>KERNEL32-GetSystemDefaultLangIDKERNEL32-MultiByteToWideCharUSER32-MessageBoxAGDI32-CreateFontA</p>
+</blockquote>
+<p>当我Hook <strong>KERNEL32-MultiByteToWideChar</strong> 和 <strong>GDI32-CreateFontA</strong>的时候，程序是绝对崩溃的，但我Hook <strong>KERNEL32-GetSystemDefaultLangID</strong> 和 <strong>USER32-MessageBoxA</strong>是正常的。</p>
+<p>这让我很不解，为什么有些API正常，有些就不正常。于是我只Hook <strong>KERNEL32</strong>来进行测试。</p>
+<p>一开始我以为是Hook时传值给API的方式不对，比如<strong>MultiByteToWideChar</strong>，返回的是转换后的长度，传入的参数<strong>lpWideCharStr</strong>会被改变，我觉得是**引用（&amp;）<strong>还有</strong>指针（*）**的问题。</p>
+<p>于是乎我折腾了半天，无果<del>（还tm换回了传统Hook）</del>。</p>
+<h3 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a>发现问题</h3><p>既然换回传统Hook还不行，我已经在怀疑人生了，然后我去翻阅了一遍原来易语言Ver的code，发现：</p>
+<img src="/2017/11/27/c-cpp-winapihook-calling-convention/post-imagesApiHookCallEVerHooker.jpg" class="">
+
+<p>易语言版本Hooker</p>
+<p><del>我*****，</del>才想起来那个程序不是以C的方式调用API<del>（之前也因此崩溃过）</del>，而是用更传统的方式。</p>
+<p>参考<a target="_blank" rel="noopener" href="http://blog.csdn.net/dengziliang001/article/details/17448789">文章</a>后发现，原来Win32 Api都是使用**__stdcall<strong>的方式调用，我写的Hook Func（没有标记调用方式）默认是以</strong>__cdecl**的方式调用的。</p>
+<blockquote>
+<p>1._stdcall调用</p>
+<blockquote>
+<p>_stdcall是Pascal程序的缺省调用方式，参数采用从右到左的压栈方式，被调函数自身在返回前清空堆栈。</p>
+</blockquote>
+<p>2._cdecl调用</p>
+<blockquote>
+<p>_cdecl是C&#x2F;C++的缺省调用方式，参数采用从右到左的压栈方式，传送参数的内存栈由调用者维护。_cdecl约定的函数只能被C&#x2F;C++调用，每一个调用它的函数都包含清空堆栈的代码，所以产生的可执行文件大小会比调用_stdcall函数的大。</p>
+<p>由于Visual C++默认采用_cdecl 调用方式，所以VC中中调用DLL时，用户应使用_stdcall调用约定。</p>
+</blockquote>
+<p>3._fastcall调用</p>
+<blockquote>
+<p>_fastcall调用较快，它通过CPU内部寄存器传递参数。</p>
+<p>按C编译方式，_fastcall调用约定在输出函数名前面加“@”符号，后面加“@”符号和参数的字节数，形如@functionname@number。</p>
+</blockquote>
+</blockquote>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>在Hook Func前面加上**__stdcall**标记即可。</p>
+<pre><code class="language-c">__stdcall int KERNEL32::hookMultiByteToWideChar(        UINT CodePage,        DWORD dwFlags,        LPCSTR lpMultiByteStr,        int cchMultiByte,        LPWSTR lpWideCharStr,        int cchWideChar
+) &#123;    CodePage = 0x3a8;    return KERNEL32::trueMultiByteToWideChar(CodePage, dwFlags, lpMultiByteStr, cchMultiByte, lpWideCharStr,cchWideChar);&#125;
+</code></pre>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+              <div class="tag-container">
+                
+                  <a href="/tags/c/" class="tag">
+                    c++
+                  </a>
+                
+                  <a href="/tags/hook/" class="tag">
+                    hook
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2017/10/18/november-arcadia-translation/">
+                  <h3 class="post-title">
+                    【汉化】11月的阿卡迪亚
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%94%BE%E5%BC%83%E6%98%93%E8%AF%AD%E8%A8%80"><span class="toc-text">放弃易语言</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8C-MHook"><span class="toc-text">使用C++ &amp; MHook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E7%BB%9FHook-MHook%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">传统Hook &amp; MHook的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%A7%8BHook"><span class="toc-text">开始Hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%8E%AF%E5%A2%83"><span class="toc-text">操作环境</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9MHook"><span class="toc-text">修改MHook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%9D%E8%AF%95Hook"><span class="toc-text">尝试Hook</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%AB%E5%90%8D%E5%B4%A9%E6%BA%83"><span class="toc-text">莫名崩溃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E7%8E%B0%E9%97%AE%E9%A2%98"><span class="toc-text">发现问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-text">解决方法</span></a></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

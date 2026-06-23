@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>华硕VC60踩坑记 - 垃圾佬的冒险经历 | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="前言前段时间，家里的一台笔记本寿终正寝了，应是主板等部件损坏了。
+由于这台机器的主板曾经续过一次命（换过）；那么这个主板想必是个坑大的家伙，就放弃了再换主板的想法。（修好了也容易再坏）
+但是很多外设都还能正常使用，有如CPU（i3-2310m）、内存（DDR3 8G）、硬盘（固态128G）、网卡（i" />
+    <meta name="keywords" content="" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" rel="stylesheet">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <div class="post-detail">
+            <h2 class="post-title">华硕VC60踩坑记 - 垃圾佬的冒险经历</h2>
+            <div class="post-date">
+              2020-03-22&emsp;&emsp;2272 字 &emsp;阅读时间 8 分钟
+            </div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>前段时间，家里的一台笔记本寿终正寝了，应是主板等部件损坏了。</p>
+<p>由于这台机器的主板曾经续过一次命（换过）；那么这个主板想必是个坑大的家伙，就放弃了再换主板的想法。（修好了也容易再坏）</p>
+<p>但是很多外设都还能正常使用，有如CPU（i3-2310m）、内存（DDR3 8G）、硬盘（固态128G）、网卡（intel 7620）；折合下来也值个几百块吧，为了不浪费这些闲置资源，我在某宝寻找了可匹配这些硬件的主板。</p>
+<p>虽然有很多国产寨板，但唯一能吸引到我的只有<strong>华硕VC60</strong>这块板子 <del>（华硕品质，坚如磐石）</del>；于是乎就开始了垃圾佬的冒险。</p>
+<h2 id="坑点"><a href="#坑点" class="headerlink" title="坑点"></a>坑点</h2><p>这玩意坑点很多，从头到尾坑了我将近<strong>100元的邮费</strong>。</p>
+<p>最奇怪的是，卖这块板子的店家也不清楚这块板子的细节。</p>
+<h3 id="版型"><a href="#版型" class="headerlink" title="版型"></a>版型</h3><p>一开始我以为这是普通的<strong>ITX</strong>主板，直到我发现螺丝孔位和<strong>ITX</strong>机箱完全对不上。</p>
+<p>但此时已经购入电源等外设了，退货还嫌麻烦 <del>（邮费贵）</del>，只能将计划进行到底了，自制机箱预定。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021731.jpg" class="">
+
+<p>版型</p>
+<h3 id="电源"><a href="#电源" class="headerlink" title="电源"></a>电源</h3><p>这块板子电源使用<strong>DC供电</strong> <del>（那是啥？）</del>，一开始以为找个普通的<strong>ITX DC电源</strong>就可以了，结果<strong>卖电源的店家</strong>表示DC电源还区分多种不同电压，不是随便配个接口合适的就可以的；然而<strong>主板卖家</strong>表示也不清楚电源用的啥规格（WTF？？？）。</p>
+<p>经过一番查阅资料，发现这板子原来是华硕在台湾地区做的一款类似<strong>HTPC</strong>机器（全称 VivoPC VC60）的拆机板。</p>
+<p>查看<a target="_blank" rel="noopener" href="https://www.asus.com.cn/supportonly/VC60/HelpDesk_Manual/">使用手册</a>后，终于找到了其电源规格：</p>
+<pre><code>電源變壓器資訊:
+• 輸入電壓:100-240Vac
+• 輸入頻率:50-60Hz
+• 輸出電流:3.42A (65W)
+• 輸出電壓功率:19V
+</code></pre>
+<p>于是上某宝，终于搞到电源；似乎就是个普通华硕笔记本的电源。</p>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><p>这板子原生支持<strong>intel 3代 移动端CPU</strong>，但是<strong>2代CPU</strong>并不确定。</p>
+<p>接上电源后，并不能亮机，我怀疑可能是 CPU 不兼容的问题，又或者是 CPU 是坏的（笔记本坏了才拆下来的）。</p>
+<p>然后入了一块 i5-3340m，随后装上发现还是不亮机 <del>（螺丝刀跳线短接大法也不行，割肉退货的心都有了）</del>；</p>
+<p>于是把全套东西寄给主板店家 Debug 了，然后对方跟我说跳线接错了。（？？？）</p>
+<h3 id="跳线"><a href="#跳线" class="headerlink" title="跳线"></a>跳线</h3><p>跳线我是根据主板店家的商品详情里的跳线图来接的，按理说不可能会出错。（普通ITX跳线接法）</p>
+<p>然后，主板店家竟然把我的跳线焊到主板上去了，WTF？？？然后焊的位置不是跳线图的位置，而是<strong>旁边</strong>的一个<strong>超小 6pin 插槽</strong>（而且市面上找不到相应规格的接线）；此时此刻，我感觉我受到了欺骗；这种非正常规格的板子，竟然连跳线都不给我配一根就拿出来卖？</p>
+<p>那行吧，能开机就好，累了。</p>
+<h3 id="散热器"><a href="#散热器" class="headerlink" title="散热器"></a>散热器</h3><p>这板子也是够神奇，散热器也不是常规规格；其电源使用的是<strong>超小 4pin 插槽</strong>。无奈，只能定制。</p>
+<p>由于之前买过散热风扇（8cm * 8cm，USB 供电），就直接拿来用了；散热片到淘宝刮了一片的铝制二极管散热片 <del>（找来找去都没找到合适的，只能将就用这个了）</del>。</p>
+<p>有了材料，接下来还有一个难题，怎么给 CPU 导热；如果直接将散热片压在 CPU 上，我认为压坏芯片的概率很高。</p>
+<p>经过一番思索，我得出了以下方案：</p>
+<blockquote>
+<p>方向：从上到下</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>配件</th>
+<th>规格</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>风扇</td>
+<td>8cm * 8cm * 1.5cm</td>
+</tr>
+<tr>
+<td>散热片</td>
+<td>45mm * 60mm * 20mm</td>
+</tr>
+<tr>
+<td>导热硅胶</td>
+<td>30mm * 30mm * 1mm</td>
+</tr>
+<tr>
+<td>铜片</td>
+<td>20mm * 20mm * 2mm</td>
+</tr>
+<tr>
+<td>硅脂</td>
+<td>…</td>
+</tr>
+<tr>
+<td>CPU</td>
+<td>…</td>
+</tr>
+</tbody></table>
+<p>其中，散热片和 CPU 之间，增加一片导热硅胶作于缓冲（硅胶有弹性），由于 CPU 需要涂抹硅脂导热，所以在 CPU 上面增添了一块铜片。</p>
+<p>固定也是一个问题，万幸 CPU 周围 4个 螺丝孔位都是 M2规格，从其他地方抠下来4颗就可以了，然后使用弹簧丝缠绕散热片，再通过螺丝固定到主板上就解决了。</p>
+<p>同时风扇还有固定用的吸盘，装好机箱后，摇晃也不成问题。（也有缓冲作用，防止压坏CPU）</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021015.jpg" class="">
+
+<p>自制散热器</p>
+<p>散热器部署完成后，长时间烤机可发挥 62%，1.3GHz 的性能；突发性能的话，还是能跑到 100% 的。（行吧，5v风扇也就这个水平了，当 Web 服务器肯定还是没问题的）</p>
+<p><del>总比不加散热器时（闲置状态），只能发挥 14.3%，0.3GHz 的性能要好，拖动窗口都卡。</del></p>
+<h3 id="机箱"><a href="#机箱" class="headerlink" title="机箱"></a>机箱</h3><p><del>此处该使用CAD定制机箱，手工定制真的是愚蠢；途中的艰辛真的是难以想象。</del></p>
+<p>前文提到，这个板子无法使用常规 ITX机箱，于是只能定制机箱；依稀记得某同学说过：<strong>亚克力</strong>材质挺好；于是乎购入了几片亚克力板。</p>
+<p>详情如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>尺寸（mm）</th>
+<th>颜色</th>
+<th>厚度（mm）</th>
+<th>数量</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>200 * 200</td>
+<td>黑色</td>
+<td>4.5</td>
+<td>2</td>
+<td>机箱顶部及备用</td>
+</tr>
+<tr>
+<td>200 * 300</td>
+<td>黑色半透明</td>
+<td>4.8</td>
+<td>2</td>
+<td>机箱侧面及备用</td>
+</tr>
+<tr>
+<td>200 * 200</td>
+<td>黑色</td>
+<td>7.5</td>
+<td>1</td>
+<td>机箱底部</td>
+</tr>
+</tbody></table>
+<p>当亚克力板到手的时候，我发现其重量相当的大，与预想的不一样；但不过既然买了就不能浪费了 <del>（退货得亏邮费，还麻烦）</del>。</p>
+<p>为了定制亚克力板，还专门购入了一把 USB 电钻。（威力很弱，但勉强能用）</p>
+<p>第一步便是给底板打孔，经过多次失败后，7.5mm 的板子终于可以契合主板的孔位了。</p>
+<p>但无奈 7.5 太重了，还好有一片 200 * 200 * 4.5 的备用板，重新搞了一张。（熟能生巧，一次搞定）</p>
+<p>然后是将 200 * 300 切割为4面侧板，还是使用 USB 电钻；由于威力极弱，经过了半天时间，终于切割完成。</p>
+<p>使用亚克力胶水粘合后，效果也可还行。（可惜手误将胶水粘到了机箱表面，把板子弄花了）</p>
+<p>机箱分为两个部分，一部分是底板+背板，另一部分是顶板+三个侧板，其中<strong>背板</strong>需要针对<strong>主板接口</strong>进行开孔，而<strong>顶板</strong>则需要为<strong>风扇抽风位、电源按钮</strong>进行开孔。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021210.jpg" class="">
+
+<p>底板-1</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021126.jpg" class="">
+
+<p>底板-2</p>
+<p>又是经过一番漫长的切割、开孔，机箱雏形做好了；但此时无法固定，无奈先用透明胶粘好。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021325.jpg" class="">
+
+<p>机箱雏形</p>
+<p>为了方便拆卸，后来购入<strong>6#32螺母</strong>配合<strong>6#32 UNC指旋螺丝</strong>对机箱四角进行固定；其中螺母使用之前 7.5mm 厚度的废板切角，通过使用胶水固定在机箱上半部分的底部四角，同时对底板进行开孔，使螺丝可接触到螺母；然后即可完成机箱的固定。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021050.jpg" class="">
+
+<p>完成固定后的机箱</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>虽然坑点很多，但是 BIOS 却意外的设计的挺好；可以关闭错误提示（如没有安装 CPU 风扇）。</p>
+<ul>
+<li>版型<ul>
+<li>非ITX，定制板</li>
+</ul>
+</li>
+<li>CPU<ul>
+<li>支持2代CPU</li>
+</ul>
+</li>
+<li>跳线<ul>
+<li>定制，需要店家焊接</li>
+</ul>
+</li>
+<li>散热器<ul>
+<li>只能定制</li>
+</ul>
+</li>
+<li>机箱<ul>
+<li>只能定制</li>
+</ul>
+</li>
+</ul>
+<p>这个 ** 东西竟然被我搞好了，感觉组普通规格的台式机，应该都不是问题了。</p>
+<p><del>以后还当不当垃圾佬？实话说，真的有点怕了；但我就是喜欢折腾。</del></p>
+<h2 id="成品"><a href="#成品" class="headerlink" title="成品"></a>成品</h2><p>如下所示。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021151.jpg" class="">
+
+<p>成品图-1</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021103.jpg" class="">
+
+<p>成品图-2</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200322-021112.jpg" class="">
+
+<p>成品图-3</p>
+<h2 id="后话"><a href="#后话" class="headerlink" title="后话"></a>后话</h2><p>还别说，弄好之后挺香的；有空再整个黑苹果，感觉不错。</p>
+<h3 id="添加风扇开关"><a href="#添加风扇开关" class="headerlink" title="添加风扇开关"></a>添加风扇开关</h3><p>在安静的环境下开着这台机器，风扇会产生一定的噪音；如果要关掉风扇则要拔掉风扇的电源，但插拔USB线挺不方便的。</p>
+<p>于是乎，经过思考，得出了以下方案。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-152039.jpg" class="">
+
+<p>风扇开关-1</p>
+<p>使用自锁式开关控制USB电源。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-153020.jpg" class="">
+
+<p>风扇开关-2</p>
+<p>比起插拔，还是按按钮舒服。</p>
+<h3 id="散热升级"><a href="#散热升级" class="headerlink" title="散热升级"></a>散热升级</h3><p>使用一段时间后发现，导热硅胶散热效果太差，开机一段时间之后连基本操作都卡，由于主板上仍存在三个螺丝孔位空着。</p>
+<p>于是乎，我又简单思考了下升级方案。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-153247.jpg" class="">
+
+<p>散热升级-1</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-150352.jpg" class="">
+
+<p>散热升级-2</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-153543.jpg" class="">
+
+<p>散热升级-3</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-154736.jpg" class="">
+
+<p>散热升级-4</p>
+<p>升级以后，效果还不错，终于算是能正常使用了。</p>
+<h2 id="Q-A"><a href="#Q-A" class="headerlink" title="Q&#x2F;A"></a>Q&#x2F;A</h2><p>这里是答疑区，有问题可在博客下进行评论；不定时回复。</p>
+<h3 id="如何短接开机"><a href="#如何短接开机" class="headerlink" title="如何短接开机"></a>如何短接开机</h3><p>经测试，用螺丝刀短接 pin2 &amp; pin3 即可。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-150131.jpg" class="">
+
+<p>短接开机</p>
+<h3 id="是否支持超频"><a href="#是否支持超频" class="headerlink" title="是否支持超频"></a>是否支持超频</h3><p>不支持。</p>
+<img src="/2020/03/22/asus-vc60-junkyard-adventure/post-imagesVC60AdventureQQ20200516-151035.jpg" class="">
+
+<p>短接开机</p>
+
+            </div>
+
+            <div class="not-by-ai">
+              <img src="/media/images/not-by-ai-cn.svg"/>
+              <img src="/media/images/not-by-ai-jp.svg"/>
+              <img src="/media/images/not-by-ai-en.svg"/>
+            </div>
+
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="/2020/01/04/ufw-block-overseas-traffic/">
+                  <h3 class="post-title">
+                    使用 ufw 抵御海外流量攻击
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+          </div>
+
+          
+
+<div class="post-toc animate__animated animate__fadeInUp">
+  <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9D%91%E7%82%B9"><span class="toc-text">坑点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%88%E5%9E%8B"><span class="toc-text">版型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%B5%E6%BA%90"><span class="toc-text">电源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CPU"><span class="toc-text">CPU</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%B3%E7%BA%BF"><span class="toc-text">跳线</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E7%83%AD%E5%99%A8"><span class="toc-text">散热器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%BA%E7%AE%B1"><span class="toc-text">机箱</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AE%BA"><span class="toc-text">结论</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%90%E5%93%81"><span class="toc-text">成品</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8E%E8%AF%9D"><span class="toc-text">后话</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%A3%8E%E6%89%87%E5%BC%80%E5%85%B3"><span class="toc-text">添加风扇开关</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E7%83%AD%E5%8D%87%E7%BA%A7"><span class="toc-text">散热升级</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Q-A"><span class="toc-text">Q&#x2F;A</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E7%9F%AD%E6%8E%A5%E5%BC%80%E6%9C%BA"><span class="toc-text">如何短接开机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%98%AF%E5%90%A6%E6%94%AF%E6%8C%81%E8%B6%85%E9%A2%91"><span class="toc-text">是否支持超频</span></a></li></ol></li></ol>
+</div>
+
+<script>
+  let lastTop = 0, linkList = [], headList = [], postBody, lastIndex = -1;
+  let activeClass = 'active-toc';
+  let tocContent;
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < linkList.length) {
+      linkList[index].parentElement.classList.remove(activeClass);
+    }
+  }
+
+  function getElementTop(el) {
+    let actualTop = el.offsetTop;
+    let current = el.offsetParent;
+    while (current !== null) {
+      actualTop += current.offsetTop;
+      current = current.offsetParent;
+    }
+    return actualTop;
+  }
+
+  function syncActiveClass() {
+    if (linkList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop;
+    let eps = window.innerHeight;
+    let current = 0, closestOffset = 0x3f3f3f3f, hasFind = false;
+    for (let i = 0; i < headList.length; i++) {
+      let offset = Math.abs(getElementTop(headList[i]) - scrollTop);
+      if (offset > eps) {
+        continue;
+      }
+      if (offset < closestOffset) {
+        current = i;
+        closestOffset = offset;
+        hasFind = true;
+      }
+    }
+    if (!hasFind) {
+      return;
+    }
+    removeActiveClass(lastIndex);
+    addActiveClass(current);
+    lastIndex = current;
+  }
+
+  document.addEventListener('scroll', syncActiveClass);
+  window.addEventListener('load', function () {
+    tocContent = document.querySelector('.markdownIt-TOC');
+    if (!tocContent) return;
+
+    postBody = document.querySelector('.post-content');
+    for (let i = 0; i < postBody.children.length; i++) {
+      if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+        headList.push(postBody.children[i]);
+      }
+    }
+    linkList = document.querySelectorAll('.post-toc a');
+
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      } else {
+        document.fireEvent("scroll");
+      }
+    }, 500);
+  });
+</script>
+
+
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

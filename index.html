@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2024/06/19/ssh-session-open-files-limit-fix/">
+                  <h2 class="post-title">解决 SSH Session 中 open files 限制问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2024-06-19
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言本人日常开发流程中常使用 PyCharm 中的 Remote Interpreter，其通过 SSH 连接到基于 systemD 的容器环境，长时间运行项目后会出现 OSError: [Errno 24] Too many open files。
+虽然这个问题一定程度上可能与业务代码有关，但默认限制允许单进程打开的文件数量（1024）属实也太低了，多线程场景下会超出限制也是常有的事情。
+原因分...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2024/04/09/huawei-qingyun-w510-tinkering/">
+                  <h2 class="post-title">华为擎云 W510 折腾记</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2024-04-09
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言去年在朋友推荐下买了这台灵车，虽然物超所值，但一直由于种种原因，没能把资源充分利用上。
+首当其冲的就是没有办法使用 Ubuntu 以及 原装的 UOS 以外的操作系统；倒也不是不能安装，只是会出现无限重启的 Bug（又或者是 Feature）。
+为了充分利用资源，计划安装 PVE，但当时一直没有发现可用的 PVE&#x2F;ARM64 镜像。
+但在今天…事情有了转机。
+PVE&#x2F;ARM...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/12/31/2023-annual-summary/">
+                  <h2 class="post-title">2023 年度总结</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-12-31
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言又一年过去了，总结一下今年的经历，迎接新的一年。
+学业顺利从学校毕业了，取得了学历和学位证书。
+到了学校最大的感悟便是，能有多大的收获并不取决于到了什么样的学校；而是在学校期间结识到了什么样的朋友。
+
+有一说一，或许学校的方向是没错的；但还是那句老话，上面的本意是好的，但…没什么好说的。（已退订
+
+在和学校朋友们相处的过程中，本人认识到了：生活不能只有工作，仅仅是活着是不够的。
+要学会好好生活...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/11/17/kvm-virtualization-in-container-permissions/">
+                  <h2 class="post-title">记容器内运行 KVM 虚拟化的权限问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-11-17
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/kvm/" class="tag">
+                          kvm
+                        </a>
+                      
+                        <a href="/tags/systemd/" class="tag">
+                          systemd
+                        </a>
+                      
+                        <a href="/tags/docker/" class="tag">
+                          docker
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言一直以来有个想法，想要将大象（OpenStack）塞进冰箱（Docker），像 OpenStack 这样的庞然大物，每次部署都会浪费至少大半个小时。
+当然，这个想法在一年前就被本人验证可行了，但是仍存在一些不完善的地方……
+特权模式的KVM虚拟化特权模式，即使用--privileged选项创建容器，在这种场景下，会将宿主机中的设备目录（&#x2F;dev），毫无保留的暴露到容器中，并且允许使用...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/09/30/xiaomi-notebook-pro-gtx-bios-fix/">
+                  <h2 class="post-title">小米笔记本 Pro GTX BIOS 修复</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-09-30
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近忽然心血来潮，掏出了吃灰已久的小米Pro，倒腾黑果；但不幸的是，BIOS 在折腾的过程中损坏了。
+准备工作
+TM1707 BIOS
+InsydeImageExtractor
+CH341A&#x2F;NeoProgrammer
+CH341A 可以到某宝自行购入，需要带转接卡及烧录夹
+价格参考：18 RMB（可能更便宜
+
+
+
+获取 BIOS 二进制文件
+下载 InsydeImageExtrac...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/09/26/macos-electron-gpu-partial-support-fix/">
+                  <h2 class="post-title">记 macOS 下 Electron GPU 不完整支持的解决方案</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-09-26
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/macos/" class="tag">
+                          macos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言前段时间，有友人赠予了一枚NVIDIA GeForce GTX 1050 Ti 2 GB，思来想去，这枚只有 2GB 显存的图形卡并不能带动游戏需求；但是作为黑苹果的亮机卡的话，还是绰绰有余的。
+于是乎，在 macOS Ventura 13.5.2 (22G91) 上驱动起来后，遇到了不少问题。
+多屏窗口不显示问题
+解决方案：关闭 “系统设置 - 桌面与程序坞 - 显示器具有单独的空间” 即可...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/07/13/dind-io-performance-analysis/">
+                  <h2 class="post-title">DinD 场景下IO性能问题分析</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-07-13
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/docker/" class="tag">
+                          docker
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言Docker in Docker（DinD）是一种在容器内运行 Docker 的解决方案，但在未为 DinD 容器使用 Volume 时，内部容器的 Copy-on-Write（写时复制）存储驱动会严重影响性能。
+分析当试图在容器内使用 Docker，且不使用 Volume 为内部 Docker 提供存储时，内部 Docker 将无法使用 OverlayFS 作为 Storage Driver...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/05/05/using-datav-in-vite-project/">
+                  <h2 class="post-title">在 Vite 项目中使用 DataV</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-05-05
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/frontend/" class="tag">
+                          frontend
+                        </a>
+                      
+                        <a href="/tags/vite/" class="tag">
+                          vite
+                        </a>
+                      
+                        <a href="/tags/vue-js/" class="tag">
+                          vue.js
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言距离 Vite 发布已经有几个年头，但由于长期维护历史遗留项目，鲜有机会去尝试使用其提升开发效率。
+传闻 Vite 较于 Webpack 有将近十倍的性能提升，考虑到开发机的性能难以支撑数千个模块编译的即时响应，以及项目后续对于 Electron 的适配，便决定使用 Vite 来替代原有组件。
+但项目迁移途中并不顺利，因为DataV模块迁移后遇到了以下错误：
+Uncaught SyntaxEr...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/04/06/ssh-slow-authentication/">
+                  <h2 class="post-title">SSH 验证缓慢问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-04-06
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/ssh/" class="tag">
+                          ssh
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近在维护服务器时发现 SSH 连接异常缓慢，排除了网络问题后，便陷入了沉思。
+由于系统安装了很长一段时间，不可控因素太多，一时之间不知道从何查起。
+分析检查了最可疑的UseDNS设置项，确定为No，那么还会有什么因素会导致验证缓慢呢？
+由于是验证过程缓慢，所以也排除profile以及rc的可能性。
+经过一番调研，发现是GSSAPIAuthentication设置项导致的。
+它是什么？为什么会...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2023/01/05/ssh-rsa-key-login-failure/">
+                  <h2 class="post-title">SSH RSA公钥登录失效</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2023-01-05
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/ssh/" class="tag">
+                          ssh
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言SSH免密登录早已是开发过程中的基本操作，最近在连接一台CentOS的服务器时遇到了无法使用公钥登录的情况。
+Ojos-MacBook-Pro:~ hsojo$ ssh root@192.168.*.*
+root@192.168.*.*&#39;s password:
+
+公钥早已在服务端添加信任，但连接时反复提示输入密码。
+排查对比两台机器连接的日志，尝试找出原因。
+
+登录失败机器的日志
+
+d...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/page/2/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

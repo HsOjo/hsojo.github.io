@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>centos | HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          <h2 class="current-tag">标签: centos</h2>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/centos-network-bonding/">
+                  <h2 class="post-title">CentOS 网卡聚合</h2>
+                </a>
+                <div class="post-date">
+                  2022-09-04
+                </div>
+                <div class="post-abstract">
+                  前言最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。
+不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？
+抱着这样的想法，展开了本次调研。
+桥接（Bridge）桥接可以简单理解成，使多张网卡处于同一VLAN；在网段相同的情况下，接入同一VLAN的设备可以相互通信。
+操作流程
+建立文件...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2020/07/14/python-compile-install-centos/">
+                  <h2 class="post-title">Python在CentOS下的编译安装过程</h2>
+                </a>
+                <div class="post-date">
+                  2020-07-14
+                </div>
+                <div class="post-abstract">
+                  前言最近在编写CentOS环境下的自动部署脚本，开发环境使用Python3.7+在CentOS环境下需要自行安装。
+在安装的过程中，把以前没记录下来的坑又踩了一遍，故以此记录。
+下载源码点击打开Python官方源码下载页。
+编译安装
+安装编译环境
+
+yum -y install gcc make
+
+
+安装依赖
+
+yum -y install zlib-devel
+# 以下可选，根据需要安装，不安装...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2019/12/04/centos7-network-rename/">
+                  <h2 class="post-title">CentOS7 网卡更名</h2>
+                </a>
+                <div class="post-date">
+                  2019-12-04
+                </div>
+                <div class="post-abstract">
+                  前言近日，在尝试将 CentOS 系统从虚拟机迁移安装到物理机时，发现网卡名称发生了变化。（eno1 -&gt; enp0s1）
+但系统中所运行的服务应用与网卡名称有所关联（OVSPort），迁移之后出现了故障。
+此时，则需要为网卡进行更名操作。
+操作过程
+修改引导参数
+
+vi /etc/default/grub
+# 在 GRUB_CMDLINE_LINUX 行加上 net.ifnames=0 b...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/07/12/nis-auth-environment-centos/">
+                  <h2 class="post-title">Nis用户验证环境搭建（CentOS）</h2>
+                </a>
+                <div class="post-date">
+                  2018-07-12
+                </div>
+                <div class="post-abstract">
+                  前言在linux环境下，若要实现一个用户在多台主机上登录，需要怎么操作呢。
+使用ldap？不，这过于复杂了，要实现轻量的用户验证环境，只需要配置nis+nfs即可。
+nis服务可以集中式管理账户（用户、组、hosts、等等。。），配置过程相对简单。
+环境
+Server
+ip: 172.16.70.129
+安装软件: ypserv（nis服务）, nfs-utils（nfs服务）
+
+
+Client
+...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/06/22/postfix-configuration-centos6-5/">
+                  <h2 class="post-title">Postfix配置（CentOS6.5）</h2>
+                </a>
+                <div class="post-date">
+                  2018-06-22
+                </div>
+                <div class="post-abstract">
+                  前言现有需求要使用postfix服务配置一台邮箱服务器。（测试环境）
+要求：
+
+用户邮箱限额。
+用户发件大小限额。
+支持sasl验证。
+支持收件。（使用dovecot）
+
+配置过程首先配置软件安装源，这是必不可少的。
+配置发件服务器在CentOS6.5的环境下，默认已经安装上了postfix服务，所以就不进行安装了。
+配置postfix
+由于postfix仅需要配置 &#x2F;etc&#x2F;...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/04/03/openstack-mitaka-rdo-installation/">
+                  <h2 class="post-title">Openstack安装（mitaka），RDO方式</h2>
+                </a>
+                <div class="post-date">
+                  2018-04-03
+                </div>
+                <div class="post-abstract">
+                  前言每次安装openstack，都是一个重复踩坑的过程，虽然越踩就越深刻，不过还是记录下文档吧。
+环境
+系统：CentOS 7
+网卡：enp7s0，enp8s0
+SELinux: permissive&#x2F;disabled**（重要）**
+
+安装packstack首先根据我之前文章的方法进行配置，使用CentOS7.2（1511）版本的软件源，然后安装openstack源。
+yum -y i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2018/03/01/centos-install-eol-software/">
+                  <h2 class="post-title">CentOS安装不再维护(EOL)的软件</h2>
+                </a>
+                <div class="post-date">
+                  2018-03-01
+                </div>
+                <div class="post-abstract">
+                  前言随着时代的发展，现在的软件日新月异，软件寿命不断缩短，服务器软件也总是在更新迭代。一些软件很快就被淘汰了。
+当这些软件到了EOL（end-of-life）时，官方不再对其软件源维护，这些软件就无法通过包管理进行安装了。（[Error 256] No more mirrors to try.&#x2F;[404] Http Not Found）
+然而实际环境总是为了追求稳定性（更新成本巨大？），...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>

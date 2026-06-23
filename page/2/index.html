@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+<title>HsOjo&#39;s Blog</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css">
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/styles/main.css">
+
+<link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/github.min.css">
+
+<style>
+:root {
+  --animate-duration: 800ms;
+}
+.post-item .right .feature-container { border-radius: 3px; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.9/dist/vue.min.js"></script>
+
+
+
+    <meta name="description" content="A powerless rookie&#39;s tree hole.">
+    
+  <meta name="generator" content="Hexo 8.1.2"></head>
+  <body>
+    <div id="app" class="main">
+
+      <header class="header">
+  <div class="banner animate__animated animate__fadeIn">
+    <div class="top-container">
+      <div class="site-title-container">
+        <img src="/images/avatar.svg" class="site-logo">
+        <div class="site-text">
+          <h1 class="site-title">
+            HsOjo&#39;s Blog
+          </h1>
+          <div class="site-description-social">
+            <div class="site-description">
+              A powerless rookie's tree hole.
+            </div>
+            <div class="site-social">
+              
+                
+              
+                
+              
+                
+              
+                
+              
+                
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="links">
+      
+        <a href="/" class="site-nav">
+          Home
+        </a>
+      
+        <a href="/archives" class="site-nav">
+          Archives
+        </a>
+      
+        <a href="/categories" class="site-nav">
+          Categories
+        </a>
+      
+        <a href="/tags" class="site-nav">
+          Tags
+        </a>
+      
+        <a href="/about" class="site-nav">
+          About
+        </a>
+      
+    </div>
+  </div>
+</header>
+
+
+      <div class="main-container">
+        <div class="content-container animate__animated animate__fadeInUp">
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/12/31/2022-annual-summary/">
+                  <h2 class="post-title">2022 年度总结</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-12-31
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言又一年过去了，总结一下今年的经历，迎接新的一年。
+学业已经回想不起来今年🈶️学到什么了，只能当作是荒废学业了吧。
+有好好的整理过一些课程相关的内容，发表于NUIT-OPEN。
+对于形式主义，一直都是循规蹈矩地敷衍，也没有打破规则的勇气；从而把不少时间都浪费在了上面。
+先生，你也不想让学费打了水漂吧。
+技术技术方面，并没有突破性的进展，大部分时间都投入工作了。而工作的内容基本都处于业务层面；大...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/11/18/rosetta-ubuntu-x86-dev-environment/">
+                  <h2 class="post-title">使用 Rosetta 建立 Ubuntu x86 开发环境</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-11-18
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/macos/" class="tag">
+                          macos
+                        </a>
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言尽管换了 M1 设备也有一年多了，但平时仍然依赖于 x86 平台进行开发，为此不得不单独部署一套 x86 的开发环境在 intel PC 上。
+随着 macOS 更新到了 Ventura (13.0.1)，以及 UTM 4.0 的更新，现已可以在 Linux 环境下启用 Rosetta 对 x86（含amd64） 应用进行加速。
+使用 Rosetta 加速后，在构建项目的速度上甚至几年前的 i...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/mysql-max-connections-issue/">
+                  <h2 class="post-title">MySQL 最大连接数问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-09-04
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/systemd/" class="tag">
+                          systemd
+                        </a>
+                      
+                        <a href="/tags/mysql/" class="tag">
+                          mysql
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言有些问题，在开发过程中不会遇到；但当要在生产环境中进行部署的时候便会暴露出来。
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1040, &#39;Too many connections&#39;)
+
+为什么会引发这个问题？因为生产环境的 CPU 核心数太多了。
+业务进程的数量一般为 CPU 数量的倍数，而数...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/09/04/centos-network-bonding/">
+                  <h2 class="post-title">CentOS 网卡聚合</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-09-04
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                        <a href="/tags/centos/" class="tag">
+                          centos
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言最近在部署项目时遇到了一小问题，需要在两台服务器之间建立一条高速链路进行数据传输，但是这两台机器并没有万兆网卡。
+不过，这两台服务器各有4个千兆网卡，如果对其进行聚合，或许可以在不添置硬件的情况下得到翻倍的传输速率？
+抱着这样的想法，展开了本次调研。
+桥接（Bridge）桥接可以简单理解成，使多张网卡处于同一VLAN；在网段相同的情况下，接入同一VLAN的设备可以相互通信。
+操作流程
+建立文件...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/05/25/kylin-os-cleanup/">
+                  <h2 class="post-title">麒麟系统瘦身</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-05-25
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近期在完成项目部署的过程中，遇到了一台特殊设备。该设备在安装Ubuntu Server系统后，无法驱动网卡；经过一番分析，发现是Linux内核没有集成相关驱动。
+不过由于麒麟系统是由Ubuntu衍生的，用来部署项目也不是不可，但要用桌面系统来部署项目，就得精简一下了。
+关闭应用安装验证sed -i &#39;s/allow-kylinsign/#allow-kylinsign/g&#39; /...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/03/26/chroot-apt-systemd-detection-fix/">
+                  <h2 class="post-title">修复Chroot环境下APT包管理对systemd环境识别问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-03-26
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/ubuntu/" class="tag">
+                          ubuntu
+                        </a>
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言近期在折腾Chroot环境下的设备时，发现软件包无法更新，得到以下错误：
+(Reading database ... 77272 files and directories currently installed.)
+Preparing to unpack .../mariadb-server-10.3_1%3a10.3.34-0ubuntu0.20.04.1_arm64.deb ...
+Ru...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2022/01/01/2021-annual-summary/">
+                  <h2 class="post-title">2021 年度总结</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2022-01-01
+                  </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言又一年过去了，总结一下今年的经历，迎接新的一年。
+学业刚从SZPT作为大三的学生毕业，到NUIT又成了大三 （大一） 新生。
+回想起当初备考的时候做的准备，以及发现了进2B有手就行的事实，感叹现实真的有点滑稽。 早知道就直接裸考算了。笑
+在新学校，也许是不太适应生活节奏吧，总感觉压力山大。几乎每天都在应付作业，尽管到了期末，也没能消停下来。 （即使在12.31当天仍然堆积着好几份未完成的实验报...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/05/18/gunicorn-gevent-fork-process-crash/">
+                  <h2 class="post-title">Gunicorn+GeventWorker环境下fork进程意外结束的问题</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2021-05-18
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/python/" class="tag">
+                          python
+                        </a>
+                      
+                        <a href="/tags/flask/" class="tag">
+                          flask
+                        </a>
+                      
+                        <a href="/tags/gunicorn/" class="tag">
+                          gunicorn
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在使用Gunicorn+GeventWorker托管Flask应用，使用os.fork时出现了以下问题。
+Parent changed, shutting down : &lt;Worker xxxx&gt;
+
+
+本文摘录自本人毕业设计论文。
+
+问题分析通过os.fork创建进程，实际上是将当前进程的内存数据复制了一份给子进程，当子进程发现其不是由Gunicorn主进程所创建时，Gunicor...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/chroot-linux-subsystem/">
+                  <h2 class="post-title">通过chroot实现Linux子系统</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2021-04-11
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言在一些精简的Linux发行版里，很多时候会有无法运行需要某些依赖的程序的情况。
+然而，会搭载这种精简系统的设备，一般无法重新安装系统；例如：路由器、手机等其他嵌入式设备。
+而且受限于系统内核（缺少cgroup的一些高级特性等），也无法安装docker。
+同时，在不同的Linux发行版下，使用的C语言标准库也不尽相同；如：glibc、musl等。
+即使CPU支持程序所使用的指令集，使用glibc...
+                </div>
+              </div>
+              
+            </article>
+          
+            <article class="post-item">
+              <div class="left">
+                <a href="/2021/04/11/postmarketos-guide/">
+                  <h2 class="post-title">postmarketOS食用指南</h2>
+                </a>
+                <div class="post-date-tag">
+                  <div class="post-date">
+                    2021-04-11
+                  </div>
+                  
+                    <div class="tag-container">
+                      
+                        <a href="/tags/android/" class="tag">
+                          android
+                        </a>
+                      
+                        <a href="/tags/linux/" class="tag">
+                          linux
+                        </a>
+                      
+                    </div>
+                  
+                </div>
+                <div class="post-abstract">
+                  前言postmarketOS是一个运行在手机上的Linux系统，基于Alpine Linux。
+在整理杂物时，翻出了一台旧手机（骁龙650+3G+32G）；这样的硬件资源，比云学生机好太多了。
+卖了又不划算，闲置着怪可惜的，便有了接下来尝试充分利用资源的计划。
+
+往手机安装Linux，打造一台下载服务器。
+
+构建环境安装postmarketOS需要Linux环境，以及python&#x2F;pip...
+                </div>
+              </div>
+              
+            </article>
+          
+
+          <div class="pagination-container">
+  
+  
+    <a href="/page/3/" class="next">下一页 <i class="icon-arrow-ios-forward-outline"></i></a>
+  
+</div>
+
+        </div>
+      </div>
+
+      <footer class="footer animate__animated animate__flipInX">
+  <div class="site-footer">
+    
+    <p>© HsOjo&#39;s Blog · Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a href="https://github.com/xxxuuu/gridea-theme-autumn" target="_blank">Autumn</a> | <a class="rss" href="/atom.xml" target="_blank">RSS</a></p>
+  </div>
+</footer>
+
+
+    </div>
+
+    <script type="application/javascript">
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+</script>
+
+
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/highlight.min.js"></script>
+  <script>
+    window.onload = () => {
+      if (typeof hljs !== 'undefined') {
+        hljs.highlightAll();
+      }
+    }
+  </script>
+
+
+<script>
+  const images = document.querySelectorAll('.post-content img');
+  for (let i = 0; i < images.length; i++) {
+    const img = images[i];
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.setAttribute("data-fancybox", "gallery");
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+  }
+</script>
+
+
+
+  </body>
+</html>
